@@ -1,8 +1,8 @@
-primer3-web release 0.3.0
+primer3-web release 0.4.0
 
 [This is a *new* BSD license -- no advertising reach-through.]
 
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007
 Whitehead Institute for Biomedical Research, Steve Rozen
 (http://jura.wi.mit.edu/rozen), and Helen Skaletsky
 All rights reserved.
@@ -35,7 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 This file contains instructions for installing the
-primer3 web interface (release 0.3.0).  This interface
+primer3 web interface (release 0.4.0).  This interface
 is provided strictly 'as-is'.  You may be able to
 get some help by posting to 
 
@@ -49,25 +49,25 @@ point, you must compile yourself. You can find links
 to the C code for primer3_core from 
 http://sourceforge.net/projects/primer3.
 
-b. primer3-web-htdocs-0.3.0.tar.gz (available 
+b. primer3-web-htdocs-0.4.0.tar.gz (available 
 from http://sourceforge.net/projects/primer3)
 
-c. primer3-web-cgi-bin-0.3.0.tar.gz (available
+c. primer3-web-cgi-bin-0.4.0.tar.gz (available
 from http://sourceforge.net/projects/primer3)
 
 d. The perl module CGI.pm (available from CPAN,
 http://cpan.org, if it is not already available
 in your perl installation).
 
-1. gunzip and untar primer3-web-htdocs-0.3.0.tar.gz
+1. gunzip and untar primer3-web-htdocs-0.4.0.tar.gz
 in your .../htdocs directory or equivalent.
 
-2. gunzip and untar primer3-web-cgi-bin-0.3.0.tar.gz
+2. gunzip and untar primer3-web-cgi-bin-0.4.0.tar.gz
 in your .../cgi-bin directory or equivalent
 
 3. Build primer3_core (anywhere) and copy or
-move it to .../cgi-bin/primer3-web-cgi-bin-0.3.0/
-(created by untar'ing primer3-web-cgi-bin-0.3.0.tar.gz)
+move it to .../cgi-bin/primer3-web-cgi-bin-0.4.0/
+(created by untar'ing primer3-web-cgi-bin-0.4.0.tar.gz)
 
 Depending on the structure of your web site you may
 have to adjust some of the URLs in the .htm

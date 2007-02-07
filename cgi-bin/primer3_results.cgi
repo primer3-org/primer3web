@@ -30,12 +30,12 @@ $PRIMER_BIN =  "./primer3_core";
 
 # If you make any substantial modifications give this code a new
 # version designation.
-$CGI_RELEASE = "(primer3_results.cgi release 0.3.0)";
+$CGI_RELEASE = "(primer3_results.cgi release 0.4.0)";
 
 # ----- End Installer Modifiable Variables ---------------------------------
 
 $COPYRIGHT = $COPYRIGHT = q{ 
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007
 Whitehead Institute for Biomedical Research, Steve Rozen
 (http://jura.wi.mit.edu/rozen), and Helen Skaletsky
 All rights reserved.
@@ -166,7 +166,8 @@ sub process_input {
     my $min_prod_size = $query->param('MUST_XLATE_PRODUCT_MIN_SIZE');
     my $max_prod_size = $query->param('MUST_XLATE_PRODUCT_MAX_SIZE');
     $min_prod_size = $PR_DEFAULT_PRODUCT_MIN_SIZE unless $min_prod_size =~ /\S/;
-    $max_prod_size = $PR_DEFAULT_PRODUCT_MAX_SIZE unless $max_prod_size =~ /\S/;
+    $max_prod_size = $PR_DEFAULT_PRODUCT_MAX_SIZE unless $max_prod_size =~ /\S/;    
+    
     my $size_range = "$min_prod_size-$max_prod_size";
 
     my $first_base_index = $query->param('PRIMER_FIRST_BASE_INDEX');
@@ -242,6 +243,7 @@ sub process_input {
 
     my @input;
     push @input, "PRIMER_EXPLAIN_FLAG=1\n";
+   
     for (@names) {
 
 	next if /^Pick Primers$/;
@@ -344,7 +346,6 @@ sub process_input {
     push @input, "SEQUENCE=$inferred_sequence\n" if $inferred_sequence;
     push @input, "PRIMER_PICK_ANYWAY=1\n";
     push @input, "=\n";
-
     # to keep taint happy
     my $savepath = $ENV{PATH};
     $ENV{PATH} = undef;

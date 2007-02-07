@@ -5,7 +5,7 @@
   </head>
 
   <body>
-      <h1>Primer3 Input Help</h1>
+      <h1>Primer3 Input Help (release 0.4.0)</h1>
 
 <h2><a name="cautions">Cautions</a></h2>
 Some of the most important issues in primer picking can be
@@ -111,19 +111,22 @@ value of the objective function (where a lower number indicates a
 better primer pair).  Caution: setting this parameter to a large
 value will increase running time.
 
-
 <dt><a name="PRIMER_MAX_END_STABILITY"><strong>Max 3' Stability</strong></a>
-<dd>The maximum stability for the five 3' bases of a left or right
+<dd>The maximum stability for the last five 3' bases of a left or right
 primer.  Bigger numbers mean more stable 3' ends.  The value is
-the maximum delta G for duplex disruption for the five 3' bases
-as calculated using the nearest neighbor parameters published in
-Breslauer, Frank, Bloeker and Marky, Proc. Natl. Acad. Sci. USA,
-vol 83, pp 3746-3750.  Rychlik recommends a maximum value of 9
-(Wojciech Rychlik, &quot;Selection of Primers for Polymerase Chain
-Reaction&quot; in BA White, Ed., &quot;Methods in Molecular Biology,
-Vol. 15: PCR Protocols: Current Methods and Applications&quot;, 1993,
-pp 31-40, Humana Press, Totowa NJ).
-
+the maximum delta G (kcal/mol) for duplex disruption for the five 3' bases
+as calculated using the Nearest-Neighbor parameter values specified by
+the option of <a href="#PRIMER_TM_SANTALUCIA">'Table of thermodynamic
+parameters'</a>. For example if the table of thermodynamic parameters
+suggested by <a href="http://dx.doi.org/10.1073/pnas.95.4.1460" target="_blank">
+SantaLucia 1998, DOI:10.1073/pnas.95.4.1460</a> is used the deltaG values
+for the most stable and for the most labile 5mer duplex are 6.86 kcal/mol 
+(GCGCG) and 0.86 kcal/mol (TATAT) respectively.
+If the table of thermodynamic parameters suggested by
+<a href="http://dx.doi.org/10.1073/pnas.83.11.3746" target="_blank">
+Breslauer et al. 1986, 10.1073/pnas.83.11.3746</a> is used the deltaG values
+for the most stable and for the most labile 5mer are 13.4 kcal/mol (GCGCG) 
+and 4.6 kcal/mol (TATAC) respectively.
 
 <dt><a name="PRIMER_MAX_MISPRIMING"><strong>Max Mispriming</strong></a>
 <dd>The maximum allowed weighted similarity with any sequence in
@@ -154,17 +157,40 @@ for a primer oligo. Primer3 will not pick oligos with temperatures
 smaller than Min or larger than Max, and with default conditions
 will try to pick primers with melting temperatures close to Opt.
 <p>
-Primer3 uses the oligo melting temperature formula given in
-Rychlik, Spencer and Rhoads, Nucleic Acids Research, vol 18, num
-21, pp 6409-6412 and Breslauer, Frank, Bloeker and Marky,
-Proc. Natl. Acad. Sci. USA, vol 83, pp 3746-3750.  Please refer
-to the former paper for background discussion.
+By default Primer3 uses the oligo melting temperature formula and the table
+of thermodynamic parameters given in <a
+href="http://dx.doi.org/10.1073/pnas.83.11.3746" target="_blank">
+Breslauer et al. 1986, DOI:10.1073/pnas.83.11.3746</a>
+For more information see caption <a href="#PRIMER_TM_SANTALUCIA"> Table of
+thermodynamic parameters</a>
 
 
 <dt><a name="PRIMER_MAX_DIFF_TM"><strong>Maximum T<sub>m</sub> Difference</strong></a>
 <dd>Maximum acceptable (unsigned) difference between the melting
 temperatures of the left and right primers.
 
+<dt><a name="PRIMER_TM_SANTALUCIA"><strong>Table of thermodynamic
+parameters</strong></a>
+<dd>Option for the table of Nearest-Neighbor thermodynamic parameters and
+for the method of melting temperature calculation. Two different tables 
+of thermodynamic parameters are available:<ol>
+<li><a href="http://dx.doi.org/10.1073/pnas.83.11.3746" target="_blank">
+Breslauer et al. 1986, DOI:10.1073/pnas.83.11.3746</a> In
+that case the formula for melting temperature calculation suggested by
+<a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&pubmedid=2243783" target="_blank">
+Rychlik et al. 1990</a> is used (this is used until Primer3 version
+1.0.1). This is the default value of Primer3 (for backward compatibility).
+</li>
+<li><a href="http://dx.doi.org/10.1073/pnas.95.4.1460" target="_blank">
+SantaLucia 1998, DOI:10.1073/pnas.95.4.1460</a> This is the <i>recommended
+</i>value.</li>
+</ol>
+<br>
+For specifying the salt correction method for melting temperature
+calculation see
+<a href="#PRIMER_SALT_CORRECTIONS">Salt correction formula</a>
+<br>
+<br>
 
 <dt><a name="PRIMER_PRODUCT_TM"><strong>Product T<sub>m</sub></strong></a>
 <dd>The minimum, optimum, and maximum melting temperature of the
@@ -365,11 +391,44 @@ end of both the left and right primer.  (This parameter has no
 effect on the hybridization oligo if one is requested.)
 
 
-<dt><a name="PRIMER_SALT_CONC"><strong>Salt Concentration</strong></a>
+<dt><a name="PRIMER_SALT_CONC"><strong>Concentration of monovalent cations</strong></a>
 <dd>The millimolar concentration of salt (usually KCl) in the PCR.
 Primer3 uses this argument to calculate oligo melting
 temperatures.
+<dt><a name="PRIMER_DIVALENT_CONC"><strong>Concentration of divalent
+cations</strong></a>
+<dd>The millimolar concentration of divalent salt cations (usually
+MgCl<sup>2+</sup> in the PCR).
 
+Primer3 converts concentration of divalent cations to concentration
+of monovalent cations using formula suggested in the paper
+<a href="http://www.clinchem.org/cgi/content/full/47/11/1956"
+target="blank"> Ahsen et al., 2001</a>
+<br>
+<pre>                     [Monovalent cations] = [Monovalent cations] + 120*(&#8730;([divalent cations] - [dNTP])) </pre>
+According to the formula concentration of desoxynucleotide triphosphate
+[dNTP] must be smaller than concentration of divalent cations. The
+concentration of dNTPs is included to the formula beacause of some magnesium
+is bound by the dNTP. Attained concentration of monovalent cations is used
+to calculate oligo/primer melting temperature. See <a
+href="#PRIMER_DNTP_CONC">Concentration of dNTPs</a> to specify the concentration
+of dNTPs.
+
+<dt><a name="PRIMER_DNTP_CONC"><strong>Concentration of dNTPs</strong></a>
+<dd>The millimolar concentration of deoxyribonucleotide triphosphate. This
+argument is considered only if <a href="#PRIMER_DIVALENT_CONC">Concentration
+of divalent cations</a> is specified.
+
+<dt><a name="PRIMER_SALT_CORRECTIONS"><strong>Salt correction formula</strong></a>
+<dd>Option for specifying the salt correction formula for the melting temperature calculation. <br><br>
+<ol>There are three different options available:
+<li><a href="http://dx.doi.org/10.1002/bip.360030207" target="_blank"> Schildkraut and Lifson 1965, DOI:10.1002/bip.360030207</a>
+(this is used until the version 1.0.1 of Primer3). The default value of
+Primer3 version 1.1.0 (for backward compatibility)</li>
+<li><a href="http://dx.doi.org/10.1073/pnas.95.4.1460" target="_blank">SantaLucia 1998, DOI:10.1073/pnas.95.4.1460</a>
+This is the <i>recommended</i> value.</li>
+<li><a href="http://dx.doi.org/10.1021/bi034621r" target="_blank">Owczarzy et al. 2004, DOI:10.1021/bi034621r</a></li></ol>
+<br><br>
 
 <dt><a name="PRIMER_DNA_CONC"><strong>Annealing Oligo Concentration</strong></a>
 <dd>The nanomolar concentration of annealing oligos in the PCR.
@@ -445,6 +504,17 @@ nearness to the target as a term in the objective function.
 
 <dt><a name=SHOW_DEBUGGING><strong>Show Debuging Info</strong></a>
 <dd> Include the input to primer3_core as part of the output.
+
+<dt><a name="PRIMER_LOWERCASE_MASKING"><strong>Lowercase
+masking</strong></a></dt>
+<dd>If checked candidate primers having lowercase letter exactly at 3' end
+are rejected. This option allows to design primers overlapping
+lowercase-masked regions. This property relies on the assumption that masked features
+(e.g. repeats) can partly overlap primer, but they cannot overlap the
+3'-end of the primer. In other words, the lowercase letters in other
+positions are accepted, assuming that the masked features do not influence
+the primer performance if they do not overlap the 3'-end of primer.
+</dd>
 
 </dl>
 

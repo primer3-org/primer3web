@@ -197,7 +197,6 @@ sub process_input {
     $pick_left  = 1 if $query->param('PRIMER_LEFT_INPUT');
     $pick_right = 1 if $query->param('PRIMER_RIGHT_INPUT');
     $pick_hyb   = 1 if $query->param('PRIMER_INTERNAL_OLIGO_INPUT');
-
     my $task;
     if ($pick_hyb) {
 	if ($pick_right || $pick_left) {
@@ -258,6 +257,7 @@ sub process_input {
 
     my @input;
     push @input, "PRIMER_EXPLAIN_FLAG=1\n";
+   
     for (@names) {
 
 	next if /^Pick Primers$/;
@@ -360,7 +360,6 @@ sub process_input {
     push @input, "SEQUENCE=$inferred_sequence\n" if $inferred_sequence;
     push @input, "PRIMER_PICK_ANYWAY=1\n";
     push @input, "=\n";
-
     # to keep taint happy
     my $savepath = $ENV{PATH};
     $ENV{PATH} = undef;

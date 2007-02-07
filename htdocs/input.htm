@@ -4,16 +4,16 @@
 
 
 <head>
-<title>Primer3 Input (primer3-web-htdocs-0.3.0/input.htm version 0.3.0)</title>
+<title>Primer3 Input (primer3-web-htdocs-0.4.0/input.htm version 0.4.0)</title>
 </head>
 
 <body>
 
-<form action="/cgi-bin/primer3-web-cgi-bin-0.3.0/primer3_results.cgi" method="post" enctype="x-www-form-urlencoded">
-
+<form action="/cgi-bin/primer3-web-cgi-bin-0.4.0/primer3_results.cgi" method="post" enctype="x-www-form-urlencoded">
+
 <table border="1" width="100%">
-    <tr>
-    <td rowspan="2" valign="middle">
+<tr>
+  <td rowspan="2" valign="middle">
         <a name="top"><font size="+3">&nbsp;&nbsp;Primer3</font></a>
         &nbsp;&nbsp;
         Pick primers from a DNA sequence.
@@ -25,18 +25,18 @@
         -->
     </td>
     <td align="center">
-    <a href="#disclaimer">
-    <strong>disclaimer</strong>
-    </a>
+       <a href="#disclaimer">
+       <strong>disclaimer</strong>
+       </a>
     </td>
     <td align="center">
-      <a href="http://fokker.wi.mit.edu/primer3/primer3_code.html">
-      <strong>code</strong></a>
+       <a href="http://fokker.wi.mit.edu/primer3/primer3_code.html">
+       <strong>code</strong></a>
     </td>
-    </tr>
+</tr>
 
-    <tr>
-         <td align="center">
+<tr>
+    <td align="center">
          <a href="input-help.htm#cautions">
          <strong>cautions</strong>
          </a>
@@ -223,6 +223,11 @@ Pair Max Template Mispriming
  </td><td>Max: <input size="4" name="PRIMER_MAX_TM" value="63.0" type="text">
  </td><td><a name="PRIMER_MAX_DIFF_TM_INPUT" href="input-help.htm#PRIMER_MAX_DIFF_TM">Max Tm Difference:</a>
      <input size="4" name="PRIMER_MAX_DIFF_TM" value="100.0" type="text">
+ </td><td><a name="PRIMER_TM_SANTALUCIA" href="input-help.htm#PRIMER_TM_SANTALUCIA">Table of thermodynamic parameters:</a> 
+ <select name="PRIMER_TM_SANTALUCIA">
+     <option selected="selected" value="0">Breslauer et al. 1986
+     </option><option value="1">SantaLucia 1998
+     </option></select>
 
 </td></tr><tr>
   <td><a name="PRIMER_PRODUCT_TM_INPUT" href="input-help.htm#PRIMER_PRODUCT_TM">Product Tm</a>
@@ -242,68 +247,74 @@ Pair Max Template Mispriming
 
 <table border="0">
 <tr>
- <td><a name="PRIMER_SELF_ANY_INPUT" href="input-help.htm#PRIMER_SELF_ANY">Max Self Complementarity:</a>
- </td><td><input size="4" name="PRIMER_SELF_ANY" value="8.00" type="text">
- </td><td><a name="PRIMER_SELF_END_INPUT" href="input-help.htm#PRIMER_SELF_END">Max 3' Self Complementarity:</a>
- </td><td><input size="4" name="PRIMER_SELF_END" value="3.00" type="text">
+ <td colspan="2"><a name="PRIMER_SELF_ANY_INPUT" href="input-help.htm#PRIMER_SELF_ANY">Max Self Complementarity:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_SELF_ANY" value="8.00" type="text">
+ </td><td colspan="2"><a name="PRIMER_SELF_END_INPUT" href="input-help.htm#PRIMER_SELF_END">Max 3' Self Complementarity:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_SELF_END" value="3.00" type="text">
 
-</td></tr><tr>
- <td><a name="PRIMER_NUM_NS_ACCEPTED_INPUT" href="input-help.htm#PRIMER_NUM_NS_ACCEPTED">Max #N's:</a>
- </td><td><input size="4" name="PRIMER_NUM_NS_ACCEPTED" value="0" type="text">
+</td><td colspan=2"></td></tr><tr>
+ <td colspan="2"><a name="PRIMER_NUM_NS_ACCEPTED_INPUT" href="input-help.htm#PRIMER_NUM_NS_ACCEPTED">Max #N's:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_NUM_NS_ACCEPTED" value="0" type="text">
 
- </td><td><a name="PRIMER_MAX_POLY_X_INPUT" href="input-help.htm#PRIMER_MAX_POLY_X">Max Poly-X:</a>
- </td><td><input size="4" name="PRIMER_MAX_POLY_X" value="5" type="text">
-
-</td>
-</tr>
+ </td><td colspan="2"><a name="PRIMER_MAX_POLY_X_INPUT" href="input-help.htm#PRIMER_MAX_POLY_X">Max Poly-X:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_POLY_X" value="5" type="text">
+</td><td colspan=2"></td></tr>
 
   <tr>
-  <td>
+  <td colspan="2">
   <a name="PRIMER_INSIDE_PENALTY_INPUT" href="input-help.htm#PRIMER_INSIDE_PENALTY">Inside Target Penalty:</a>
   </td>
-
-  <td>
+  <td colspan="1">
   <input size="4" name="PRIMER_INSIDE_PENALTY" value="" type="text">
   </td>
-
-  <td>
+  <td colspan="2">
   <a name="PRIMER_OUTSIDE_PENALTY_INPUT" href="input-help.htm#PRIMER_OUTSIDE_PENALTY">Outside Target Penalty:</a>
   </td>
-
-  <td>
+  <td colspan="1">
   <input size="4" name="PRIMER_OUTSIDE_PENALTY" value="0" type="text">
   </td>
 
-   <td>
+   <td colspan="2">
    <a href="input-help.htm#PRIMER_INSIDE_PENALTY">
    Note: you can set Inside Target Penalty to allow primers inside a target.
    </a>
 
 </td></tr><tr>
- <td><a name="PRIMER_FIRST_BASE_INDEX_INPUT" href="input-help.htm#PRIMER_FIRST_BASE_INDEX">First Base Index:</a>
- </td><td><input size="4" name="PRIMER_FIRST_BASE_INDEX" value="1" type="text">
- </td><td><a name="PRIMER_GC_CLAMP_INPUT" href="input-help.htm#PRIMER_GC_CLAMP">CG Clamp:</a>
- </td><td><input size="4" name="PRIMER_GC_CLAMP" value="0" type="text">
+ <td colspan="2"><a name="PRIMER_FIRST_BASE_INDEX_INPUT" href="input-help.htm#PRIMER_FIRST_BASE_INDEX">First Base Index:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_FIRST_BASE_INDEX" value="1" type="text">
+ </td><td colspan="2"><a name="PRIMER_GC_CLAMP_INPUT" href="input-help.htm#PRIMER_GC_CLAMP">CG Clamp:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_GC_CLAMP" value="0" type="text">
 
-</td></tr><tr>
-  <td><a name="PRIMER_SALT_CONC_INPUT" href="input-help.htm#PRIMER_SALT_CONC">Salt Concentration:</a>
-  </td><td><input size="4" name="PRIMER_SALT_CONC" value="50.0" type="text">
+</td><td colspan=2"></td></tr><tr>
+  <td colspan="2"><a name="PRIMER_SALT_CONC_INPUT" href="input-help.htm#PRIMER_SALT_CONC">Concentration of monovalent cations:</a>
+  </td><td colspan="1"><input size="4" name="PRIMER_SALT_CONC" value="50.0" type="text">
+  </td><td colspan="2"><a name="PRIMER_SALT_CORRECTIONS" href="input-help.htm#PRIMER_SALT_CORRECTIONS">Salt correction formula:</a></td>
+  <td colspan="3"><select name="PRIMER_SALT_CORRECTIONS">
+  <option selected="selected" value="0"> Schildkraut and Lifson 1965
+  </option><option value="1">SantaLucia 1998
+  </option><option value="2">Owczarzy et. 2004
+  </option></select>
   </td>
+</tr>
 
-   <td>
+<tr>
+<td colspan="2"><a name="PRIMER_DIVALENT_CONC_INPUT" href="input-help.htm#PRIMER_DIVALENT_CONC">Concentration of divalent cations</a>
+</td><td colspan="1"><input size="4" name="PRIMER_DIVALENT_CONC" value="0.0" type="text">
+</td><td colspan="2"><a name="PRIMER_DNTP_CONC_INPUT" href="input-help.htm#PRIMER_DNTP_CONC">Concentration of dNTPs</a>
+</td><td colspan="1"><input size="4" name="PRIMER_DNTP_CONC" value="0.0" type="text">
+</td><td colspan="2"></td>
+</tr>
+
+<tr>
+<td colspan="2">
    <a name="PRIMER_DNA_CONC_INPUT" href="input-help.htm#PRIMER_DNA_CONC">Annealing Oligo Concentration:</a>
    </td>
 
-   <td>
+   <td colspan="1">
    <input size="4" name="PRIMER_DNA_CONC" value="50.0" type="text">
-   </td>
 
-  <td>
-  (Not the concentration of oligos in the reaction mix but of those
-   annealing to template.)
-  </td>
-
-  </tr>
+</td> <td colspan="5"> (Not the concentration of oligos in the reaction mix but of those annealing to template.)
+  </td></tr>
 
 </table>
 
@@ -318,7 +329,8 @@ Pair Max Template Mispriming
 
  </td><td><input name="PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS" value="0" checked="checked" type="checkbox">
   Do not treat ambiguity codes in libraries as consensus
-
+</td><td><input name="PRIMER_LOWERCASE_MASKING" value="1" type="checkbox">
+<a name="PRIMER_LOWERCASE_MASKING" href="input-help.htm#PRIMER_LOWERCASE_MASKING">Lowercase masking</a>
 </td></tr><!-- /tbody -->
 </table>
 
@@ -539,43 +551,57 @@ Pair Max Template Mispriming
 </table>
 
 <table border="0">
+<tr>
+   <td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Self Complementarity:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_SELF_ANY" value="12.00" type="text">
+   </td><td  colspan="1"></td><td colspan="2"><a href="input-help.htm#internal_oligo_generic"> Hyb Oligo Max 3' Self Complementarity:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_SELF_END" value="12.00" type="text">
+   </td><td colspan="2"></td>
+</tr>
 
+<tr>
+ <td colspan="2"><a name="PRIMER_INTERNAL_OLIGO_NUM_NS_INPUT" href="input-help.htm#internal_oligo_generic">Max #Ns:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_NUM_NS" value="0" type="text">
+ </td><td colspan="1"></td><td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Max Poly-X:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_MAX_POLY_X" value="5" type="text">
+ </td><td colspan="2"></td>
+</tr>
 
-<tr><td><a href="input-help.htm#internal_oligo_generic">
-    Hyb Oligo Self Complementarity:</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_SELF_ANY" value="12.00" type="text">
-    </td><td><a href="input-help.htm#internal_oligo_generic">
-        Hyb Oligo Max 3' Self Complementarity:</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_SELF_END" value="12.00" type="text">
-
-</td></tr><tr>
- <td><a name="PRIMER_INTERNAL_OLIGO_NUM_NS_INPUT" href="input-help.htm#internal_oligo_generic">Max #Ns:</a>
- </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_NUM_NS" value="0" type="text">
- </td><td><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Max Poly-X:</a>
-</td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_MAX_POLY_X" value="5" type="text">
-
-</td></tr><tr>
-  <td><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Mishyb Library:</a>
-  </td><td><select name="PRIMER_INTERNAL_OLIGO_MISHYB_LIBRARY">
+<tr>
+  <td  colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Mishyb Library:</a>
+  </td><td colspan="2"><select name="PRIMER_INTERNAL_OLIGO_MISHYB_LIBRARY">
       <option selected="selected">NONE
       </option><option> HUMAN
       </option><option> RODENT_AND_SIMPLE
       </option><option> RODENT
       </option><option> DROSOPHILA
       </option></select>
+  </td><td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Max Mishyb:</a>
+  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_MAX_MISHYB" value="12.00" type="text">
+  </td><td colspan="2"></td>
+</tr>
+  
+<tr>
+  <td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Min Sequence Quality:</a>
+  </td colspan="1"><td><input size="4" name="PRIMER_INTERNAL_OLIGO_MIN_QUALITY" value="0" type="text">
+  </td><td colspan="6"></td>
+</tr>
 
-  </td><td><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Max Mishyb:</a>
-  </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_MAX_MISHYB" value="12.00" type="text">
+<tr>
+  <td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Conc of monovalent cations:</a>
+  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_SALT_CONC" value="50.0" type="text">
+  </td><td colspan="1"><td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo DNA Concentration:</a>
+  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_DNA_CONC" value="50.0" type="text">
+  </td><td colspan="2"></td>
+</tr>
 
-</td></tr><tr><td><a href="input-help.htm#internal_oligo_generic">
-        Hyb Oligo Min Sequence Quality:</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_MIN_QUALITY" value="0" type="text">
-
-</td></tr><tr><td><a href="input-help.htm#internal_oligo_generic">Hyb Oligo Salt Concentration:</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_SALT_CONC" value="50.0" type="text">
-    </td><td><a href="input-help.htm#internal_oligo_generic">Hyb Oligo DNA Concentration:</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_OLIGO_DNA_CONC" value="50.0" type="text">
-</td></tr><!-- /tbody -->
+<tr>
+  <td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo conc of divalent cations:</a>
+  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_DIVALENT_CONC" value="0.0" type="text">
+  </td><td colspan="1"></td><td colspan="2"><a href="input-help.htm#internal_oligo_generic">Hyb Oligo [dNTP]</a>
+  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_OLIGO_DNTP_CONC" value="0.0" type="text">
+  </td><td colspan="2"></td>
+</tr>
 </table>
         
 
@@ -640,7 +666,7 @@ Pair Max Template Mispriming
 
 <h2><a name="disclaimer">Copyright Notice and Disclaimer</a></h2>
 <p>
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006<br>
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007<br>
 Whitehead
 Institute for Biomedical Research, 
 <a href="http://jura.wi.mit.edu/rozen/">Steve Rozen</a>, and Helen Skaletsky<br>
@@ -728,7 +754,7 @@ Web interface by
 <!-- This web service provided by YOUR ORGANZATION HERE -->
 </p>
 <hr>
-<pre>(input.htm v 0.3.0)</pre>
-<font size="-1">Last updated Nov 12, 2006</font>
+<pre>(input.htm v 0.4.0)</pre>
+<font size="-1">Last updated Feb 07, 2007</font>
 </body>
 </html>
