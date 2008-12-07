@@ -1,4 +1,4 @@
-#!/usr/bin/perl -T
+#!/usr/bin/perl
 
 # ----- Installer Modifiable Variables -------------------------------------
 # You may wish to modify the following variables to suit
@@ -25,8 +25,8 @@ $ODOC_URL = "primer3web_results_help.cgi";
 # The location of the primer3_core executable.
 # It will be much easier if this is in the
 # same directory as this file.
-$PRIMER_BIN =  "./primer3_core.exe"; # for windows
-# $PRIMER_BIN =  "./primer3_core"; # for linux
+$PRIMER_BIN =  "primer3_core.exe"; # for windows
+#$PRIMER_BIN =  "./primer3_core";     # for linux
 
 # If you make any substantial modifications give this code a new
 # version designation.
@@ -82,18 +82,14 @@ BEGIN{
     print '';
 }
 
+use CGI;
+use Carp;
 use FileHandle;
 use IPC::Open3;
-
-use Carp;
-
-use CGI;
-# The CGI module is available from CPAN
 
 main();
 
 sub main {
-
   $PR_DEFAULT_PRODUCT_MIN_SIZE = 100;
   $PR_DEFAULT_PRODUCT_MAX_SIZE = 1000;
 
@@ -162,8 +158,6 @@ sub process_input {
     check_server_side_configuration($query);
 
     my @names = $query->param;
-#    my $cmd = "/bin/nice -19 $PRIMER_BIN -io_version=3 -format_output -strict_tags";
-    my $cmd = "$PRIMER_BIN -io_version=3 -format_output -strict_tags";
     my $line;
     my $fasta_id;
 
@@ -351,30 +345,31 @@ sub process_input {
     push @input, "SEQUENCE=$inferred_sequence\n" if $inferred_sequence;
     push @input, "PRIMER_PICK_ANYWAY=1\n";
     push @input, "=\n";
-    # to keep taint happy
-    my $savepath = $ENV{PATH};
-    $ENV{PATH} = undef;
 
-    my $primer3_pid;
-    my ($childin, $childout) = (FileHandle->new, FileHandle->new);
-    {
-	local $^W = 0;
-	$primer3_pid = open3($childin, $childout, $childout, $cmd);
+    my $file_name = makeUniqueID();
+    my @readTheLine;
+    
+    open(FILE, ">$file_name") or 
+            print("Error: Cannot write $file_name");
+    print FILE @input;
+    close(FILE);
 
+#    my $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -io_version=3 -format_output -strict_tags"; # for linus
+    my $cmd = "$PRIMER_BIN < $file_name -io_version=3 -format_output -strict_tags"; # for windows
+
+    open PRIMER3OUTPUT, "$cmd 2>&1 |"
+          or print("Error: could not start primer3\n");
+    while (<PRIMER3OUTPUT>) {
+        push @readTheLine, $_;
     }
-    if (!$primer3_pid) {
-	print "Cannot excecure $cmd:<br>$!";
-        print "$wrapup\n";
-        exit;    
-    }
+    close PRIMER3OUTPUT;
+    unlink $file_name;
 
     print "<pre>\n";
-    print $childin @input;
-    $childin->close;
     my $cline;
     my $results = '';
     my $found = 1;
-    while ($cline = $childout->getline) {
+    foreach $cline (@readTheLine) {
 	$cline =~ s/>/&gt;/g;
 	$cline =~ s/</&lt;/g;
 	if ($cline =~
@@ -383,14 +378,14 @@ sub process_input {
 		($1, $2, $3, $4, $5, $6, $7, $8, $9);
 	    $cline =  $margin
 		. "<a href=\"$ODOC_URL#PRIMER_START\">$starth</a> "
-	    	. "<a href=\"$ODOC_URL#PRIMER_LEN\">$lenh</a> "
+	    . "<a href=\"$ODOC_URL#PRIMER_LEN\">$lenh</a> "
 		. "<a href=\"$ODOC_URL#PRIMER_TM\">$tmh</a> "
 		. "<a href=\"$ODOC_URL#PRIMER_GC\">$gch</a> "
 		. "<a href=\"$ODOC_URL#PRIMER_ANY\">$anyh</a> "
 		. "<a href=\"$ODOC_URL#PRIMER_THREE\">$threeh</a> "
 		. "<a href=\"$ODOC_URL#PRIMER_REPEAT\">$reph</a> "
 		. "<a href=\"$ODOC_URL#PRIMER_OLIGO_SEQ\">$seqh</a> "
-		    . "\n";
+		. "\n";
 	}
 	$cline =~ s/INTERNAL OLIGO/HYB OLIGO     /;
 	$cline =~ s/internal oligo/hyb oligo/;
@@ -404,38 +399,10 @@ sub process_input {
 	    $results .= $cline;
 	}
     }
-
-    $ENV{PATH} = $savepath;
-
+    
     print $results;
     print "</pre>\n";
-    waitpid $primer3_pid, 0;
-    if ($? != 0 && $? != 64512) { # 64512 == -4
-        my $tmpnames = join("\n", @names);
-        my $tmpurl = $query->url;
-        print qq{
-        <h3>Please clip and mail this page (including any
-        information above this line) to $MAINTAINER (deleting your
-        input sequence if you wish).</h3>
-        <p>
-	<h3>There is a configuration error or
-        an unexpected internal error in the primer3 program at
-        $tmpurl</h3>
-        <p>
-        <h3>The child process for $PRIMER_BIN was reaped with a non-0 termination
-        status of $?.</h3>
-        <p>
-        <pre>
-        \n};
-	for (@names) {
-	    $v = $query->param($_);
-	    print "$_=$v\n";
-	}
-	print "<pre>\nCOMMAND WAS: $cmd</pre>\n";
-	print "<pre>\nEXACT INPUT WAS:\n";
-	print @input;
-        print "</pre>\n";
-    } elsif ($print_input) {
+    if ($print_input) {
 	my ($user, $system, $cuser, $csystem) = times;
 	printf "<pre>\nTIMES: user=%0.2f sys=%0.2f cuser=%0.2f csys=%0.2f</pre>",
 	$user, $system, $cuser, $csystem;
@@ -542,4 +509,29 @@ sub len_to_delim($$$) {
     $DO_NOT_PICK = 1;
     print "<br>ERROR IN SEQUENCE: closing delimiter $d1 did not follow $d0\n";
     return undef;
+}
+
+sub makeUniqueID {
+    my ( $UID, $randomNumber, $time );
+    my ($second,     $minute,    $hour,
+        $dayOfMonth, $month,     $yearOffset,
+        $dayOfWeek,  $dayOfYear, $daylightSavings);
+    (   $second,     $minute,    $hour,
+        $dayOfMonth, $month,     $yearOffset,
+        $dayOfWeek,  $dayOfYear, $daylightSavings ) = localtime();
+    my $year = 1900 + $yearOffset;
+    $month++;
+    my $length = 7;
+    for ( my $i = 0 ; $i < $length ; ) {
+        my $j = chr( int( rand(127) ) );
+        if ( $j =~ /[a-zA-Z0-9]/ ) {
+            $randomNumber .= $j;
+            $i++;
+        }
+    }
+    $time = sprintf "%4d%02d%02d%02d%02d%02d", 
+            $year, $month, $dayOfMonth, $hour, $minute, $second;
+    $UID = $time . $randomNumber;
+
+    return $UID;
 }
