@@ -25,7 +25,8 @@ $ODOC_URL = "primer3web_results_help.cgi";
 # The location of the primer3_core executable.
 # It will be much easier if this is in the
 # same directory as this file.
-$PRIMER_BIN =  "./primer3_core";
+$PRIMER_BIN =  "./primer3_core.exe"; # for windows
+# $PRIMER_BIN =  "./primer3_core"; # for linux
 
 # If you make any substantial modifications give this code a new
 # version designation.
@@ -161,7 +162,8 @@ sub process_input {
     check_server_side_configuration($query);
 
     my @names = $query->param;
-    my $cmd = "/bin/nice -19 $PRIMER_BIN -io_version=3 -format_output -strict_tags";
+#    my $cmd = "/bin/nice -19 $PRIMER_BIN -io_version=3 -format_output -strict_tags";
+    my $cmd = "$PRIMER_BIN -io_version=3 -format_output -strict_tags";
     my $line;
     my $fasta_id;
 
