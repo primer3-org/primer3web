@@ -5,11 +5,10 @@
 # your installation.
 
 # Who the end user will complain to:
-$MAINTAINER
-    ='primer3&#64;wi.mit.edu';
+$MAINTAINER = 'the webmaster for this site';
 
 # Add mispriming / mishybing libraries;  make coordinate changes
-# in primer3_www.cgi
+# in input.htm
 %SEQ_LIBRARY=
     ('NONE' => '',
      'HUMAN' => 'humrep_and_simple.txt',
@@ -21,74 +20,62 @@ $MAINTAINER
 
 # The URL for help regarding this screen (which will normally
 # be in the same directory as the this script)
-$ODOC_URL = "primer3_www_results_help.cgi";
+$ODOC_URL = "primer3web_results_help.cgi";
 
 # The location of the primer3_core executable.
+# It will be much easier if this is in the
+# same directory as this file.
 $PRIMER_BIN =  "./primer3_core";
 
 # If you make any substantial modifications give this code a new
 # version designation.
-$CGI_VERSION = "(primer3_www_results.cgi v 0.4)";
-# 1a corrects a minor bug that deleted the 'PRIMER PICKING RESULTS FOR...'
-# line even when the user supplied a sequence id.
-
-# 0.4 corrects a bug that prevented picking hyb oligos
+$CGI_RELEASE = "(primer3_results.cgi release 0.5.0)";
 
 # ----- End Installer Modifiable Variables ---------------------------------
 
 $COPYRIGHT = $COPYRIGHT = q{ 
- Copyright (c) 1996,1997,1998,1999,2000,2001,2004
-        Whitehead Institute for Biomedical Research. All rights reserved.
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008
+Whitehead Institute for Biomedical Research, Steve Rozen
+(http://purl.com/STEVEROZEN/), Andreas Untergasser and Helen Skaletsky.
+All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+    This file is part of the primer3web suite.
 
-1.      Redistributions must reproduce the above copyright notice, this
-list of conditions and the following disclaimer in the  documentation
-and/or other materials provided with the distribution.  Redistributions of
-source code must also reproduce this information in the source code itself.
+    The primer3 suite and libraries are free software;
+    you can redistribute them and/or modify them under the terms
+    of the GNU General Public License as published by the Free
+    Software Foundation; either version 2 of the License, or (at
+    your option) any later version.
 
-2.      If the program is modified, redistributions must include a notice
-(in the same places as above) indicating that the redistributed program is
-not identical to the version distributed by Whitehead Institute.
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-3.      All advertising materials mentioning features or use of this
-software  must display the following acknowledgment:
-        This product includes software developed by the
-        Whitehead Institute for Biomedical Research.
+    You should have received a copy of the GNU General Public License
+    along with this software (file gpl-2.0.txt in the source
+    distribution); if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-4.      The name of the Whitehead Institute may not be used to endorse or
-promote products derived from this software without specific prior written
-permission.
-
-We also request that use of this software be cited in publications as 
-
-Steve Rozen, Helen J. Skaletsky (2000)
-Primer3 on the WWW for general users and for biologist programmers.
-In: Krawetz S, Misener S (eds)
-Bioinformatics Methods and Protocols: Methods in Molecular Biology.
-Humana Press, Totowa, NJ, pp 365-386
-<a href="/primer3/primer3_code.html">
-Source code available at http://fokker.wi.mit.edu/primer3/
-</a>
-<br>
-THIS SOFTWARE IS PROVIDED BY THE WHITEHEAD INSTITUTE ``AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE WHITEHEAD INSTITUTE BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-SUCH DAMAGE.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 };
 
 BEGIN{
     print "Content-type: text/html\n\n";
 
     # Ensure that errors will go to the web browser.
+    # open(LOG,">&STDERR"); Intended logging capability does not work correctly.
+    # close(STDERR);
     open(STDERR, ">&STDOUT");
     $| = 1;
     print '';
@@ -161,20 +148,20 @@ sub check_server_side_configuration {
 
 sub process_input {
     my ($query) = @_;
-    my $wrapup = "<pre>$CGI_VERSION</pre>" . $query->end_html;
+    my $wrapup = "<pre>$CGI_RELEASE</pre>" . $query->end_html;
     my $tmpurl = $query->url;
     my ($v, $v1);
 
     local $DO_NOT_PICK = 0;
 
-    print $query->start_html("Primer3 Output $CGI_VERSION");
+    print $query->start_html("Primer3 Output $CGI_RELEASE");
     print qq{<h2>Primer3 Output</h2>\n};
     print "<hr>\n";
 
     check_server_side_configuration($query);
 
     my @names = $query->param;
-    my $cmd = "/bin/nice -19 $PRIMER_BIN -format_output -strict_tags";
+    my $cmd = "/bin/nice -19 $PRIMER_BIN -io_version=3 -format_output -strict_tags";
     my $line;
     my $fasta_id;
 
@@ -182,7 +169,8 @@ sub process_input {
     my $min_prod_size = $query->param('MUST_XLATE_PRODUCT_MIN_SIZE');
     my $max_prod_size = $query->param('MUST_XLATE_PRODUCT_MAX_SIZE');
     $min_prod_size = $PR_DEFAULT_PRODUCT_MIN_SIZE unless $min_prod_size =~ /\S/;
-    $max_prod_size = $PR_DEFAULT_PRODUCT_MAX_SIZE unless $max_prod_size =~ /\S/;
+    $max_prod_size = $PR_DEFAULT_PRODUCT_MAX_SIZE unless $max_prod_size =~ /\S/;    
+    
     my $size_range = "$min_prod_size-$max_prod_size";
 
     my $first_base_index = $query->param('PRIMER_FIRST_BASE_INDEX');
@@ -197,6 +185,7 @@ sub process_input {
     $pick_left  = 1 if $query->param('PRIMER_LEFT_INPUT');
     $pick_right = 1 if $query->param('PRIMER_RIGHT_INPUT');
     $pick_hyb   = 1 if $query->param('PRIMER_INTERNAL_OLIGO_INPUT');
+
     my $task;
     if ($pick_hyb) {
 	if ($pick_right || $pick_left) {
@@ -451,6 +440,7 @@ sub process_input {
 	print "<pre>\nCOMMAND WAS: $cmd</pre>\n";
 	print "<pre>\nEXACT INPUT WAS:\n";
 	print @input, "</pre>";
+        # print LOG @input; DOES NOT WORK CORRECTLY -- causes output to hang sometimes
     }
     
     print "$wrapup\n";
