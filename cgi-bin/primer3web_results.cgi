@@ -20,7 +20,7 @@ $MAINTAINER = 'the webmaster for this site';
 
 # The URL for help regarding this screen (which will normally
 # be in the same directory as the this script)
-$ODOC_URL = "primer3web_results_help.cgi";
+$ODOC_URL = "primer3web_help.cgi";
 
 # The location of the primer3_core executable.
 # It will be much easier if this is in the
@@ -377,14 +377,14 @@ sub process_input {
 	    my ($margin, $starth, $lenh, $tmh, $gch, $anyh, $threeh, $reph, $seqh) =
 		($1, $2, $3, $4, $5, $6, $7, $8, $9);
 	    $cline =  $margin
-		. "<a href=\"$ODOC_URL#PRIMER_START\">$starth</a> "
-	    . "<a href=\"$ODOC_URL#PRIMER_LEN\">$lenh</a> "
-		. "<a href=\"$ODOC_URL#PRIMER_TM\">$tmh</a> "
-		. "<a href=\"$ODOC_URL#PRIMER_GC\">$gch</a> "
-		. "<a href=\"$ODOC_URL#PRIMER_ANY\">$anyh</a> "
-		. "<a href=\"$ODOC_URL#PRIMER_THREE\">$threeh</a> "
-		. "<a href=\"$ODOC_URL#PRIMER_REPEAT\">$reph</a> "
-		. "<a href=\"$ODOC_URL#PRIMER_OLIGO_SEQ\">$seqh</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_start\">$starth</a> "
+	    . "<a href=\"$ODOC_URL#p3w_primer_len\">$lenh</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_tm\">$tmh</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_gc\">$gch</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_any\">$anyh</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_three\">$threeh</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_repeat\">$reph</a> "
+		. "<a href=\"$ODOC_URL#p3w_primer_seq\">$seqh</a> "
 		. "\n";
 	}
 	$cline =~ s/INTERNAL OLIGO/HYB OLIGO     /;

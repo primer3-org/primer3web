@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-$file = "primer3_www_results_help.html";
+$file = "primer3web_help.htm";
 
 print("Content-type: text/html\n\n");
 open (FILE, "<$file") or print("Error: Cannot load file: $file");
