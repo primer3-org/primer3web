@@ -51,12 +51,13 @@
 <a href="#sequenceTags">5. "SEQUENCE" INPUT TAGS</a><br>
 <a href="#globalTags">6. "GLOBAL" INPUT TAGS</a><br>
 <a href="#outputHelp">7. OUTPUT HELP</a><br>
-<a href="#calculatePenalties">8. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a><br>
-<a href="#pickAdvice">9. ADVICE FOR PICKING PRIMERS</a><br>
-<a href="#cautions">10. CAUTIONS</a><br>
-<a href="#findNoPrimers">11. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a><br>
-<a href="#webInterface">12. THE PRIMER3 WWW INTERFACE</a><br>
-<a href="#acknowledgments">13. ACKNOWLEDGMENTS</a><br>
+<a href="#providedMisprimingLibs">8. POVIDED MISPRIMING LIBRARIES</a><br>
+<a href="#calculatePenalties">9. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a><br>
+<a href="#pickAdvice">10. ADVICE FOR PICKING PRIMERS</a><br>
+<a href="#cautions">11. CAUTIONS</a><br>
+<a href="#findNoPrimers">12. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a><br>
+<a href="#webInterface">13. THE PRIMER3 WWW INTERFACE</a><br>
+<a href="#acknowledgments">14. ACKNOWLEDGMENTS</a><br>
 </p>
 <h2><a name="copyrightLicense">1. COPYRIGHT AND LICENSE</a></h2>
 
@@ -1810,7 +1811,46 @@ right primer is on the opposite strand from the one supplied in
 the source input.  (The right primer sequence is the sequence
 you would want synthesized in a primer order.)</p>
 
-<h2><a name="calculatePenalties">8. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a></h2>
+<h2><a name="providedMisprimingLibs">8. POVIDED MISPRIMING LIBRARIES</a></h2>
+
+<p>This selection indicates what mispriming library (if any) Primer3 
+should use to screen for interspersed repeats or for other 
+sequence to avoid as a location for primers. The human and 
+rodent libraries on the web page are adapted from Repbase 
+(J. Jurka, A.F.A. Smit, C. Pethiyagoda, et al., 1995-1996)
+<a href="ftp://ftp.ncbi.nih.gov/repository/repbase">ftp://ftp.ncbi.nih.gov/repository/repbase</a>).
+The human library is humrep.ref concatenated with simple.ref,
+translated to FASTA format. There are two rodent libraries. One 
+is rodrep.ref translated to FASTA format, and the other is 
+rodrep.ref concatenated with simple.ref, translated to FASTA 
+format.</p>
+<p>The <i>Drosophila</i> library is the concatenation of two libraries
+from the <a href="http://www.fruitfly.org">Berkeley Drosophila Genome Project</a>:<br>
+<blockquote>
+1. A library of transposable elements
+<a href="http://genomebiology.com/2002/3/12/research/0084">
+<i>The transposable elements of the Drosophila melanogaster euchromatin - a genomics perspective</i>
+J.S. Kaminker, C.M. Bergman, B. Kronmiller, J. Carlson, R. Svirskas, S. Patel, E. Frise, D.A. Wheeler, S.E. Lewis, G.M. Rubin, M. Ashburner and S.E. Celniker
+Genome Biology (2002) 3(12):research0084.1-0084.20</a>, 
+<a href="http://www.fruitfly.org/p_disrupt/datasets/ASHBURNER/D_mel_transposon_sequence_set.fasta">
+http://www.fruitfly.org/p_disrupt/datasets/ASHBURNER/D_mel_transposon_sequence_set.fasta</a>
+<br><br>
+2. A library of repetitive DNA sequences <a href="http://www.fruitfly.org/sequence/sequence_db/na_re.dros">
+http://www.fruitfly.org/sequence/sequence_db/na_re.dros</a>.
+</blockquote>
+Both were downloaded 6/23/04.<br>
+<br>
+The contents of the libraries can be viewed at the following links:<br>
+<br>
+<ul>
+<li><a href="show_humrep_and_simple.cgi">HUMAN</a> (contains microsatellites)</li>
+<li><a href="show_rodrep_and_simple.cgi">RODENT_AND_SIMPLE</a> (contains microsatellites)</li>
+<li><a href="show_rodent_ref.cgi">RODENT</a> (does not contain microsatellites)</li>
+<li><a href="show_drosophila_w_transposons.cgi">DROSOPHILA</a></li>
+</ul>
+<br></p>
+
+<h2><a name="calculatePenalties">9. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a></h2>
 
 <p>The penalty values in are the most important value of each primer,
 because primer3 uses it to choose which primers to select. The 
@@ -2113,14 +2153,14 @@ this point. If primer pairs have to be selected, a
 still fulfill all necessary requirements like non-redundancy or
 product size limits.</p>
 
-<h2><a name="pickAdvice">9. ADVICE FOR PICKING PRIMERS</a></h2>
+<h2><a name="pickAdvice">10. ADVICE FOR PICKING PRIMERS</a></h2>
 
 <p>We suggest consulting: Wojciech Rychlik (1993) "Selection of
 Primers for Polymerase Chain Reaction" in BA White, Ed., "Methods
 in Molecular Biology, Vol. 15: PCR Protocols: Current Methods and
 Applications", pp 31-40, Humana Press, Totowa NJ.</p>
 
-<h2><a name="cautions">10. CAUTIONS</a></h2>
+<h2><a name="cautions">11. CAUTIONS</a></h2>
 
 <p>Some of the most important issues in primer picking can be
 addressed only before using primer3. These are sequence quality 
@@ -2154,7 +2194,7 @@ In addition, primer3 takes as input a <a href="#SEQUENCE_QUALITY">SEQUENCE_QUALI
 use with those base calling programs (e.g. Phred)
 that output this information.</p>
 
-<h2><a name="findNoPrimers">11. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a></h2>
+<h2><a name="findNoPrimers">12. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a></h2>
 
 <p>Try relaxing various parameters, including the
 self-complementarity parameters and max and min oligo melting
@@ -2170,7 +2210,7 @@ at that position.<br>
 <br>
 Try setting the <a href="#PRIMER_EXPLAIN_FLAG">PRIMER_EXPLAIN_FLAG</a> input tag.</p>
 
-<h2><a name="webInterface">12. THE PRIMER3 WWW INTERFACE</a></h2>
+<h2><a name="webInterface">13. THE PRIMER3 WWW INTERFACE</a></h2>
 
 <p>There are two web interfaces available :<br>
 The Whitehead Institute for Biomedical Research provides a basic
@@ -2186,7 +2226,7 @@ This distribution does not contain the Primer3 WWW interfaces.<br>
 Web interface code is available at
 <a href="http://sourceforge.net/projects/primer3/">http://sourceforge.net/projects/primer3/</a>.</p>
 
-<h2><a name="acknowledgments">13. ACKNOWLEDGMENTS</a></h2>
+<h2><a name="acknowledgments">14. ACKNOWLEDGMENTS</a></h2>
 
 <p>Initial development of Primer3 was funded by Howard Hughes Medical
 Institute and by the National Institutes of Health, National Human
