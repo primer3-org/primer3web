@@ -50,15 +50,13 @@
 <a href="#contact">4. REPORTING BUGS AND PROBLEMS AND SUGGESTING ENHANCEMENTS</a><br>
 <a href="#sequenceTags">5. "SEQUENCE" INPUT TAGS</a><br>
 <a href="#globalTags">6. "GLOBAL" INPUT TAGS</a><br>
-<a href="#programTags">7. "PROGRAM" INPUT TAGS</a><br>
-<a href="#outputHelp">8. OUTPUT HELP</a><br>
-<a href="#calculatePenalties">9. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a><br>
-<a href="#fileFormat">10. PRIMER3 FILE FORMAT</a><br>
-<a href="#pickAdvice">11. ADVICE FOR PICKING PRIMERS</a><br>
-<a href="#cautions">12. CAUTIONS</a><br>
-<a href="#findNoPrimers">13. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a><br>
-<a href="#webInterface">14. THE PRIMER3 WWW INTERFACE</a><br>
-<a href="#acknowledgments">15. ACKNOWLEDGMENTS</a><br>
+<a href="#outputHelp">7. OUTPUT HELP</a><br>
+<a href="#calculatePenalties">8. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a><br>
+<a href="#pickAdvice">9. ADVICE FOR PICKING PRIMERS</a><br>
+<a href="#cautions">10. CAUTIONS</a><br>
+<a href="#findNoPrimers">11. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a><br>
+<a href="#webInterface">12. THE PRIMER3 WWW INTERFACE</a><br>
+<a href="#acknowledgments">13. ACKNOWLEDGMENTS</a><br>
 </p>
 <h2><a name="copyrightLicense">1. COPYRIGHT AND LICENSE</a></h2>
 
@@ -1777,39 +1775,7 @@ both sides in which primer3plus picks the best primer. Value only used if
 <p> </p>
 
 
-<h2><a name="programTags">7. "PROGRAM" INPUT TAGS</a></h2>
-
-<p>"Program" input tags start with P3_... describe the 
-parameters that deal with the behavior of the primer3 program 
-itself.)</p>
-<h3><a name="P3_FILE_ID">P3_FILE_ID (string; default empty)</a></h3>
-
-<p>This tag is only valid in primer3 setting files. It should be used to 
-identify the purpose of this settings. It is printed out on the 
-output of primer3.</p>
-
-
-<h3><a name="P3_FILE_FLAG">P3_FILE_FLAG (boolean; default 0)</a></h3>
-
-<p>If the associated value is 1 (non-0), then primer3 creates 
-one or more output
-files for each input <a href="#SEQUENCE_TEMPLATE">SEQUENCE_TEMPLATE</a>.  File &lt;sequence_id&gt;.for lists all
-acceptable left primers for &lt;sequence_id&gt;, and &lt;sequence_id&gt;.rev
-lists all acceptable right primers for &lt;sequence_id&gt;, where
-&lt;sequence_id&gt; is the value of the <a href="#SEQUENCE_ID">SEQUENCE_ID</a> tag (which
-must be supplied).  If internal oligos
-are requested, primer3 produces a file
-&lt;sequence_id&gt;.int, which lists all
-acceptable internal oligos.  Obviously, &lt;sequence_id&gt; needs
-to be a string that will work as a file name.</p>
-
-
-<h3><a name="P3_COMMENT">P3_COMMENT (string; default empty)</a></h3>
-
-<p>The value of this tag is ignored. It can be used to annotate input.</p>
-
-
-<h2><a name="outputHelp">8. OUTPUT HELP</a></h2>
+<h2><a name="outputHelp">7. OUTPUT HELP</a></h2>
 
 <h3><a name=p3w_primer_start>start (Start Position)</a></h3>
 <p>The position of the 5' base of the primer.
@@ -1844,7 +1810,7 @@ right primer is on the opposite strand from the one supplied in
 the source input.  (The right primer sequence is the sequence
 you would want synthesized in a primer order.)</p>
 
-<h2><a name="calculatePenalties">9. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a></h2>
+<h2><a name="calculatePenalties">8. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a></h2>
 
 <p>The penalty values in are the most important value of each primer,
 because primer3 uses it to choose which primers to select. The 
@@ -2147,46 +2113,14 @@ this point. If primer pairs have to be selected, a
 still fulfill all necessary requirements like non-redundancy or
 product size limits.</p>
 
-<h2><a name="fileFormat">10. PRIMER3 FILE FORMAT</a></h2>
-
-<p>Primer3 can read global settings from a text file at program 
-start up. This allows the user to save and exchange settings 
-tailored to special applications.<br>
-<br>
-Such a primer3 settings file is a text file. The first three 
-lines of the file have to be as described below followed by tags 
-as they would be provided at standard input:</p>
-<pre>
-Primer3 File - http://primer3.sourceforge.net
-P3_FILE_TYPE=settings
-
-P3_FILE_ID=Description of the settings
-SEQUENCE_TEMPLATE=ATG...
-...
-...
-...
-=
-</pre> 
-<p>
-In the first line "Primer3 File - http://primer3.sourceforge.net" 
-without tailing space. In the second line "P3_FILE_TYPE=settings".
-Valid values for P3_FILE_TYPE are all_parameters, sequence and 
-settings. Up to now, only settings is supported. The third line 
-has to be empty. It is strongly advised to describe the settings 
-using the P3_FILE_ID tag. It will print the description of the 
-settings on the output. From the fourth line on regular 
-Boulder-IO can be used as it is used in regular input. It also 
-has to be terminated with a single "=". There can be only one 
-input per file.</p>
-
-<h2><a name="pickAdvice">11. ADVICE FOR PICKING PRIMERS</a></h2>
+<h2><a name="pickAdvice">9. ADVICE FOR PICKING PRIMERS</a></h2>
 
 <p>We suggest consulting: Wojciech Rychlik (1993) "Selection of
 Primers for Polymerase Chain Reaction" in BA White, Ed., "Methods
 in Molecular Biology, Vol. 15: PCR Protocols: Current Methods and
 Applications", pp 31-40, Humana Press, Totowa NJ.</p>
 
-<h2><a name="cautions">12. CAUTIONS</a></h2>
+<h2><a name="cautions">10. CAUTIONS</a></h2>
 
 <p>Some of the most important issues in primer picking can be
 addressed only before using primer3. These are sequence quality 
@@ -2220,7 +2154,7 @@ In addition, primer3 takes as input a <a href="#SEQUENCE_QUALITY">SEQUENCE_QUALI
 use with those base calling programs (e.g. Phred)
 that output this information.</p>
 
-<h2><a name="findNoPrimers">13. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a></h2>
+<h2><a name="findNoPrimers">11. WHAT TO DO IF PRIMER3 CANNOT FIND ANY PRIMERS?</a></h2>
 
 <p>Try relaxing various parameters, including the
 self-complementarity parameters and max and min oligo melting
@@ -2236,7 +2170,7 @@ at that position.<br>
 <br>
 Try setting the <a href="#PRIMER_EXPLAIN_FLAG">PRIMER_EXPLAIN_FLAG</a> input tag.</p>
 
-<h2><a name="webInterface">14. THE PRIMER3 WWW INTERFACE</a></h2>
+<h2><a name="webInterface">12. THE PRIMER3 WWW INTERFACE</a></h2>
 
 <p>There are two web interfaces available :<br>
 The Whitehead Institute for Biomedical Research provides a basic
@@ -2252,7 +2186,7 @@ This distribution does not contain the Primer3 WWW interfaces.<br>
 Web interface code is available at
 <a href="http://sourceforge.net/projects/primer3/">http://sourceforge.net/projects/primer3/</a>.</p>
 
-<h2><a name="acknowledgments">15. ACKNOWLEDGMENTS</a></h2>
+<h2><a name="acknowledgments">13. ACKNOWLEDGMENTS</a></h2>
 
 <p>Initial development of Primer3 was funded by Howard Hughes Medical
 Institute and by the National Institutes of Health, National Human
