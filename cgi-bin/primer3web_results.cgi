@@ -170,6 +170,7 @@ sub process_input {
     my $target = $query->param('SEQUENCE_TARGET');
     my $excluded_region = $query->param('SEQUENCE_EXCLUDED_REGION');
     my $included_region = $query->param('SEQUENCE_INCLUDED_REGION');
+    my $overlap_pos = $query->param('SEQUENCE_PRIMER_OVERLAP_POS');
 
     my @input;
    
@@ -182,35 +183,38 @@ sub process_input {
 		
 		next if /^SEQUENCE_TARGET$/;
 		next if /^SEQUENCE_EXCLUDED_REGION$/;
-		next if /^SEQUENCE_INCLUDED_REGION$/;
+        next if /^SEQUENCE_INCLUDED_REGION$/;
+        next if /^SEQUENCE_PRIMER_OVERLAP_POS$/;
 	
 		$v = $query->param($_);
 		next if $v =~ /^\s*$/;   # Is this still the right behavior?
 
         if (/^SEQUENCE_TEMPLATE$/) {	
 		    if ($v =~ /^\s*>([^\n]*)/) {
-			# Sequence is in Fasta format.
-			$fasta_id = $1;
-			$fasta_id =~ s/^\s*//;
-			$fasta_id =~ s/\s*$//;
-			if (!$sequence_id) {
-			    $sequence_id = $fasta_id;
-			} else {
-			    print "<br>WARNING: 2 Sequence Ids provided: ",
-			    "$sequence_id and $fasta_id; using ",
-			    "$sequence_id|$fasta_id\n";
-			    $sequence_id .= "|$fasta_id";
-			} 
-			$v =~ s/^\s*>([^\n]*)//;
+				# Sequence is in Fasta format.
+				$fasta_id = $1;
+				$fasta_id =~ s/^\s*//;
+				$fasta_id =~ s/\s*$//;
+				if (!$sequence_id) {
+				    $sequence_id = $fasta_id;
+				} else {
+				    print "<br>WARNING: 2 Sequence Ids provided: ",
+				    "$sequence_id and $fasta_id; using ",
+				    "$sequence_id|$fasta_id\n";
+				    $sequence_id .= "|$fasta_id";
+				} 
+    			$v =~ s/^\s*>([^\n]*)//;
 		    }
 		    if ($v =~ /\d/) {
-			print "<br>WARNING: Numbers in input sequence were deleted.\n";
-			$v =~ s/\d//g;
+				print "<br>WARNING: Numbers in input sequence were deleted.\n";
+				$v =~ s/\d//g;
 		    }
-		    $v =~ s/\s//g;
-		    my ($m_target, $m_excluded_region, $m_included_region)
-			    = read_sequence_markup($v, (['[', ']'], ['<','>'], ['{','}']));
+            $v =~ s/\s//g;
+            $v =~ s/-+/-/g;
+		    my ($m_target, $m_excluded_region, $m_included_region, $m_overlap_pos)
+			    = read_sequence_markup($v, (['[', ']'], ['<','>'], ['{','}'], ['-','-']));
 		    $v =~ s/[\[\]\<\>\{\}]//g;
+            $v =~ s/-//g;
 		    if (@$m_target) {
 			if ($target) {
 			    print "<br>WARNING Targets specified both as sequence ",
@@ -227,6 +231,10 @@ sub process_input {
 							      $m_excluded_region,
 							      $first_base_index);
 		    }
+		    $overlap_pos = add_start_only_list($overlap_pos,
+                                  $m_overlap_pos,
+                                  $first_base_index);
+		    
 		    if (@$m_included_region) {
 			if (scalar @$m_included_region > 1) {
 			    print "<br>ERROR: Too many included regions\n";
@@ -271,6 +279,7 @@ sub process_input {
     push @input, "SEQUENCE_TARGET=$target\n" if $target;;
     push @input, "SEQUENCE_EXCLUDED_REGION=$excluded_region\n" if $excluded_region;
     push @input, "SEQUENCE_INCLUDED_REGION=$included_region\n" if $included_region;
+    push @input, "SEQUENCE_PRIMER_OVERLAP_POS=$overlap_pos\n" if $overlap_pos;
 
     push @input, "=\n";
 
@@ -388,8 +397,18 @@ sub add_start_len_list($$$) {
     my ($list_string, $list, $plus) = @_;
     my $sp = $list_string ? ' ' : '' ;
     for (@$list) {
-	$list_string .= ($sp . ($_->[0] + $plus) . "," . $_->[1]);
-	$sp = ' ';
+    $list_string .= ($sp . ($_->[0] + $plus) . "," . $_->[1]);
+    $sp = ' ';
+    }
+    return $list_string;
+}
+
+sub add_start_only_list($$$) {
+    my ($list_string, $list, $plus) = @_;
+    my $sp = $list_string ? ' ' : '' ;
+    for (@$list) {
+    $list_string .= ($sp . ($_->[0] + $plus));
+    $sp = ' ';
     }
     return $list_string;
 }
@@ -416,7 +435,7 @@ sub read_sequence_markup_1_delim($$@) {
 	$other_delims .= '\\' . $_->[0] . '\\' . $_->[1];
     }
     if ($other_delims) {
-	$s =~ s/[$other_delims]//g;
+    	$s =~ s/[$other_delims]//g;
     }
     # $s now contains only the delimters of interest.
     my @s = split(//, $s);
@@ -426,11 +445,13 @@ sub read_sequence_markup_1_delim($$@) {
     while (@s) {
 	$c = shift(@s);
 	next if ($c eq ' '); # Already used delimeters are set to ' '
-	if ($c eq $d0) {
-	    $len = len_to_delim($d0, $d1, \@s);
-	    return undef if (!defined $len);
-	    push @out, [$pos, $len];
-	} elsif ($c eq $d1) {
+	if (($c eq $d0) && ($d0 eq $d1)) {
+        push @out, [$pos, 0];
+	}elsif ($c eq $d0) {
+        $len = len_to_delim($d0, $d1, \@s);
+        return undef if (!defined $len);
+        push @out, [$pos, $len];
+    } elsif ($c eq $d1) {
 	    # There is a closing delimiter with no opening
 	    # delimeter, an input error.
 	    $DO_NOT_PICK = 1;
