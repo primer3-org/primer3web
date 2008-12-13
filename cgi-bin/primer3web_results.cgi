@@ -216,37 +216,42 @@ sub process_input {
 		    $v =~ s/[\[\]\<\>\{\}]//g;
             $v =~ s/-//g;
 		    if (@$m_target) {
-			if ($target) {
-			    print "<br>WARNING Targets specified both as sequence ",
-	                           "markups and in Other Per-Sequence Inputs\n";
-			} 
-			$target = add_start_len_list($target, $m_target, $first_base_index);
+				if ($target) {
+				    print "<br>WARNING Targets specified both as sequence ",
+		                           "markups and in Other Per-Sequence Inputs\n";
+				} 
+    			$target = add_start_len_list($target, $m_target, $first_base_index);
 		    }
 		    if (@$m_excluded_region) {
-			if ($excluded_region) {
-			    print "<br>WARNING Excluded Regions specified both as sequence ",
-	                           "markups and in Other Per-Sequence Inputs\n";
-			}
-			$excluded_region = add_start_len_list($excluded_region,
-							      $m_excluded_region,
-							      $first_base_index);
+				if ($excluded_region) {
+				    print "<br>WARNING Excluded Regions specified both as sequence ",
+		                           "markups and in Other Per-Sequence Inputs\n";
+				}
+				$excluded_region = add_start_len_list($excluded_region,
+								      $m_excluded_region,
+								      $first_base_index);
 		    }
-		    $overlap_pos = add_start_only_list($overlap_pos,
-                                  $m_overlap_pos,
-                                  $first_base_index);
-		    
+            if (@$m_overlap_pos) {
+                if ($overlap_pos) {
+                    print "<br>WARNING Overlap positions specified both as sequence ",
+                                   "markups and in Other Per-Sequence Inputs\n";
+                } 
+                $overlap_pos = add_start_only_list($overlap_pos,
+                                      $m_overlap_pos,
+                                      $first_base_index);
+            }
 		    if (@$m_included_region) {
-			if (scalar @$m_included_region > 1) {
-			    print "<br>ERROR: Too many included regions\n";
-			    $DO_NOT_PICK = 1;
-			} elsif ($included_region) {
-			    print "<br>ERROR: Included region specified both as sequence\n",
-			    "       markup and in Other Per-Sequence Inputs\n";
-			    $DO_NOT_PICK = 1;
-			}
-			$included_region = add_start_len_list($included_region,
-							      $m_included_region,
-							      $first_base_index);
+				if (scalar @$m_included_region > 1) {
+				    print "<br>ERROR: Too many included regions\n";
+				    $DO_NOT_PICK = 1;
+				} elsif ($included_region) {
+				    print "<br>ERROR: Included region specified both as sequence\n",
+				    "       markup and in Other Per-Sequence Inputs\n";
+				    $DO_NOT_PICK = 1;
+				}
+				$included_region = add_start_len_list($included_region,
+								      $m_included_region,
+								      $first_base_index);
 		    }
 	
 
