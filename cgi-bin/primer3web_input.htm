@@ -84,7 +84,7 @@ Mispriming Library (repeat library):</a>
       <input name="MUST_XLATE_PRIMER_PICK_LEFT_PRIMER" value="1" checked="checked" type="checkbox">
       Pick&nbsp;left&nbsp;primer, or&nbsp;use&nbsp;left&nbsp;primer&nbsp;below:
  </td><td valign="top">
-      <input name="MUST_XLATE_PRIMER_PICK_INTERNAL_OLIGO" type="checkbox">
+      <input name="MUST_XLATE_PRIMER_PICK_INTERNAL_OLIGO" value="1" type="checkbox">
       Pick&nbsp;hybridization&nbsp;probe&nbsp;(internal oligo),&nbsp;or&nbsp;use&nbsp;oligo&nbsp;below:
  </td><td valign="top">
       <input name="MUST_XLATE_PRIMER_PICK_RIGHT_PRIMER" value="1" checked="checked" type="checkbox">
@@ -184,7 +184,7 @@ Pair Max Library Mispriming</a></td><td>
 <td align=right>
 <a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_MAX_TEMPLATE_MISPRIMING">
 Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" value="12.00" type="text">
+<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="12.00" type="text">
 </td><td align=right>
 <a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING">
 Pair Max Template Mispriming</a></td><td>
@@ -359,19 +359,19 @@ Right primer end</a></td><td>
 
 <table border="0">
 <tr>
- <td><input name="PRIMER_LIBERAL_BASE" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_LIBERAL_BASE" value="1" checked="checked" type="checkbox">
   <a name="PRIMER_LIBERAL_BASE_INPUT" href="primer3web_help.cgi#PRIMER_LIBERAL_BASE">Liberal Base</a></td>
  <td><input name="MUST_XLATE_PRINT_INPUT" value="1" type="checkbox">
   <a name="SHOW_DEBUGGING_INPUT" href="primer3web_help.cgi#SHOW_DEBUGGING">Show Debuging Info</a></td>
- <td><input name="PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS" value="1" checked="checked" type="checkbox">
   Do not treat ambiguity codes in libraries as consensus</td>
 </tr>
 <tr>
- <td><input name="PRIMER_LOWERCASE_MASKING" value="1" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_LOWERCASE_MASKING" value="1" type="checkbox">
   <a name="PRIMER_LOWERCASE_MASKING" href="primer3web_help.cgi#PRIMER_LOWERCASE_MASKING">Lowercase masking</a></td>
- <td><input name="PRIMER_PICK_ANYWAY" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_PICK_ANYWAY" value="1" checked="checked" type="checkbox">
   <a name="PRIMER_PICK_ANYWAY" href="primer3web_help.cgi#PRIMER_PICK_ANYWAY">Pick anyway</a></td>
- <td><input name="PRIMER_EXPLAIN_FLAG" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_EXPLAIN_FLAG" value="1" checked="checked" type="checkbox">
   <a name="PRIMER_EXPLAIN_FLAG" href="primer3web_help.cgi#PRIMER_EXPLAIN_FLAG">Print Statistics</a></td>
 </tr>
 </table>
@@ -535,7 +535,7 @@ Right primer end</a></td><td>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_PR_PENALTY" value="1.0" type="text">
 		
 	</td></tr><tr>
-	<td><a name="PAIR_WT_IO_PENALTY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_IO_PENALTY">Hyb Oligo Penalty Weight</a>
+	<td><a name="PAIR_WT_IO_PENALTY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_IO_PENALTY">Internal Oligo Penalty Weight</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_IO_PENALTY" value="0.0" type="text">
 
 	</td></tr>
@@ -543,34 +543,34 @@ Right primer end</a></td><td>
 
 </table>
 
-<h3>Hyb Oligo (Internal Oligo) Per-Sequence Inputs</h3>
+<h3>Internal Oligo (Hyb Oligo) Per-Sequence Inputs</h3>
 
 <table border="0">
 
-<tr><td><a name="internal_oligo_generic_INPUT" href="primer3web_help.cgi#SEQUENCE_INTERNAL_EXCLUDED_REGION">Hyb Oligo Excluded Region:</a>
+<tr><td><a name="internal_oligo_generic_INPUT" href="primer3web_help.cgi#SEQUENCE_INTERNAL_EXCLUDED_REGION">Internal Oligo Excluded Region:</a>
 </td><td><input name="SEQUENCE_INTERNAL_EXCLUDED_REGION" value="" type="text">
 
 </td></tr><!-- /tbody -->
 </table>
 
-<h3>Hyb Oligo (Internal Oligo) General Conditions</h3>
+<h3>Internal Oligo (Hyb Oligo) General Conditions</h3>
 
 <table border="0">
 <!-- tbody -->
 <tr>
- <td><a name="PRIMER_INTERNAL_OLIGO_SIZE_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_SIZE">Hyb Oligo Size:</a>
+ <td><a name="PRIMER_INTERNAL_OLIGO_SIZE_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_SIZE">Internal Oligo Size:</a>
  </td><td>Min <input size="4" name="PRIMER_INTERNAL_MIN_SIZE" value="18" type="text">
  </td><td>Opt <input size="4" name="PRIMER_INTERNAL_OPT_SIZE" value="20" type="text">
  </td><td>Max <input size="4" name="PRIMER_INTERNAL_MAX_SIZE" value="27" type="text">
 
 </td></tr><tr>
- <td><a name="PRIMER_INTERNAL_OLIGO_OPT_TM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_TM">Hyb Oligo Tm:</a>
+ <td><a name="PRIMER_INTERNAL_OLIGO_OPT_TM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_TM">Internal Oligo Tm:</a>
  </td><td>Min <input size="4" name="PRIMER_INTERNAL_MIN_TM" value="57.0" type="text">
  </td><td>Opt <input size="4" name="PRIMER_INTERNAL_OPT_TM" value="60.0" type="text">
  </td><td>Max <input size="4" name="PRIMER_INTERNAL_MAX_TM" value="63.0" type="text">
 
 </td></tr><tr>
- <td><a name="PRIMER_INTERNAL_OLIGO_GC_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_GC">Hyb Oligo GC%</a>
+ <td><a name="PRIMER_INTERNAL_OLIGO_GC_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_GC">Internal Oligo GC%</a>
  </td><td>Min: <input size="4" name="PRIMER_INTERNAL_MIN_GC" value="20.0" type="text">
  </td><td>Opt: <input size="4" name="PRIMER_INTERNAL_OPT_GC_PERCENT" value="" type="text">
  </td><td>Max: <input size="4" name="PRIMER_INTERNAL_MAX_GC" value="80.0" type="text">
@@ -579,9 +579,9 @@ Right primer end</a></td><td>
 
 <table border="0">
 <tr>
-   <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_ANY">Hyb Oligo Self Complementarity:</a>
+   <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_ANY">Internal Oligo Self Complementarity:</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_ANY" value="12.00" type="text">
-   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_END"> Hyb Oligo Max 3' End Self Complementarity:</a>
+   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_END">Internal Oligo Max 3' End Self Complementarity:</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_END" value="12.00" type="text">
    </td><td colspan="2"></td>
 </tr>
@@ -589,13 +589,13 @@ Right primer end</a></td><td>
 <tr>
  <td colspan="2"><a name="PRIMER_INTERNAL_OLIGO_NUM_NS_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_NS_ACCEPTED">Max #Ns:</a>
  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_NS_ACCEPTED" value="0" type="text">
- </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_POLY_X">Hyb Oligo Max Poly-X:</a>
+ </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_POLY_X">Internal Oligo Max Poly-X:</a>
  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_POLY_X" value="5" type="text">
  </td><td colspan="2"></td>
 </tr>
 
 <tr>
-  <td  colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MISHYB_LIBRARY">Hyb Oligo Mishyb Library:</a>
+  <td  colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MISHYB_LIBRARY">Internal Oligo Mishyb Library:</a>
   </td><td colspan="2"><select name="PRIMER_INTERNAL_MISHYB_LIBRARY">
       <option selected="selected">NONE
       </option><option> HUMAN
@@ -603,58 +603,58 @@ Right primer end</a></td><td>
       </option><option> RODENT
       </option><option> DROSOPHILA
       </option></select>
-  </td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_LIBRARY_MISHYB">Hyb Oligo Max Library Mishyb:</a>
+  </td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_LIBRARY_MISHYB">Internal Oligo Max Library Mishyb:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_LIBRARY_MISHYB" value="12.00" type="text">
   </td><td colspan="2"></td>
 </tr>
   
 <tr>
-  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_QUALITY">Hyb Oligo Min Sequence Quality:</a>
+  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_QUALITY">Internal Oligo Min Sequence Quality:</a>
   </td colspan="1"><td><input size="4" name="PRIMER_INTERNAL_MIN_QUALITY" value="0" type="text">
-  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB">Hyb Oligo Max Template Mishyb:</a>
+  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB">Internal Oligo Max Template Mishyb:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB" value="-1.00" type="text">
   </td><td colspan="2"></td>
 </tr>
 
 <tr>
-  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_SALT_MONOVALENT">Hyb Oligo Conc of monovalent cations:</a>
+  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_SALT_MONOVALENT">Internal Oligo Conc of monovalent cations:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_SALT_MONOVALENT" value="50.0" type="text">
-  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_DNA_CONC">Hyb Oligo DNA Concentration:</a>
+  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_DNA_CONC">Internal Oligo DNA Concentration:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_DNA_CONC" value="50.0" type="text">
   </td><td colspan="2"></td>
 </tr>
 
 <tr>
-  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_SALT_DIVALENT">Hyb Oligo conc of divalent cations:</a>
+  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_SALT_DIVALENT">Internal Oligo conc of divalent cations:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_SALT_DIVALENT" value="0.0" type="text">
-  </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_DNTP_CONC">Hyb Oligo [dNTP]</a>
+  </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_DNTP_CONC">Internal Oligo [dNTP]</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_DNTP_CONC" value="0.0" type="text">
   </td><td colspan="2"></td>
 </tr>
 </table>
         
 
-<h3>Objective Function Penalty Weights for Hyb Oligos (Internal Oligos)</h3>
+<h3>Objective Function Penalty Weights for Internal Oligos (Hyb Oligos)</h3>
 
 <table border="0">
 
   <!-- tbody -->
     <tr>
-    <td><a name="IO_WT_SIZE_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SIZE_LT">Hyb Oligo Size</a>
+    <td><a name="IO_WT_SIZE_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SIZE_LT">Internal Oligo Size</a>
     </td><td>Lt:
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SIZE_LT" value="1.0" type="text">
     </td><td>Gt:
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SIZE_GT" value="1.0" type="text">
     
   </td></tr><tr>
-    <td><a name="IO_WT_TM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TM_LT">Hyb Oligo Tm</a>
+    <td><a name="IO_WT_TM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TM_LT">Internal Oligo Tm</a>
     </td><td>Lt:
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TM_LT" value="1.0" type="text">
     </td><td>Gt:
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TM_GT" value="1.0" type="text">
     
   </td></tr><tr>
-    <td><a name="IO_WT_GC_PERCENT_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_GC_PERCENT_LT">Hyb Oligo GC%</a>
+    <td><a name="IO_WT_GC_PERCENT_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_GC_PERCENT_LT">Internal Oligo GC%</a>
     </td><td>Lt:
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_GC_PERCENT_LT" value="0.0" type="text">
     </td><td>Gt:
@@ -666,33 +666,33 @@ Right primer end</a></td><td>
 
 	<!-- tbody -->
         <tr>
-    <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_ANY">Hyb Oligo Self Complementarity</a>
+    <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_ANY">Internal Oligo Self Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY" value="0.0" type="text">
         
     </td></tr><tr>
-    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_END">Hyb Oligo 3' End Complementarity</a>
+    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_END">Internal Oligo 3' End Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END" value="0.0" type="text">
         
     </td></tr><tr>
-	<td><a name="IO_WT_NUM_NS_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_NUM_NS">Hyb Oligo #N's</a>
+	<td><a name="IO_WT_NUM_NS_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_NUM_NS">Internal Oligo #N's</a>
 	</td><td><input size="4" name="PRIMER_INTERNAL_WT_NUM_NS" value="0.0" type="text">
 		
     </td></tr><tr>
-    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_LIBRARY_MISHYB">Hyb Oligo Library Mishybing</a>
+    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_LIBRARY_MISHYB">Internal Oligo Library Mishybing</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_LIBRARY_MISHYB" value="0.0" type="text">
         
     </td></tr><tr>
-    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TEMPLATE_MISHYB">Hyb Oligo Template Mishybing</a>
+    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TEMPLATE_MISHYB">Internal Oligo Template Mishybing</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TEMPLATE_MISHYB" value="0.0" type="text">
         
     </td></tr><tr>
     <td><a name="IO_WT_SEQ_QUAL_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SEQ_QUAL">
-            Hyb Oligo Sequence Quality</a>
+            Internal Oligo Sequence Quality</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SEQ_QUAL" value="0.0" type="text">
     </td></tr><tr>
 
     <td><a name="IO_WT_SEQ_QUAL_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_END_QUAL">
-            Hyb Oligo Sequence End Quality</a>
+            Internal Oligo Sequence End Quality</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_END_QUAL" value="0.0" type="text">
 		
 </td></tr><!-- /tbody -->
@@ -799,7 +799,6 @@ Web interface by
 <!-- This web service provided by YOUR ORGANZATION HERE -->
 </p>
 <hr>
-<pre>(input.htm v 0.4.0)</pre>
-<font size="-1">Last updated Feb 07, 2007</font>
+<pre>(input.htm v 2.0.0)</pre>
 </body>
 </html>

@@ -30,7 +30,7 @@ $PRIMER_BIN =  "primer3_core.exe"; # for windows
 
 # If you make any substantial modifications give this code a new
 # version designation.
-$CGI_RELEASE = "(primer3_results.cgi release 0.5.0)";
+$CGI_RELEASE = "(primer3_results.cgi release 2.0.0)";
 
 # ----- End Installer Modifiable Variables ---------------------------------
 
@@ -90,9 +90,6 @@ use IPC::Open3;
 main();
 
 sub main {
-  $PR_DEFAULT_PRODUCT_MIN_SIZE = 100;
-  $PR_DEFAULT_PRODUCT_MAX_SIZE = 1000;
-
   $query = new CGI;
 
   if ($query->param('Pick Primers')) {
@@ -100,47 +97,6 @@ sub main {
   } else {
       confess "Did not see the 'Pick Primers' query parameter"
   }
-}
-
-sub check_server_side_configuration {
-    my ($query) = @_;
-
-    unless (-e $PRIMER_BIN) {
-	print qq{Please clip and e-mail this page to $MAINTAINER: cannot find $PRIMER_BIN executable
-		     $wrapup};
-	exit;
-    }
-    unless (-x $PRIMER_BIN) {
-	print qq{Please clip and e-mail this page to $MAINTAINER: wrong permissions for $PRIMER_BIN
-		     $wrapup};
-	exit;
-    }
-
-    # Check mispriming / mishyb library setup.
-    my @names = $query->param;
-    for (@names) {
-	if (/^PRIMER_(MISPRIMING|INTERNAL_OLIGO_MISHYB)_LIBRARY$/) {
-	    $v = $query->param($_);
-	    $v1 = $SEQ_LIBRARY{'$v'};
-	    if (!defined($v)) {
-		print qq{
-		    <h3>There is a configuration error at $tmpurl;
-		    cannot find a library file name for  "$v1".  Please clip and
-		    mail this page to $MAINTAINER.$wrapup</h3>
-			};
-		exit;
-	    }
-	    if ($v1 && ! -r $v1) {
-		print qq{
-		    <h3>There is a configuration error at $tmpurl;
-		    library file $v1 cannot be read.  Please clip and
-		    mail this page to $MAINTAINER.$wrapup</h3>
-		    };
-		exit;
-
-	    }
-	}
-    }
 }
 
 sub process_input {
@@ -161,189 +117,161 @@ sub process_input {
     my $line;
     my $fasta_id;
 
-    my $sequence_id = $query->param('PRIMER_SEQUENCE_ID');
-    my $min_prod_size = $query->param('MUST_XLATE_PRODUCT_MIN_SIZE');
-    my $max_prod_size = $query->param('MUST_XLATE_PRODUCT_MAX_SIZE');
-    $min_prod_size = $PR_DEFAULT_PRODUCT_MIN_SIZE unless $min_prod_size =~ /\S/;
-    $max_prod_size = $PR_DEFAULT_PRODUCT_MAX_SIZE unless $max_prod_size =~ /\S/;    
-    
-    my $size_range = "$min_prod_size-$max_prod_size";
+    my $sequence_id = $query->param('SEQUENCE_ID');
 
     my $first_base_index = $query->param('PRIMER_FIRST_BASE_INDEX');
     if ($first_base_index !~ \S) {
-	$first_base_index = 1;
+	   $first_base_index = 1;
     }
 
-    my $pick_left  = $query->param('MUST_XLATE_PICK_LEFT');
-    my $pick_hyb   = $query->param('MUST_XLATE_PICK_HYB_PROBE');
-    my $pick_right = $query->param('MUST_XLATE_PICK_RIGHT');
-
-    $pick_left  = 1 if $query->param('PRIMER_LEFT_INPUT');
-    $pick_right = 1 if $query->param('PRIMER_RIGHT_INPUT');
-    $pick_hyb   = 1 if $query->param('PRIMER_INTERNAL_OLIGO_INPUT');
-
-    my $task;
-    if ($pick_hyb) {
-	if ($pick_right || $pick_left) {
-	    $task='pick_pcr_primers_and_hyb_probe';
-	    print "<br>WARNING: Assuming you want to pick a right primer because\n",
-	          "         you are picking a left primer and internal oligo\n"
-		if !$pick_right;
-	    print "<br>WARNING: Assuming you want to pick a left primer because\n",
-	          "         you are picking a right primer and internal oligo\n"
-		if !$pick_left;
-	} else {
-	    $task='pick_hyb_probe_only';
-	    if ($query->param('PRIMER_MISPRIMING_LIBRARY') 
-		&& $query->param('PRIMER_MISPRIMING_LIBRARY') ne 'NONE') {  # fix for v 0.4
-		print "<br>ERROR: you specifed a mispriming library but you ",
-		"only requested a hybridization oligo. ",
-		"Set the library at Hyb Oligo Mishyb Library.";
-		$DO_NOT_PICK=1;
-	    }
-	}
-    } else {
-	if ($pick_right && $pick_left) {
-	    $task='pick_pcr_primers';
-	} elsif ($pick_right) {
-	    $task='pick_right_only';
-	} elsif ($pick_left) {
-	    $task='pick_left_only';
-	} else {
-	    print "<br>WARNING: assuming you want to pick PCR primers\n";
-	    $task='pick_pcr_primers';
-	}
+    # Fix the values of the checkboxes:    
+    my $pick_left  = 0;
+    my $pick_internal = 0;
+    my $pick_right = 0;
+    my $liberal_base = 0;
+    my $print_input = 0;
+    my $ambiguity_Consensus = 0;
+    my $lowercase_masking = 0;
+    my $pick_anyway = 0;
+    my $explain_flag = 0;
+    
+    if (defined $query->param('MUST_XLATE_PRIMER_PICK_LEFT_PRIMER')) {
+        $pick_left = 1;     
+    } 
+    if (defined $query->param('MUST_XLATE_PRIMER_PICK_INTERNAL_OLIGO')) {
+    	$pick_internal = 1;  	
+    } 
+    if (defined $query->param('MUST_XLATE_PRIMER_PICK_RIGHT_PRIMER')) {
+        $pick_right = 1;     
+    }
+    if (defined $query->param('MUST_XLATE_PRIMER_LIBERAL_BASE')) {
+        $liberal_base = 1;     
+    }
+    if (defined $query->param('MUST_XLATE_PRINT_INPUT')) {
+        $print_input = 1;     
+    }
+    if (defined $query->param('MUST_XLATE_PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS')) {
+        $ambiguity_Consensus = 1;     
+    }
+    if (defined $query->param('MUST_XLATE_PRIMER_LOWERCASE_MASKING')) {
+        $lowercase_masking = 1;     
+    }
+    if (defined $query->param('MUST_XLATE_PRIMER_PICK_ANYWAY')) {
+        $pick_anyway = 1;     
+    }
+    if (defined $query->param('MUST_XLATE_PRIMER_EXPLAIN_FLAG')) {
+        $explain_flag = 1;     
     }
 
-    my $print_input = $query->param('MUST_XLATE_PRINT_INPUT');
+    $pick_left     = 1 if $query->param('SEQUENCE_PRIMER');
+    $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
+    $pick_internal = 1 if $query->param('SEQUENCE_INTERNAL_OLIGO');
 
-    my $target = $query->param('TARGET');
-    my $excluded_region = $query->param('EXCLUDED_REGION');
-    my $included_region = $query->param('INCLUDED_REGION');
-    my $inferred_sequence = '';
-    if (!$query->param('SEQUENCE')) {
-	if ($query->param('PRIMER_LEFT_INPUT')) {
-	    $inferred_sequence = $query->param('PRIMER_LEFT_INPUT');
-	}
-	if ($query->param('PRIMER_INTERNAL_OLIGO_INPUT')) {
-	    $inferred_sequence .= $query->param('PRIMER_INTERNAL_OLIGO_INPUT');
-	}
-	if ($query->param('PRIMER_RIGHT_INPUT')) {
-	    my $tmp_seq = $query->param('PRIMER_RIGHT_INPUT');
-	    $tmp_seq = scalar(reverse($tmp_seq));
-	    $tmp_seq =~ tr/acgtACGT/tgcaTGCA/;
-	    $inferred_sequence .= $tmp_seq;
-	}
-	if (!$inferred_sequence) {
-	    print "<br>ERROR: you must supply a source sequence or primers/oligos to evaluate\n";
-	    $DO_NOT_PICK=1;
-	}
-    }
+    my $target = $query->param('SEQUENCE_TARGET');
+    my $excluded_region = $query->param('SEQUENCE_EXCLUDED_REGION');
+    my $included_region = $query->param('SEQUENCE_INCLUDED_REGION');
 
     my @input;
-    push @input, "PRIMER_EXPLAIN_FLAG=1\n";
    
     for (@names) {
+		next if /^Pick Primers$/;
+		next if /^SEQUENCE_ID$/;
+		next if /^PRIMER_FIRST_BASE_INDEX$/;
+		
+		next if /^MUST_XLATE/;
+		
+		next if /^SEQUENCE_TARGET$/;
+		next if /^SEQUENCE_EXCLUDED_REGION$/;
+		next if /^SEQUENCE_INCLUDED_REGION$/;
+	
+		$v = $query->param($_);
+		next if $v =~ /^\s*$/;   # Is this still the right behavior?
 
-	next if /^Pick Primers$/;
-	next if /^old_obj_fn$/;
-	next if /^PRIMER_SEQUENCE_ID$/;
-	next if /^PRIMER_FIRST_BASE_INDEX$/;
-	next if /^TARGET$/;
-	next if /^INCLUDED_REGION$/;
-	next if /^EXCLUDED_REGION$/;
+        if (/^SEQUENCE_TEMPLATE$/) {	
+		    if ($v =~ /^\s*>([^\n]*)/) {
+			# Sequence is in Fasta format.
+			$fasta_id = $1;
+			$fasta_id =~ s/^\s*//;
+			$fasta_id =~ s/\s*$//;
+			if (!$sequence_id) {
+			    $sequence_id = $fasta_id;
+			} else {
+			    print "<br>WARNING: 2 Sequence Ids provided: ",
+			    "$sequence_id and $fasta_id; using ",
+			    "$sequence_id|$fasta_id\n";
+			    $sequence_id .= "|$fasta_id";
+			} 
+			$v =~ s/^\s*>([^\n]*)//;
+		    }
+		    if ($v =~ /\d/) {
+			print "<br>WARNING: Numbers in input sequence were deleted.\n";
+			$v =~ s/\d//g;
+		    }
+		    $v =~ s/\s//g;
+		    my ($m_target, $m_excluded_region, $m_included_region)
+			    = read_sequence_markup($v, (['[', ']'], ['<','>'], ['{','}']));
+		    $v =~ s/[\[\]\<\>\{\}]//g;
+		    if (@$m_target) {
+			if ($target) {
+			    print "<br>WARNING Targets specified both as sequence ",
+	                           "markups and in Other Per-Sequence Inputs\n";
+			} 
+			$target = add_start_len_list($target, $m_target, $first_base_index);
+		    }
+		    if (@$m_excluded_region) {
+			if ($excluded_region) {
+			    print "<br>WARNING Excluded Regions specified both as sequence ",
+	                           "markups and in Other Per-Sequence Inputs\n";
+			}
+			$excluded_region = add_start_len_list($excluded_region,
+							      $m_excluded_region,
+							      $first_base_index);
+		    }
+		    if (@$m_included_region) {
+			if (scalar @$m_included_region > 1) {
+			    print "<br>ERROR: Too many included regions\n";
+			    $DO_NOT_PICK = 1;
+			} elsif ($included_region) {
+			    print "<br>ERROR: Included region specified both as sequence\n",
+			    "       markup and in Other Per-Sequence Inputs\n";
+			    $DO_NOT_PICK = 1;
+			}
+			$included_region = add_start_len_list($included_region,
+							      $m_included_region,
+							      $first_base_index);
+		    }
+	
 
-	$v = $query->param($_);
-	next if $v =~ /^\s*$/;   # Is this still the right behavior?
-
-        if (/^SEQUENCE$/) {	
-	    if ($v =~ /^\s*>([^\n]*)/) {
-		# Sequence is in Fasta format.
-		$fasta_id = $1;
-		$fasta_id =~ s/^\s*//;
-		$fasta_id =~ s/\s*$//;
-		if (!$sequence_id) {
-		    $sequence_id = $fasta_id;
-		} else {
-		    print "<br>WARNING: 2 Sequence Ids provided: ",
-		    "$sequence_id and $fasta_id; using ",
-		    "$sequence_id|$fasta_id\n";
-		    $sequence_id .= "|$fasta_id";
-		} 
-		$v =~ s/^\s*>([^\n]*)//;
-	    }
-	    if ($v =~ /\d/) {
-		print "<br>WARNING: Numbers in input sequence were deleted.\n";
-		$v =~ s/\d//g;
-	    }
-	    $v =~ s/\s//g;
-	    my ($m_target, $m_excluded_region, $m_included_region)
-		    = read_sequence_markup($v, (['[', ']'], ['<','>'], ['{','}']));
-	    $v =~ s/[\[\]\<\>\{\}]//g;
-	    if (@$m_target) {
-		if ($target) {
-		    print "<br>WARNING Targets specified both as sequence ",
-                           "markups and in Other Per-Sequence Inputs\n";
-		} 
-		$target = add_start_len_list($target, $m_target, $first_base_index);
-	    }
-	    if (@$m_excluded_region) {
-		if ($excluded_region) {
-		    print "<br>WARNING Excluded Regions specified both as sequence ",
-                           "markups and in Other Per-Sequence Inputs\n";
+		} elsif (/^PRIMER_(MISPRIMING|INTERNAL_MISHYB)_LIBRARY$/) {
+		    $v = $SEQ_LIBRARY{$v};
+		} elsif (/^PRIMER_SEQUENCE_QUALITY$/) {
+		    $v =~ s/\s/ /sg;  # If value contains newlines (or other non-space whitespace)
+	                          # change them to space.
 		}
-		$excluded_region = add_start_len_list($excluded_region,
-						      $m_excluded_region,
-						      $first_base_index);
-	    }
-	    if (@$m_included_region) {
-		if (scalar @$m_included_region > 1) {
-		    print "<br>ERROR: Too many included regions\n";
-		    $DO_NOT_PICK = 1;
-		} elsif ($included_region) {
-		    print "<br>ERROR: Included region specified both as sequence\n",
-		    "       markup and in Other Per-Sequence Inputs\n";
-		    $DO_NOT_PICK = 1;
-		}
-		$included_region = add_start_len_list($included_region,
-						      $m_included_region,
-						      $first_base_index);
-	    }
-
-
-	} elsif (/^MUST_XLATE/) {
-	    next if /^MUST_XLATE_PRODUCT_M(IN|AX)_SIZE$/;
-	    next if /^MUST_XLATE_PICK_(LEFT|RIGHT|HYB_PROBE)$/;
-	    next if /^MUST_XLATE_PRINT_INPUT$/;
-	} elsif (/^PRIMER_(MISPRIMING|INTERNAL_OLIGO_MISHYB)_LIBRARY$/) {
-	    $v = $SEQ_LIBRARY{$v};
-	} elsif (/^PRIMER_MIN_SIZE$/ && $v < 1) {
-	    print "<br>WARNING: Changed illegal Primer Size Min of $v to 1\n";
-	    $v = 1;
-	} elsif (/^PRIMER_PRODUCT_SIZE_RANGE$/) {
-	    $v =~ s/,/ /g;
-	} elsif (/^PRIMER_SEQUENCE_QUALITY$/) {
-	    $v =~ s/\s/ /sg;  # If value contains newlines (or other non-space whitespace)
-                              # change them to space.
-	}
-	$line = "$_=$v\n";
-	push @input, $line;
+		$line = "$_=$v\n";
+		push @input, $line;
 
     }
     if ($DO_NOT_PICK) {
 	print "$wrapup\n";
 	return;
     }
-    push @input, "PRIMER_TASK=$task\n";
-    push @input, "PRIMER_SEQUENCE_ID=$sequence_id\n";
-    push @input, "PRIMER_PRODUCT_SIZE_RANGE=$size_range\n"
-	unless $query->param('PRIMER_PRODUCT_SIZE_RANGE');
+    push @input, "SEQUENCE_ID=$sequence_id\n";
     push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
-    push @input, "TARGET=$target\n" if $target;;
-    push @input, "EXCLUDED_REGION=$excluded_region\n" if $excluded_region;
-    push @input, "INCLUDED_REGION=$included_region\n" if $included_region;
-    push @input, "SEQUENCE=$inferred_sequence\n" if $inferred_sequence;
-    push @input, "PRIMER_PICK_ANYWAY=1\n";
+
+    push @input, "PRIMER_PICK_LEFT_PRIMER=$pick_left\n";
+    push @input, "PRIMER_PICK_INTERNAL_OLIGO=$pick_internal\n";
+    push @input, "PRIMER_PICK_RIGHT_PRIMER=$pick_right\n";
+    push @input, "PRIMER_LIBERAL_BASE=$liberal_base\n";
+    push @input, "PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS=$ambiguity_Consensus\n";
+    push @input, "PRIMER_LOWERCASE_MASKING=$lowercase_masking\n";
+    push @input, "PRIMER_PICK_ANYWAY=$pick_anyway\n";
+    push @input, "PRIMER_EXPLAIN_FLAG=$explain_flag\n";
+
+    push @input, "SEQUENCE_TARGET=$target\n" if $target;;
+    push @input, "SEQUENCE_EXCLUDED_REGION=$excluded_region\n" if $excluded_region;
+    push @input, "SEQUENCE_INCLUDED_REGION=$included_region\n" if $included_region;
+
     push @input, "=\n";
 
     my $file_name = makeUniqueID();
@@ -368,7 +296,6 @@ sub process_input {
     print "<pre>\n";
     my $cline;
     my $results = '';
-    my $found = 1;
     foreach $cline (@readTheLine) {
 	$cline =~ s/>/&gt;/g;
 	$cline =~ s/</&lt;/g;
@@ -387,14 +314,10 @@ sub process_input {
 		. "<a href=\"$ODOC_URL#p3w_primer_seq\">$seqh</a> "
 		. "\n";
 	}
-	$cline =~ s/INTERNAL OLIGO/HYB OLIGO     /;
-	$cline =~ s/internal oligo/hyb oligo/;
-	$cline =~ s/Intl/Hyb /;
 	if ($cline =~ /NO PRIMERS FOUND/) {
-	    $found = 0;
-	} elsif ($cline =~ /^Statistics/ && !$found) {
-	    $results .= no_primers_found() . $cline;
-	} elsif ($cline =~ /^PRIMER PICKING RESULTS FOR\s*$/) {
+		$cline =~ s/NO PRIMERS FOUND/NO PRIMERS FOUND - <a href=\"$ODOC_URL#findNoPrimers\">Help<\/a>/g;
+	} 
+    if ($cline =~ /^PRIMER PICKING RESULTS FOR\s*$/) {
 	} else {
 	    $results .= $cline;
 	}
@@ -415,24 +338,51 @@ sub process_input {
     print "$wrapup\n";
 }
 
-sub no_primers_found {
-    return qq{
-</pre>
-<h2>No Acceptable Primers Were Found</h2>
+sub check_server_side_configuration {
+    my ($query) = @_;
 
-The statistics below should indicate why no acceptable
-primers were found.
-Try relaxing various parameters, including the
-self-complementarity parameters and max and min oligo melting
-temperatures.  For example, for very A-T-rich regions you might
-have to increase maximum primer size or decrease minimum melting
-temperature.
+    unless (-e $PRIMER_BIN) {
+    print qq{Please clip and e-mail this page to $MAINTAINER: cannot find $PRIMER_BIN executable
+             $wrapup};
+    exit;
+    }
+    unless (-x $PRIMER_BIN) {
+    print qq{Please clip and e-mail this page to $MAINTAINER: wrong permissions for $PRIMER_BIN
+             $wrapup};
+    exit;
+    }
 
-      <hr>
+    # Check mispriming / mishyb library setup.
+    my @names = $query->param;
+    for (@names) {
+    if (/^PRIMER_(MISPRIMING|INTERNAL_OLIGO_MISHYB)_LIBRARY$/) {
+        $v = $query->param($_);
+        $v1 = $SEQ_LIBRARY{'$v'};
+        if (!defined($v)) {
+        print qq{
+            <h3>There is a configuration error at $tmpurl;
+            cannot find a library file name for  "$v1".  Please clip and
+            mail this page to $MAINTAINER.$wrapup</h3>
+            };
+        exit;
+        }
+        if ($v1 && ! -r $v1) {
+        print qq{
+            <h3>There is a configuration error at $tmpurl;
+            library file $v1 cannot be read.  Please clip and
+            mail this page to $MAINTAINER.$wrapup</h3>
+            };
+        exit;
 
-<pre>
+        }
+    }
+    }
 }
-}
+
+############################################################
+### The following functions are also used by primer3plus ###
+### in module                                            ###
+############################################################
 
 sub add_start_len_list($$$) {
     my ($list_string, $list, $plus) = @_;
