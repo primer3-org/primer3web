@@ -354,8 +354,8 @@ sub process_input {
     print FILE @input;
     close(FILE);
 
-#    my $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -io_version=3 -format_output -strict_tags"; # for linus
-    my $cmd = "$PRIMER_BIN < $file_name -io_version=3 -format_output -strict_tags"; # for windows
+#    my $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linus
+    my $cmd = "$PRIMER_BIN < $file_name -format_output -strict_tags"; # for windows
 
     open PRIMER3OUTPUT, "$cmd 2>&1 |"
           or print("Error: could not start primer3\n");
