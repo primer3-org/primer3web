@@ -28,6 +28,8 @@ $ODOC_URL = "primer3web_help.cgi";
 $PRIMER_BIN =  "primer3_core.exe"; # for windows
 #$PRIMER_BIN =  "./primer3_core";     # for linux
 
+$FILE_CACHE = "./cache";
+
 # If you make any substantial modifications give this code a new
 # version designation.
 $CGI_RELEASE = "(primer3_results.cgi release 2.0.0)";
@@ -356,15 +358,24 @@ sub check_server_side_configuration {
     my ($query) = @_;
 
     unless (-e $PRIMER_BIN) {
-    print qq{Please clip and e-mail this page to $MAINTAINER: cannot find $PRIMER_BIN executable
-             $wrapup};
-    exit;
+	    print qq{Please clip and e-mail this page to $MAINTAINER: cannot find $PRIMER_BIN executable
+	             $wrapup};
+	    exit;
     }
     unless (-x $PRIMER_BIN) {
-    print qq{Please clip and e-mail this page to $MAINTAINER: wrong permissions for $PRIMER_BIN
-             $wrapup};
-    exit;
+	    print qq{Please clip and e-mail this page to $MAINTAINER: wrong permissions for $PRIMER_BIN
+	             $wrapup};
+	    exit;
     }
+    
+    if (!(-e $FILE_CACHE)) {
+        if (!(mkdir($FILE_CACHE,0600))) {
+		    print qq{Please clip and e-mail this page to $MAINTAINER: error creating folder "$FILE_CACHE"
+		             $wrapup};
+		    exit;
+        }
+    }
+    
 
     # Check mispriming / mishyb library setup.
     my @names = $query->param;
