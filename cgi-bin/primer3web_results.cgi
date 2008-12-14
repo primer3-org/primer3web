@@ -28,7 +28,8 @@ $ODOC_URL = "primer3web_help.cgi";
 $PRIMER_BIN =  "primer3_core.exe"; # for windows
 #$PRIMER_BIN =  "./primer3_core";     # for linux
 
-$FILE_CACHE = "./cache";
+$FILE_CACHE = "cache/"; # for windows
+#$FILE_CACHE = "cache/"; # for linux
 
 # If you make any substantial modifications give this code a new
 # version designation.
@@ -290,7 +291,7 @@ sub process_input {
 
     push @input, "=\n";
 
-    my $file_name = makeUniqueID();
+    my $file_name = $FILE_CACHE . makeUniqueID();
     my @readTheLine;
     
     open(FILE, ">$file_name") or 
@@ -369,7 +370,7 @@ sub check_server_side_configuration {
     }
     
     if (!(-e $FILE_CACHE)) {
-        if (!(mkdir($FILE_CACHE,0600))) {
+        if (!(mkdir($FILE_CACHE,0600))) {   
 		    print qq{Please clip and e-mail this page to $MAINTAINER: error creating folder "$FILE_CACHE"
 		             $wrapup};
 		    exit;
