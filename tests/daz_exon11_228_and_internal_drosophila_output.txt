@@ -1,4 +1,5 @@
-** SET product size range to 228-288, max mispriming to 14, and ask for an internal oligo ***
+** SET product size range to 228-228, max mispriming to 14, and ask for an internal oligo ***
+** SET mispriming library to DROSOPHILA
 
 Primer3 Output
 

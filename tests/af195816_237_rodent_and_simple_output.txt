@@ -1,4 +1,5 @@
-*** SET size range to 237-237 before running this test ***
+*** SET size range to 237-237 before running this test !!! ***
+*** SET mispriming library to RODENT_AND_SIMPLE before running this test !!! ***
 
 
 Primer3 Output
