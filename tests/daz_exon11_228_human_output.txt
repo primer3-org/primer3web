@@ -1,3 +1,7 @@
+*** SET product size range to 228-228 (use defaults for rest)
+*** SET mispriming library to HUMAN
+
+
 Primer3 Output
 
 PRIMER PICKING RESULTS FOR DAZ_ex11 from DAZ_complete (67078..67579; 502 bp)
