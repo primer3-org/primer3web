@@ -1,0 +1,127 @@
+*** SET product size range to 192-192 !!!! ****
+
+Primer3 Output
+
+PRIMER PICKING RESULTS FOR AF195816 Beta vulgaris isoflavone synthase 1 (ifs1) mRNA, partial cds.
+
+Using mispriming library humrep_and_simple.txt
+Using 1-based sequence positions
+OLIGO            start  len      tm     gc%   any    3'   rep seq 
+LEFT PRIMER       1124   20   60.01   45.00  4.00  3.00 10.00 GGAGCATTGATTCCCTTCAA
+RIGHT PRIMER      1315   20   59.93   50.00  3.00  0.00 10.00 ATTGACTCCAGGGCACATTC
+SEQUENCE SIZE: 1497
+INCLUDED REGION SIZE: 1497
+
+PRODUCT SIZE: 192, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
+
+    1 TCTGCACTTGCGTCCCACACCCACTGCAAAATCAAAAGCACTTCGCCATCTCCCAAACCC
+                                                                  
+
+   61 ACCAAGCCCAAAGCCTCGTCTTCCCTTCATAGGACACCTTCATCTCTTAAAAGACAAACT
+                                                                  
+
+  121 TCTCCACTACGCACTCATCGACCTCTCCAAAAAACATGGTCCCTTATTCTCTCACTACTT
+                                                                  
+
+  181 TGGCTCCATGCCAACCGTTGTTGCCTCCACACCAGAATTGTTCAAGCTCTTCCTCCAAAC
+                                                                  
+
+  241 GAACGAGGCAACTTCCTTCAACACAAGGTTCCAAACCTCAGCCATAAGACGCCTCACCTA
+                                                                  
+
+  301 TGATAGCTCAGTGGCCATGGTTCCCTTCGGACCTTACTGGAAGTTCGTGAGGAAGCTCAT
+                                                                  
+
+  361 CATGAACGACCTTCTCAACGCCACCACTGTAAACAAGTTGAGGCCTTTGAGGACCCAACA
+                                                                  
+
+  421 GATCCGCAAGTTCCTTAGGGCTATGGCCCAAGGCGCAGAGGCACGGAAGCCCCTTGACTT
+                                                                  
+
+  481 GACCGAGGAGCTTCTGAAATGGGCCAACAGCACCATCTCCATGATGATGCTCGGCGAGGC
+                                                                  
+
+  541 TGAGGAGATCAGAGACATCGCTCGCGAGGTTCTTAAGATCTTTGGCGAATACAGCCTCAC
+                                                                  
+
+  601 TGACTTCATCTGGCCATTGAAGCATCTCAAGGTTGGAAAGTATGAGAAGAGGATCGACGA
+                                                                  
+
+  661 CATCTTGAACAAGTTCGACCCTGTCGTTGAAAGAGTCATCAAGAAGCGCCGTGAGATCGT
+                                                                  
+
+  721 GAGGAGGAGAAAGAACGGAGAGGTTGTTGAGGGTGAGGTCAGCGGGGTTTTCCTTGACAC
+                                                                  
+
+  781 TTTGCTTGAATTCGCTGAGGATGAGACCATGGAGATCAAAATCACCAAGGACCACACCAA
+                                                                  
+
+  841 GGGTCTTGTTGTCGACTTCTTCTCGGCAGGAACAGACTCCACAGCGGTGGCAACAGAGTG
+                                                                  
+
+  901 GGCATTGGCAGAACTCATCAACAATCCTAAGGTGTTGGAAAAGGCTCGTGAGGAGGTCTA
+                                                                  
+
+  961 CAGTGTTGTGGGAAAGGACAGACTTGTGGACGAAGTTGACACTCAAAACCTTCCTTACAT
+                                                                  
+
+ 1021 TAGAGCAATCGTGAAGGAGACATTCCGCATGCACCCGCCACTCCCAGTGGTCAAAAGAAA
+                                                                  
+
+ 1081 GTGCACAGAAGAGTGTGAGATTAATGGATATGTGATCCCAGAGGGAGCATTGATTCCCTT
+                                                 >>>>>>>>>>>>>>>>>
+
+ 1141 CAATGTATGGCAAGTAGGAAGAGACCCCAAATACTGGGACAGACCATCGGAGTTCCGTCC
+      >>>                                                         
+
+ 1201 TGAGAGGTTCCTAGAGACAGGGGCTGAAGGGGAAGCAAGGCCTCTTGATCTTAGGGGACA
+                                                                  
+
+ 1261 ACATTTTCAACTTCTCCCATTTGGGTCTGGGAGGAGAATGTGCCCTGGAGTCAATCTGGC
+                                         <<<<<<<<<<<<<<<<<<<<     
+
+ 1321 TACTTCGGGAACGGCAACACTTCTTGCATCTCTTATTCAGTGCTTTGACTTGCAAGTGCT
+                                                                  
+
+ 1381 GGGTCCACAGGGACAGATATTGAAGGGTGGTGACGCCAAAGTTAGCATGGAAGAGAGAGC
+                                                                  
+
+ 1441 CGGCCTCACTGTTCCAAGGGCACATAGTCTTGTCTGTGTTCCACTTGCAAGGATCGG
+                                                               
+
+KEYS (in order of precedence):
+>>>>>> left primer
+<<<<<< right primer
+
+ADDITIONAL OLIGOS
+                    start  len      tm     gc%   any    3'   rep seq 
+
+ 1 LEFT PRIMER        859   20   59.60   55.00  4.00  3.00 10.00 CTTCTCGGCAGGAACAGACT
+   RIGHT PRIMER      1050   20   60.08   50.00  3.00  1.00 10.00 ATGCGGAATGTCTCCTTCAC
+   PRODUCT SIZE: 192, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 2.00
+
+ 2 LEFT PRIMER        374   20   59.76   50.00  3.00  2.00 11.00 CTCAACGCCACCACTGTAAA
+   RIGHT PRIMER       565   20   60.68   55.00  4.00  2.00 10.00 GCGAGCGATGTCTCTGATCT
+   PRODUCT SIZE: 192, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
+
+ 3 LEFT PRIMER       1303   20   60.21   55.00  4.00  2.00  9.00 CCCTGGAGTCAATCTGGCTA
+   RIGHT PRIMER      1494   20   59.14   45.00  8.00  1.00 10.00 ATCCTTGCAAGTGGAACACA
+   PRODUCT SIZE: 192, PAIR ANY COMPL: 3.00, PAIR 3' COMPL: 2.00
+
+ 4 LEFT PRIMER        319   20   59.44   55.00  3.00  1.00  9.00 GGTTCCCTTCGGACCTTACT
+   RIGHT PRIMER       510   20   60.63   50.00  5.00  3.00 10.00 CTGTTGGCCCATTTCAGAAG
+   PRODUCT SIZE: 192, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 3.00
+
+Statistics
+         con   too    in    in          no    tm    tm  high  high  high        high      
+         sid  many   tar  excl   bad    GC   too   too   any    3'   lib  poly   end      
+        ered    Ns   get   reg   GC% clamp   low  high compl compl   sim     X  stab    ok
+Left   11166     0     0     0     0     0  2485  5649     1    29     2    22   221  2757
+Right  11196     0     0     0     0     0  2401  5789     4     9     1     0   232  2760
+Pair Stats:
+considered 84543, unacceptable product size 84516, high end compl 7, ok 20
+primer3 release 1.0
+
+
+
+(primer3_www_results.cgi v 0.3)
