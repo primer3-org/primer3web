@@ -173,7 +173,7 @@ sub process_input {
     my $target = $query->param('SEQUENCE_TARGET');
     my $excluded_region = $query->param('SEQUENCE_EXCLUDED_REGION');
     my $included_region = $query->param('SEQUENCE_INCLUDED_REGION');
-    my $overlap_pos = $query->param('SEQUENCE_PRIMER_OVERLAP_POS');
+    my $overlap_pos = $query->param('SEQUENCE_OVERLAP_JUNCTION_LIST');
 
     my @input;
    
@@ -187,7 +187,7 @@ sub process_input {
 		next if /^SEQUENCE_TARGET$/;
 		next if /^SEQUENCE_EXCLUDED_REGION$/;
         next if /^SEQUENCE_INCLUDED_REGION$/;
-        next if /^SEQUENCE_PRIMER_OVERLAP_POS$/;
+        next if /^SEQUENCE_OVERLAP_JUNCTION_LIST$/;
 	
 		$v = $query->param($_);
 		next if $v =~ /^\s*$/;   # Is this still the right behavior?
@@ -287,7 +287,7 @@ sub process_input {
     push @input, "SEQUENCE_TARGET=$target\n" if $target;;
     push @input, "SEQUENCE_EXCLUDED_REGION=$excluded_region\n" if $excluded_region;
     push @input, "SEQUENCE_INCLUDED_REGION=$included_region\n" if $included_region;
-    push @input, "SEQUENCE_PRIMER_OVERLAP_POS=$overlap_pos\n" if $overlap_pos;
+    push @input, "SEQUENCE_OVERLAP_JUNCTION_LIST=$overlap_pos\n" if $overlap_pos;
 
     push @input, "=\n";
 

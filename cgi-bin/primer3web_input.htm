@@ -124,8 +124,8 @@ Mispriming Library (repeat library):</a>
      that primers must flank the central CCCC.
 
 </td></tr><tr> 
- <td><a name="SEQUENCE_PRIMER_OVERLAP_POS_INPUT" href="primer3web_help.cgi#SEQUENCE_PRIMER_OVERLAP_POS">Overlap Positions:</a>
- </td><td><input name="SEQUENCE_PRIMER_OVERLAP_POS" value="" type="text">
+ <td><a name="SEQUENCE_OVERLAP_JUNCTION_LIST_INPUT" href="primer3web_help.cgi#SEQUENCE_OVERLAP_JUNCTION_LIST">Overlap Junction List:</a>
+ </td><td><input name="SEQUENCE_OVERLAP_JUNCTION_LIST" value="" type="text">
  </td><td>E.g. 27 requires one primer to overlap the bases at positions 27.
      Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
      with -: e.g. ...ATCTAC-TGTCAT.. means
@@ -138,6 +138,11 @@ Mispriming Library (repeat library):</a>
      Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
      with &lt; and &gt;: e.g. ...ATCT&lt;CCCC&gt;TCAT.. forbids
      primers in the central CCCC.
+
+</td></tr><tr> 
+ <td><a name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST_INPUT" href="primer3web_help.cgi#SEQUENCE_PRIMER_PAIR_OK_REGION_LIST">Pair OK Region List:</a>
+ </td><td><input name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST" value="" type="text">
+ </td><td>See manual for help.
 
 </td></tr>
 </table>
@@ -193,21 +198,21 @@ Pair Max Template Mispriming</a></td><td>
 
 <tr><td align=right>
 <a name="SEQUENCE_FORCE_LEFT_START_INPUT" href="primer3web_help.cgi#SEQUENCE_FORCE_LEFT_START">
-Left primer start</a></td><td>
+Left Primer Start</a></td><td>
 <input size="4" name="SEQUENCE_FORCE_LEFT_START" value="-1" type="text">
 </td><td align=right>
 <a name="SEQUENCE_FORCE_RIGHT_START_INPUT" href="primer3web_help.cgi#SEQUENCE_FORCE_RIGHT_START">
-Right primer start</a></td><td>
+Right Primer Start</a></td><td>
 <input size="4" name="SEQUENCE_FORCE_RIGHT_START" value="-1" type="text">
 </td></tr>
 
 <tr><td align=right>
 <a name="SEQUENCE_FORCE_LEFT_END_INPUT" href="primer3web_help.cgi#SEQUENCE_FORCE_LEFT_END">
-Left primer end</a></td><td>
+Left Primer End</a></td><td>
 <input size="4" name="SEQUENCE_FORCE_LEFT_END" value="-1" type="text">
 </td><td align=right>
 <a name="SEQUENCE_FORCE_RIGHT_END_INPUT" href="primer3web_help.cgi#SEQUENCE_FORCE_RIGHT_END">
-Right primer end</a></td><td>
+Right Primer End</a></td><td>
 <input size="4" name="SEQUENCE_FORCE_RIGHT_END" value="-1" type="text">
 </td>
 </tr>
@@ -306,22 +311,28 @@ Right primer end</a></td><td>
  </td><td colspan="1"><input size="4" name="PRIMER_GC_CLAMP" value="0" type="text">
 
 </td></tr><tr>
-<td colspan="2"><a name="PRIMER_MIN_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.cgi#PRIMER_MIN_THREE_PRIME_DISTANCE">3' end distance between primers</a>
-</td><td colspan="1"><input size="4" name="PRIMER_MIN_THREE_PRIME_DISTANCE" value="-1" type="text">
-</td><td colspan="2"><a name="PRIMER_MAX_END_GC_INPUT" href="primer3web_help.cgi#PRIMER_MAX_END_GC">Max GC in primer 3' end</a>
+<td colspan="2"><a name="PRIMER_MAX_END_GC_INPUT" href="primer3web_help.cgi#PRIMER_MAX_END_GC">Max GC in primer 3' end</a>
 </td><td colspan="1"><input size="4" name="PRIMER_MAX_END_GC" value="5" type="text">
-</td><td colspan="2"></td></tr>
+</td><td colspan="5">
 
-<tr><td colspan="2">
-  <a name="PRIMER_POS_OVERLAP_TO_END_DIST_INPUT" href="primer3web_help.cgi#PRIMER_POS_OVERLAP_TO_END_DIST">Primer position overlap:</a>
-  </td><td colspan="1">
-  <input size="4" name="PRIMER_POS_OVERLAP_TO_END_DIST" value="5" type="text">
-  </td><td colspan="5"> (Distance of the primer ends to one <a href="#SEQUENCE_PRIMER_OVERLAP_POS_INPUT">overlap position</a>.)
+</td></tr><tr>
+<td colspan="2"><a name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.cgi#PRIMER_MINLEFT__THREE_PRIME_DISTANCE">3' End Distance Between Left Primers</a>
+</td><td colspan="1"><input size="4" name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE" value="-1" type="text">
+</td><td colspan="2"><a name="PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.cgi#PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE">3' End Distance Between Right Primers</a>
+</td><td colspan="1"><input size="4" name="PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE" value="-1" type="text">
+</td><td colspan="2">
 
-</td><td colspan=2"></td></tr><tr>
-  <td colspan="2"><a name="PRIMER_SALT_MONOVALENT_INPUT" href="primer3web_help.cgi#PRIMER_SALT_MONOVALENT">Concentration of monovalent cations:</a>
+</td></tr><tr>
+<td colspan="2"><a name="PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION_INPUT" href="primer3web_help.cgi#PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION">5 Prime Junction Overlap:</a>
+</td><td colspan="1"><input size="4" name="PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION" value="7" type="text">
+</td><td colspan="2"><a name="PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION_INPUT" href="primer3web_help.cgi#PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION">3 Prime Junction Overlap:</a>
+</td><td colspan="1"><input size="4" name="PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION" value="4" type="text">
+</td><td colspan="2">(Distance of the primer ends to one <a href="#SEQUENCE_OVERLAP_JUNCTION_LIST_INPUT">overlap position</a>.)
+
+</td></tr><tr>
+  <td colspan="2"><a name="PRIMER_SALT_MONOVALENT_INPUT" href="primer3web_help.cgi#PRIMER_SALT_MONOVALENT">Concentration of Monovalent Cations:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_SALT_MONOVALENT" value="50.0" type="text">
-  </td><td colspan="2"><a name="PRIMER_SALT_CORRECTIONS" href="primer3web_help.cgi#PRIMER_SALT_CORRECTIONS">Salt correction formula:</a></td>
+  </td><td colspan="2"><a name="PRIMER_SALT_CORRECTIONS" href="primer3web_help.cgi#PRIMER_SALT_CORRECTIONS">Salt Correction Formula:</a></td>
   <td colspan="3"><select name="PRIMER_SALT_CORRECTIONS">
   <option selected="selected" value="0"> Schildkraut and Lifson 1965
   </option><option value="1">SantaLucia 1998
@@ -329,7 +340,7 @@ Right primer end</a></td><td>
   </option></select>
 
 </td></tr><tr>
-<td colspan="2"><a name="PRIMER_SALT_DIVALENT_INPUT" href="primer3web_help.cgi#PRIMER_SALT_DIVALENT">Concentration of divalent cations</a>
+<td colspan="2"><a name="PRIMER_SALT_DIVALENT_INPUT" href="primer3web_help.cgi#PRIMER_SALT_DIVALENT">Concentration of Divalent Cations</a>
 </td><td colspan="1"><input size="4" name="PRIMER_SALT_DIVALENT" value="0.0" type="text">
 </td><td colspan="2"><a name="PRIMER_DNTP_CONC_INPUT" href="primer3web_help.cgi#PRIMER_DNTP_CONC">Concentration of dNTPs</a>
 </td><td colspan="1"><input size="4" name="PRIMER_DNTP_CONC" value="0.0" type="text">
