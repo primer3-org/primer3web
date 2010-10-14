@@ -196,6 +196,17 @@ Pair Max Template Mispriming</a></td><td>
 <input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="24.00" type="text">
 </td></tr>
 
+<tr>
+<td align=right>
+<a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.cgi#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">
+TM: Max Template Mispriming</a></td><td>
+<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
+</td><td align=right>
+<a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH">
+TM: Pair Max Template Mispriming</a></td><td>
+<input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
+</td></tr>
+
 <tr><td align=right>
 <a name="SEQUENCE_FORCE_LEFT_START_INPUT" href="primer3web_help.cgi#SEQUENCE_FORCE_LEFT_START">
 Left Primer Start</a></td><td>
@@ -264,6 +275,9 @@ Right Primer End</a></td><td>
 </tr>
 </table>
 
+<input name="MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT" value="1" type="checkbox">
+  <a name="PRIMER_THERMODYNAMIC_ALIGNMENT_INPUT" href="primer3web_help.cgi#PRIMER_THERMODYNAMIC_ALIGNMENT">Use Thermodynamic Alignment</a>
+
 <table border="0">
 <tr>
  <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_INPUT" href="primer3web_help.cgi#PRIMER_MAX_SELF_ANY">Max Self Complementarity:</a>
@@ -272,10 +286,28 @@ Right Primer End</a></td><td>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END" value="3.00" type="text">
 
 </td><td colspan=2"></td></tr><tr>
- <td colspan="2"><a name="PRIMER_MAX_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity:</a>
+ <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_TH_INPUT" href="primer3web_help.cgi#PRIMER_MAX_SELF_ANY_TH">TH: Max Self Complementarity:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY_TH" value="47.0" type="text">
+ </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_TH_INPUT" href="primer3web_help.cgi#PRIMER_MAX_SELF_END_TH">TH: Max 3' Self Complementarity:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END_TH" value="47.0" type="text">
+
+</td><td colspan=2"></td></tr><tr>
+ <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity:</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY" value="8.00" type="text">
- </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity:</a>
+ </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity:</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END" value="3.00" type="text">
+
+</td><td colspan=2"></td></tr><tr>
+ <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_COMPL_ANY_TH">TH: Max Pair Complementarity:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY_TH" value="47.0" type="text">
+ </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_COMPL_END_TH">TH: Max 3' Pair Complementarity:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END_TH" value="47.0" type="text">
+
+</td><td colspan=2"></td></tr><tr>
+ <td colspan="2"><a name="PRIMER_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.cgi#PRIMER_MAX_HAIRPIN_TH">TH: Max Primer Hairpin:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_HAIRPIN_TH" value="47.0" type="text">
+ </td><td colspan="2"><a name="PRIMER_PAIR_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_HAIRPIN_TH">TH: Max Pair Hairpin:</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_HAIRPIN_TH" value="47.0" type="text">
 
 </td><td colspan=2"></td></tr><tr>
  <td colspan="2"><a name="PRIMER_MAX_NS_ACCEPTED_INPUT" href="primer3web_help.cgi#PRIMER_MAX_NS_ACCEPTED">Max #N's accepted:</a>
@@ -459,12 +491,24 @@ Right Primer End</a></td><td>
 <table border="0">
 	<!-- tbody -->
 <tr>
-	<td><a name="WT_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_WT_SELF_ANY">Self Complementarity</a>
+	<td><a name="PRIMER_WT_SELF_ANY_INPUT" href="primer3web_help.cgi#PRIMER_WT_SELF_ANY">Self Complementarity</a>
 	</td><td><input size="4" name="PRIMER_WT_SELF_ANY" value="0.0" type="text">
 		
 	</td></tr><tr>
-	<td><a name="WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_WT_SELF_END">3' End Self Complementarity</a>
+	<td><a name="PRIMER_WT_SELF_ANY_TH_INPUT" href="primer3web_help.cgi#PRIMER_WT_SELF_ANY_TH">TH: Self Complementarity</a>
+	</td><td><input size="4" name="PRIMER_WT_SELF_ANY_TH" value="0.0" type="text">
+		
+	</td></tr><tr>
+	<td><a name="PRIMER_WT_SELF_END_INPUT" href="primer3web_help.cgi#PRIMER_WT_SELF_END">3' End Self Complementarity</a>
 	</td><td><input size="4" name="PRIMER_WT_SELF_END" value="0.0" type="text">
+		
+	</td></tr><tr>
+	<td><a name="PRIMER_WT_SELF_END_TH_INPUT" href="primer3web_help.cgi#PRIMER_WT_SELF_END_TH">TH: 3' End Self Complementarity</a>
+	</td><td><input size="4" name="PRIMER_WT_SELF_END_TH" value="0.0" type="text">
+		
+	</td></tr><tr>
+	<td><a name="PRIMER_WT_HAIRPIN_TH_INPUT" href="primer3web_help.cgi#PRIMER_WT_HAIRPIN_TH">TH: Hairpin</a>
+	</td><td><input size="4" name="PRIMER_WT_HAIRPIN_TH" value="0.0" type="text">
 		
 	</td></tr><tr>
 	<td><a name="WT_NUM_NS_INPUT" href="primer3web_help.cgi#PRIMER_WT_NUM_NS">#N's</a>
@@ -476,6 +520,10 @@ Right Primer End</a></td><td>
 		
     </tr><tr><td><a href="primer3web_help.cgi#PRIMER_WT_TEMPLATE_MISPRIMING">Template Mispriming</a>
     </td><td><input size="4" name="PRIMER_WT_TEMPLATE_MISPRIMING" value="0.0" type="text">
+
+	</td></tr><tr>
+    </tr><tr><td><a href="primer3web_help.cgi#PRIMER_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming</a>
+    </td><td><input size="4" name="PRIMER_WT_TEMPLATE_MISPRIMING_TH" value="0.0" type="text">
 
 	</td></tr><tr>
 	<td><a name="WT_SEQ_QUAL_INPUT" href="primer3web_help.cgi#PRIMER_WT_SEQ_QUAL">Sequence Quality</a>
@@ -526,20 +574,31 @@ Right Primer End</a></td><td>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_DIFF_TM" value="0.0" type="text">
 		
 	</td></tr><tr>
-	<td><a name="PAIR_WT_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_ANY">Any Complementarity</a>
+	<td><a name="PRIMER_PAIR_WT_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_ANY">Any Complementarity</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY" value="0.0" type="text">
 		
 	</td></tr><tr>
-	<td><a name="PAIR_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_END">3' End Complementarity</a>
+	<td><a name="PRIMER_PAIR_WT_COMPL_ANY_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_ANY_TH">TH: Any Complementarity</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY_TH" value="0.0" type="text">
+		
+	</td></tr><tr>
+	<td><a name="PRIMER_PAIR_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_END">3' End Complementarity</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END" value="0.0" type="text">
 		
 	</td></tr><tr>
+	<td><a name="PRIMER_PAIR_WT_COMPL_END_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_END_TH">TH: 3' End Complementarity</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END_TH" value="0.0" type="text">
+		
 	<td><a name="PAIR_WT_LIBRARY_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_LIBRARY_MISPRIMING">Library Mispriming</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_LIBRARY_MISPRIMING" value="0.0" type="text">
 		
     </td></tr><tr>
     <td><a href="primer3web_help.cgi#PRIMER_PAIR_WT_TEMPLATE_MISPRIMING">Template Mispriming Weight</a>
     </td><td><input size="4" name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING" value="0.0" type="text">
+
+    </td></tr><tr>
+    <td><a href="primer3web_help.cgi#PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming Weight</a>
+    </td><td><input size="4" name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH" value="0.0" type="text">
 
 	</td></tr><tr>
 	<td><a name="PAIR_WT_PR_PENALTY_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_PR_PENALTY">Primer Penalty Weight</a>
@@ -594,6 +653,22 @@ Right Primer End</a></td><td>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_ANY" value="12.00" type="text">
    </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_END">Internal Oligo Max 3' End Self Complementarity:</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_END" value="12.00" type="text">
+   </td><td colspan="2"></td>
+</tr>
+
+<tr>
+   <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_ANY_TH">TH: Internal Oligo Self Complementarity:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_ANY_TH" value="47.00" type="text">
+   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_SELF_END_TH">TH: Internal Oligo Max 3' End Self Complementarity:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_END_TH" value="47.00" type="text">
+   </td><td colspan="2"></td>
+</tr>
+
+<tr>
+   <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_HAIRPIN_TH">TH: Internal Oligo Hairpin:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_HAIRPIN_TH" value="47.00" type="text">
+   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB_TH">TH: Internal Oligo Max Template Mishyb:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB_TH" value="-1.0" type="text">
    </td><td colspan="2"></td>
 </tr>
 
@@ -681,8 +756,20 @@ Right Primer End</a></td><td>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY" value="0.0" type="text">
         
     </td></tr><tr>
+    <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_ANY_TH">TH: Internal Oligo Self Complementarity</a>
+    </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY_TH" value="0.0" type="text">
+        
+    </td></tr><tr>
     <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_END">Internal Oligo 3' End Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END" value="0.0" type="text">
+        
+    </td></tr><tr>
+    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SELF_END_TH">TH: Internal Oligo 3' End Complementarity</a>
+    </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END_TH" value="0.0" type="text">
+        
+    </td></tr><tr>
+    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_HAIRPIN_TH">TH: Internal Oligo Hairpin</a>
+    </td><td><input size="4" name="PRIMER_INTERNAL_WT_HAIRPIN_TH" value="0.0" type="text">
         
     </td></tr><tr>
 	<td><a name="IO_WT_NUM_NS_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_NUM_NS">Internal Oligo #N's</a>
@@ -695,6 +782,10 @@ Right Primer End</a></td><td>
     </td></tr><tr>
     <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TEMPLATE_MISHYB">Internal Oligo Template Mishybing</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TEMPLATE_MISHYB" value="0.0" type="text">
+        
+    </td></tr><tr>
+    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TEMPLATE_MISHYB_TH">TH: Internal Oligo Template Mishybing</a>
+    </td><td><input size="4" name="PRIMER_INTERNAL_WT_TEMPLATE_MISHYB_TH" value="0.0" type="text">
         
     </td></tr><tr>
     <td><a name="IO_WT_SEQ_QUAL_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SEQ_QUAL">

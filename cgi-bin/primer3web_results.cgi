@@ -128,6 +128,7 @@ sub process_input {
     }
 
     # Fix the values of the checkboxes:    
+    my $therodynamicAlignment  = 0;
     my $pick_left  = 0;
     my $pick_internal = 0;
     my $pick_right = 0;
@@ -138,6 +139,9 @@ sub process_input {
     my $pick_anyway = 0;
     my $explain_flag = 0;
     
+    if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT')) {
+        $therodynamicAlignment = 1;     
+    } 
     if (defined $query->param('MUST_XLATE_PRIMER_PICK_LEFT_PRIMER')) {
         $pick_left = 1;     
     } 
@@ -183,6 +187,7 @@ sub process_input {
 		next if /^PRIMER_FIRST_BASE_INDEX$/;
 		
 		next if /^MUST_XLATE/;
+		next if /^PRIMER_INTERNAL_WT_TEMPLATE_MISHYB_TH/; #TODO: Fix this!
 		
 		next if /^SEQUENCE_TARGET$/;
 		next if /^SEQUENCE_EXCLUDED_REGION$/;
@@ -275,6 +280,7 @@ sub process_input {
     push @input, "SEQUENCE_ID=$sequence_id\n";
     push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
 
+    push @input, "PRIMER_THERMODYNAMIC_ALIGNMENT=$therodynamicAlignment\n";
     push @input, "PRIMER_PICK_LEFT_PRIMER=$pick_left\n";
     push @input, "PRIMER_PICK_INTERNAL_OLIGO=$pick_internal\n";
     push @input, "PRIMER_PICK_RIGHT_PRIMER=$pick_right\n";
@@ -299,7 +305,7 @@ sub process_input {
     print FILE @input;
     close(FILE);
 
-#    my $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linus
+#    my $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
     my $cmd = "$PRIMER_BIN < $file_name -format_output -strict_tags"; # for windows
 
     open PRIMER3OUTPUT, "$cmd 2>&1 |"
