@@ -667,8 +667,8 @@ Right Primer End</a></td><td>
 <tr>
    <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_HAIRPIN_TH">TH: Internal Oligo Hairpin:</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_HAIRPIN_TH" value="47.00" type="text">
-   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB_TH">TH: Internal Oligo Max Template Mishyb:</a>
-   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB_TH" value="-1.0" type="text">
+   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_QUALITY">Internal Oligo Min Sequence Quality:</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MIN_QUALITY" value="0" type="text">
    </td><td colspan="2"></td>
 </tr>
 
@@ -694,14 +694,6 @@ Right Primer End</a></td><td>
   </td><td colspan="2"></td>
 </tr>
   
-<tr>
-  <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_QUALITY">Internal Oligo Min Sequence Quality:</a>
-  </td colspan="1"><td><input size="4" name="PRIMER_INTERNAL_MIN_QUALITY" value="0" type="text">
-  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB">Internal Oligo Max Template Mishyb:</a>
-  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_TEMPLATE_MISHYB" value="-1.00" type="text">
-  </td><td colspan="2"></td>
-</tr>
-
 <tr>
   <td colspan="2"><a href="primer3web_help.cgi#PRIMER_INTERNAL_SALT_MONOVALENT">Internal Oligo Conc of monovalent cations:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_SALT_MONOVALENT" value="50.0" type="text">
@@ -778,14 +770,6 @@ Right Primer End</a></td><td>
     </td></tr><tr>
     <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_LIBRARY_MISHYB">Internal Oligo Library Mishybing</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_LIBRARY_MISHYB" value="0.0" type="text">
-        
-    </td></tr><tr>
-    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TEMPLATE_MISHYB">Internal Oligo Template Mishybing</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_WT_TEMPLATE_MISHYB" value="0.0" type="text">
-        
-    </td></tr><tr>
-    <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_TEMPLATE_MISHYB_TH">TH: Internal Oligo Template Mishybing</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_WT_TEMPLATE_MISHYB_TH" value="0.0" type="text">
         
     </td></tr><tr>
     <td><a name="IO_WT_SEQ_QUAL_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_WT_SEQ_QUAL">
@@ -880,13 +864,6 @@ under grants R01-HG00257
 (to David C. Page) and P50-HG00098 (to Eric S. Lander).
 </p>
 
-<p>
-We thank
-<a href="http://www.centerline.com">
-Centerline Software, Inc.,
-</a>
-for use of their TestCenter memory-error, -leak, and test-coverage checker.
-</p>
 <p>
 Primer3 was a complete re-implementation
 of an earlier program:

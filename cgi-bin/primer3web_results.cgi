@@ -187,7 +187,6 @@ sub process_input {
 		next if /^PRIMER_FIRST_BASE_INDEX$/;
 		
 		next if /^MUST_XLATE/;
-		next if /^PRIMER_INTERNAL_WT_TEMPLATE_MISHYB_TH/; #TODO: Fix this!
 		
 		next if /^SEQUENCE_TARGET$/;
 		next if /^SEQUENCE_EXCLUDED_REGION$/;
