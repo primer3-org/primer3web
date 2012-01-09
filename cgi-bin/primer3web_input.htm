@@ -15,7 +15,7 @@
 <tr>
   <td rowspan="2" valign="middle">
         <a name="top"><font size="+3">&nbsp;&nbsp;Primer3web</font></a>
-        &nbsp;version 2.0.0&nbsp;&nbsp;-&nbsp;&nbsp;
+        &nbsp;version 2.2.3&nbsp;&nbsp;-&nbsp;&nbsp;
         Pick primers from a DNA sequence.
     </td>
     <td align="center">
@@ -152,7 +152,7 @@ Mispriming Library (repeat library):</a>
 <tr>
   <td>
     <a name="PRIMER_PRODUCT_SIZE_RANGE_INPUT" href="primer3web_help.cgi#PRIMER_PRODUCT_SIZE_RANGE">Product Size Ranges</a>
-    <input size="80" name="PRIMER_PRODUCT_SIZE_RANGE" value="150-250 100-300 301-400 401-500 501-600 601-700 701-850 851-1000" type="text">
+    <input size="80" name="PRIMER_PRODUCT_SIZE_RANGE" value="100-300" type="text">
 </td></tr>
 
 <!--
@@ -173,7 +173,7 @@ intensive for our server).</a>
  </td><td><input size="4" name="PRIMER_NUM_RETURN" value="5" type="text">
 </td><td align=right>
 <a name="PRIMER_MAX_END_STABILITY_INPUT" href="primer3web_help.cgi#PRIMER_MAX_END_STABILITY">Max 3' Stability</a>
- </td><td><input size="4" name="PRIMER_MAX_END_STABILITY" value="9.0" type="text">
+ </td><td><input size="4" name="PRIMER_MAX_END_STABILITY" value="100.0" type="text">
 
 </td></tr><tr><td align=right>
  <a name="PRIMER_MAX_LIBRARY_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_MAX_LIBRARY_MISPRIMING">Max Library Mispriming</a>
@@ -189,21 +189,21 @@ Pair Max Library Mispriming</a></td><td>
 <td align=right>
 <a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_MAX_TEMPLATE_MISPRIMING">
 Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="12.00" type="text">
+<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="-1.00" type="text">
 </td><td align=right>
 <a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING">
 Pair Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="24.00" type="text">
+<input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="-1.00" type="text">
 </td></tr>
 
 <tr>
 <td align=right>
 <a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.cgi#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">
-TM: Max Template Mispriming</a></td><td>
+TH: Max Template Mispriming</a></td><td>
 <input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
 </td><td align=right>
 <a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH">
-TM: Pair Max Template Mispriming</a></td><td>
+TH: Pair Max Template Mispriming</a></td><td>
 <input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
 </td></tr>
 
@@ -261,14 +261,14 @@ Right Primer End</a></td><td>
 
 </td></tr><tr>
   <td><a name="PRIMER_PRODUCT_TM_INPUT" href="primer3web_help.cgi#PRIMER_PRODUCT_MIN_TM">Product Tm</a>
-  </td><td>Min: <input size="4" name="PRIMER_PRODUCT_MIN_TM" value="" type="text">
-  </td><td>Opt: <input size="4" name="PRIMER_PRODUCT_OPT_TM" value="" type="text">
-  </td><td>Max: <input size="4" name="PRIMER_PRODUCT_MAX_TM" value="" type="text">
+  </td><td>Min: <input size="4" name="PRIMER_PRODUCT_MIN_TM" value="-1000000.0" type="text">
+  </td><td>Opt: <input size="4" name="PRIMER_PRODUCT_OPT_TM" value="0.0" type="text">
+  </td><td>Max: <input size="4" name="PRIMER_PRODUCT_MAX_TM" value="1000000.0" type="text">
   </td></tr>
 <tr>
  <td><a name="PRIMER_GC_PERCENT_INPUT" href="primer3web_help.cgi#PRIMER_MIN_GC">Primer GC%</a>
  </td><td>Min: <input size="4" name="PRIMER_MIN_GC" value="20.0" type="text">
- </td><td>Opt: <input size="4" name="PRIMER_OPT_GC_PERCENT" value="" type="text">
+ </td><td>Opt: <input size="4" name="PRIMER_OPT_GC_PERCENT" value="50.0" type="text">
  </td><td>Max: <input size="4" name="PRIMER_MAX_GC" value="80.0" type="text">
 
 </td>
@@ -322,7 +322,7 @@ Right Primer End</a></td><td>
   <a name="PRIMER_INSIDE_PENALTY_INPUT" href="primer3web_help.cgi#PRIMER_INSIDE_PENALTY">Inside Target Penalty:</a>
   </td>
   <td colspan="1">
-  <input size="4" name="PRIMER_INSIDE_PENALTY" value="" type="text">
+  <input size="4" name="PRIMER_INSIDE_PENALTY" value="-1.0" type="text">
   </td>
   <td colspan="2">
   <a name="PRIMER_OUTSIDE_PENALTY_INPUT" href="primer3web_help.cgi#PRIMER_OUTSIDE_PENALTY">Outside Target Penalty:</a>
@@ -345,7 +345,6 @@ Right Primer End</a></td><td>
 </td></tr><tr>
 <td colspan="2"><a name="PRIMER_MAX_END_GC_INPUT" href="primer3web_help.cgi#PRIMER_MAX_END_GC">Max GC in primer 3' end</a>
 </td><td colspan="1"><input size="4" name="PRIMER_MAX_END_GC" value="5" type="text">
-</td><td colspan="5">
 
 </td></tr><tr>
 <td colspan="2"><a name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.cgi#PRIMER_MINLEFT__THREE_PRIME_DISTANCE">3' End Distance Between Left Primers</a>
@@ -402,7 +401,7 @@ Right Primer End</a></td><td>
 
 <table border="0">
 <tr>
- <td><input name="MUST_XLATE_PRIMER_LIBERAL_BASE" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_LIBERAL_BASE" value="1" type="checkbox">
   <a name="PRIMER_LIBERAL_BASE_INPUT" href="primer3web_help.cgi#PRIMER_LIBERAL_BASE">Liberal Base</a></td>
  <td><input name="MUST_XLATE_PRINT_INPUT" value="1" type="checkbox">
   <a name="SHOW_DEBUGGING_INPUT" href="primer3web_help.cgi#SHOW_DEBUGGING">Show Debuging Info</a></td>
@@ -412,7 +411,7 @@ Right Primer End</a></td><td>
 <tr>
  <td><input name="MUST_XLATE_PRIMER_LOWERCASE_MASKING" value="1" type="checkbox">
   <a name="PRIMER_LOWERCASE_MASKING" href="primer3web_help.cgi#PRIMER_LOWERCASE_MASKING">Lowercase masking</a></td>
- <td><input name="MUST_XLATE_PRIMER_PICK_ANYWAY" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_PICK_ANYWAY" value="1" type="checkbox">
   <a name="PRIMER_PICK_ANYWAY" href="primer3web_help.cgi#PRIMER_PICK_ANYWAY">Pick anyway</a></td>
  <td><input name="MUST_XLATE_PRIMER_EXPLAIN_FLAG" value="1" checked="checked" type="checkbox">
   <a name="PRIMER_EXPLAIN_FLAG" href="primer3web_help.cgi#PRIMER_EXPLAIN_FLAG">Print Statistics</a></td>
@@ -535,7 +534,7 @@ Right Primer End</a></td><td>
 		
 	</td></tr><tr>
 	<td><a name="WT_POS_PENALTY_INPUT" href="primer3web_help.cgi#PRIMER_WT_POS_PENALTY">Position Penalty</a>
-	</td><td><input size="4" name="PRIMER_WT_POS_PENALTY" value="0.0" type="text">
+	</td><td><input size="4" name="PRIMER_WT_POS_PENALTY" value="1.0" type="text">
 
 	</td></tr><tr>
 	<td><a name="WT_END_STABILITY_INPUT" href="primer3web_help.cgi#PRIMER_WT_END_STABILITY">End Stability</a>
@@ -588,6 +587,7 @@ Right Primer End</a></td><td>
 	</td></tr><tr>
 	<td><a name="PRIMER_PAIR_WT_COMPL_END_TH_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_COMPL_END_TH">TH: 3' End Complementarity</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END_TH" value="0.0" type="text">
+	</td></tr><tr>
 		
 	<td><a name="PAIR_WT_LIBRARY_MISPRIMING_INPUT" href="primer3web_help.cgi#PRIMER_PAIR_WT_LIBRARY_MISPRIMING">Library Mispriming</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_LIBRARY_MISPRIMING" value="0.0" type="text">
@@ -642,7 +642,7 @@ Right Primer End</a></td><td>
 </td></tr><tr>
  <td><a name="PRIMER_INTERNAL_OLIGO_GC_INPUT" href="primer3web_help.cgi#PRIMER_INTERNAL_MIN_GC">Internal Oligo GC%</a>
  </td><td>Min: <input size="4" name="PRIMER_INTERNAL_MIN_GC" value="20.0" type="text">
- </td><td>Opt: <input size="4" name="PRIMER_INTERNAL_OPT_GC_PERCENT" value="" type="text">
+ </td><td>Opt: <input size="4" name="PRIMER_INTERNAL_OPT_GC_PERCENT" value="50.0" type="text">
  </td><td>Max: <input size="4" name="PRIMER_INTERNAL_MAX_GC" value="80.0" type="text">
 </td></tr><!-- /tbody -->
 </table>
@@ -794,8 +794,8 @@ Right Primer End</a></td><td>
 
 <h2><a name="disclaimer">Copyright Notice and Disclaimer</a></h2>
 <p>
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008<br>
-Whitehead Institute for Biomedical Research, <a href="http://purl.com/STEVEROZEN/">Steve Rozen</a><br>
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012<br>
+Whitehead Institute for Biomedical Research, <a href="http://purl.com/STEVEROZEN/">Steve Rozen</a>
 , Andreas Untergasser and Helen Skaletsky.<br>
 All rights reserved.<br>
 </p>
@@ -878,6 +878,6 @@ Web interface by
 <!-- This web service provided by YOUR ORGANZATION HERE -->
 </p>
 <hr>
-<pre>(input.htm v 2.0.0)</pre>
+<pre>(input.htm v 2.2.3)</pre>
 </body>
 </html>
