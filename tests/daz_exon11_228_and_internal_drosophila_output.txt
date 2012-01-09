@@ -1,0 +1,88 @@
+** SET product size range to 228-228, max mispriming to 14, and ask for an internal oligo ***
+** SET mispriming library to DROSOPHILA
+
+Primer3 Output
+
+PRIMER PICKING RESULTS FOR DAZ_ex11 from DAZ_complete (67078..67579; 502 bp)
+
+Using mispriming library drosophila.w.transposons.txt
+No hyb oligo mishyb library specified
+Using 1-based sequence positions
+OLIGO            start  len      tm     gc%   any    3'   rep seq 
+LEFT PRIMER         76   20   59.97   45.00  3.00  0.00 13.00 ATGGGAAGTTGCTGGTTTTG
+RIGHT PRIMER       303   25   57.77   32.00  4.00  2.00 14.00 TCTTAACATTCTTTCAGTCTCGATT
+HYB OLIGO          132   25   59.93   32.00  4.00  3.00       TCTGAATTTTGGTAAATCACACTGA
+SEQUENCE SIZE: 502
+INCLUDED REGION SIZE: 502
+
+PRODUCT SIZE: 228, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 0.00
+
+    1 GGTAAAAGAGTGCATCGCTTTAGAAGAAGTTTGGCAGTATTTAAATCTGTTGGATCCTCT
+                                                                  
+
+   61 CAGCTATCTAGTTTCATGGGAAGTTGCTGGTTTTGAATATTAAGCTAAAAGTTTTCCACT
+                     >>>>>>>>>>>>>>>>>>>>                         
+
+  121 ATTACAGAAATTCTGAATTTTGGTAAATCACACTGAAACTTTCTGTATAACTTGTATTAT
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^                        
+
+  181 TAGACTCTCTAGTTTTATCTTAACACTGAAACTGTTCTTCATTAGATGTTTATTTAGAAC
+                                                                  
+
+  241 CTGGTTCTGTGTTTAATATATAGTTTAAAGTAACAAATAATCGAGACTGAAAGAATGTTA
+                                            <<<<<<<<<<<<<<<<<<<<<<
+
+  301 AGATTTATCTGCAAGGATTTTTAAAAAATTGAAACTTGCATTTTAAGTGTTTAAAAGCAA
+      <<<                                                         
+
+  361 ATACTGACTTTCAAAAAAGTTTTTAAAACCTGATTTGAAAGCTAACAATTTTGATAGTCT
+                                                                  
+
+  421 GAACACAAGCATTTCACTTCTCCAAGAAGTACCTGTGAACAGTACAATATTTCAGTATTG
+                                                                  
+
+  481 AGCTTTGCATTTATGATTTATC
+                            
+
+KEYS (in order of precedence):
+>>>>>> left primer
+<<<<<< right primer
+^^^^^^ hyb oligo
+
+ADDITIONAL OLIGOS
+                    start  len      tm     gc%   any    3'   rep seq 
+
+ 1 LEFT PRIMER         72   20   60.50   45.00  4.00  0.00 12.00 TTTCATGGGAAGTTGCTGGT
+   RIGHT PRIMER       299   26   59.19   30.77  4.00  2.00 14.00 AACATTCTTTCAGTCTCGATTATTTG
+   HYB OLIGO          132   25   59.93   32.00  4.00  3.00       TCTGAATTTTGGTAAATCACACTGA
+   PRODUCT SIZE: 228, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 0.00
+
+ 2 LEFT PRIMER         72   20   60.50   45.00  4.00  0.00 12.00 TTTCATGGGAAGTTGCTGGT
+   RIGHT PRIMER       299   27   59.87   29.63  4.00  0.00 14.00 AACATTCTTTCAGTCTCGATTATTTGT
+   HYB OLIGO          132   25   59.93   32.00  4.00  3.00       TCTGAATTTTGGTAAATCACACTGA
+   PRODUCT SIZE: 228, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 0.00
+
+ 3 LEFT PRIMER         78   20   60.09   45.00  3.00  3.00 13.00 GGGAAGTTGCTGGTTTTGAA
+   RIGHT PRIMER       305   27   59.24   29.63  8.00  2.00 14.00 AATCTTAACATTCTTTCAGTCTCGATT
+   HYB OLIGO          132   25   59.93   32.00  4.00  3.00       TCTGAATTTTGGTAAATCACACTGA
+   PRODUCT SIZE: 228, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 2.00
+
+ 4 LEFT PRIMER         78   20   60.09   45.00  3.00  3.00 13.00 GGGAAGTTGCTGGTTTTGAA
+   RIGHT PRIMER       305   26   58.10   30.77  8.00  2.00 14.00 AATCTTAACATTCTTTCAGTCTCGAT
+   HYB OLIGO          132   25   59.93   32.00  4.00  3.00       TCTGAATTTTGGTAAATCACACTGA
+   PRODUCT SIZE: 228, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
+
+Statistics
+         con   too    in    in          no    tm    tm  high  high  high        high      
+         sid  many   tar  excl   bad    GC   too   too   any    3'   lib  poly   end      
+        ered    Ns   get   reg   GC% clamp   low  high compl compl   sim     X  stab    ok
+Left    2711     0     0     0   223     0  1932    77    38     5    11     0     9   416
+Right   2532     0     0     0   300     0  1682    29     9    10     1    40     0   461
+Hyb     4600     0     0     0   367     0  3153   126     0     0     0    38     0   916
+Pair Stats:
+considered 77932, unacceptable product size 77908, high end compl 1, high mispriming library similarity 6, ok 17
+primer3 release 1.0
+
+
+
+(primer3_www_results.cgi v 0.3)
