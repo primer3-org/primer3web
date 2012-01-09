@@ -74,17 +74,6 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 };
 
-BEGIN{
-  print "Content-type: text/html\n\n";
-
-  # Ensure that errors will go to the web browser.
-  # open(LOG,">&STDERR"); Intended logging capability does not work correctly.
-  # close(STDERR);
-  open(STDERR, ">&STDOUT");
-  $| = 1;
-  print '';
-}
-
 use CGI;
 use Carp;
 use FileHandle;
@@ -92,9 +81,9 @@ use IPC::Open3;
 
 main();
 
-sub main {
+sub main 
+{
   $query = new CGI;
-
   if ($query->param('Pick Primers')) {
     process_input($query);
   } elsif ($query->param('Download Settings')) {
@@ -160,6 +149,11 @@ sub list_settings($)
   $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
   $pick_internal = 1 if $query->param('SEQUENCE_INTERNAL_OLIGO');
 
+  my @input;
+
+  push @input, "Primer3 File - http://primer3.sourceforge.net\n";
+  push @input, "P3_FILE_TYPE=settings\n";
+
   push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
   push @input, "PRIMER_THERMODYNAMIC_ALIGNMENT=$therodynamicAlignment\n";
   push @input, "PRIMER_PICK_LEFT_PRIMER=$pick_left\n";
@@ -171,7 +165,6 @@ sub list_settings($)
   push @input, "PRIMER_PICK_ANYWAY=$pick_anyway\n";
   push @input, "PRIMER_EXPLAIN_FLAG=$explain_flag\n";
 
-  my @input;
   for (@names) {
     next if /^Pick Primers$/;
     next if /^Download Settings$/;
@@ -198,25 +191,19 @@ sub list_settings($)
     next if /^SEQUENCE_FORCE_RIGHT_END$/;
 	
     $v = $query->param($_);
-    next if $v =~ /^\s*$/;
     if (/^PRIMER_(MISPRIMING|INTERNAL_MISHYB)_LIBRARY$/) {
       $v = $SEQ_LIBRARY{$v};
     }
+    next if $v =~ /^\s*$/;
     $line = "$_=$v\n";
     push @input, $line;
   }
   push @input, "=\n";
 
-  my $file_name = "/tmp/settings" . makeUniqueID();
-  open(FILE, ">$file_name") or print("Error: Cannot write $file_name");
-  print FILE "Primer3 File - http://primer3.sourceforge.net\n";
-  print FILE "P3_FILE_TYPE=settings\n";
-  print FILE @input;
-  close(FILE);
-
   # return the file
-  print $query->header(-type=>'application/octet-stream',
-		       -attachment=>'$file_name');
+  print "Content-Type:application/x-download; name=primer3_settings.txt\n";
+  print "Content-Disposition: attachment; filename=primer3_settings.txt\n\n";
+  print @input;
 }
 
 sub process_input 
@@ -228,6 +215,14 @@ sub process_input
 
     local $DO_NOT_PICK = 0;
 
+    print "Content-type: text/html\n\n";
+    # Ensure that errors will go to the web browser.
+    # open(LOG,">&STDERR"); Intended logging capability does not work correctly.
+    # close(STDERR);
+    open(STDERR, ">&STDOUT");
+    $| = 1;
+    print '';
+    
     print $query->start_html("Primer3 Output $CGI_RELEASE");
     print qq{<h2>Primer3 Output</h2>\n};
     print "<hr>\n";
