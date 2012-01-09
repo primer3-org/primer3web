@@ -97,12 +97,130 @@ sub main {
 
   if ($query->param('Pick Primers')) {
     process_input($query);
+  } elsif ($query->param('Download Settings')) {
+    list_settings($query);
   } else {
-    confess "Did not see the 'Pick Primers' query parameter"
+    confess "Did not see the 'Pick Primers' or 'Download Settings' query parameter";
   }
 }
 
-sub process_input {
+sub list_settings($) 
+{
+  my ($query) = @_;
+  my @names = $query->param;
+
+  my $first_base_index = $query->param('PRIMER_FIRST_BASE_INDEX');
+  if ($first_base_index !~ \S) {
+    $first_base_index = 1;
+  }
+
+  # Fix the values of the checkboxes:
+  my $therodynamicAlignment  = 0;
+  my $pick_left  = 0;
+  my $pick_internal = 0;
+  my $pick_right = 0;
+  my $liberal_base = 0;
+  my $print_input = 0;
+  my $ambiguity_Consensus = 0;
+  my $lowercase_masking = 0;
+  my $pick_anyway = 0;
+  my $explain_flag = 0;
+
+  if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT')) {
+    $therodynamicAlignment = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_PICK_LEFT_PRIMER')) {
+    $pick_left = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_PICK_INTERNAL_OLIGO')) {
+    $pick_internal = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_PICK_RIGHT_PRIMER')) {
+    $pick_right = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_LIBERAL_BASE')) {
+    $liberal_base = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRINT_INPUT')) {
+    $print_input = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS')) {
+    $ambiguity_Consensus = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_LOWERCASE_MASKING')) {
+    $lowercase_masking = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_PICK_ANYWAY')) {
+    $pick_anyway = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_EXPLAIN_FLAG')) {
+    $explain_flag = 1;
+  }
+  $pick_left     = 1 if $query->param('SEQUENCE_PRIMER');
+  $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
+  $pick_internal = 1 if $query->param('SEQUENCE_INTERNAL_OLIGO');
+
+  push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
+  push @input, "PRIMER_THERMODYNAMIC_ALIGNMENT=$therodynamicAlignment\n";
+  push @input, "PRIMER_PICK_LEFT_PRIMER=$pick_left\n";
+  push @input, "PRIMER_PICK_INTERNAL_OLIGO=$pick_internal\n";
+  push @input, "PRIMER_PICK_RIGHT_PRIMER=$pick_right\n";
+  push @input, "PRIMER_LIBERAL_BASE=$liberal_base\n";
+  push @input, "PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS=$ambiguity_Consensus\n";
+  push @input, "PRIMER_LOWERCASE_MASKING=$lowercase_masking\n";
+  push @input, "PRIMER_PICK_ANYWAY=$pick_anyway\n";
+  push @input, "PRIMER_EXPLAIN_FLAG=$explain_flag\n";
+
+  my @input;
+  for (@names) {
+    next if /^Pick Primers$/;
+    next if /^Download Settings$/;
+    next if /^PRIMER_FIRST_BASE_INDEX$/;
+    next if /^MUST_XLATE/;
+
+    # we skip completely all sequence related tags
+    next if /^SEQUENCE_ID$/;
+    next if /^SEQUENCE_TARGET$/;
+    next if /^SEQUENCE_EXCLUDED_REGION$/;
+    next if /^SEQUENCE_INCLUDED_REGION$/;
+    next if /^SEQUENCE_OVERLAP_JUNCTION_LIST$/;
+    next if /^SEQUENCE_TEMPLATE$/;
+    next if /^SEQUENCE_PRIMER$/;
+    next if /^SEQUENCE_INTERNAL_OLIGO$/;
+    next if /^SEQUENCE_PRIMER_REVCOMP$/;
+    next if /^SEQUENCE_QUALITY$/;
+    next if /^SEQUENCE_PRIMER_PAIR_OK_REGION_LIST$/;
+    next if /^SEQUENCE_START_CODON_POSITION$/;
+    next if /^SEQUENCE_INTERNAL_EXCLUDED_REGION$/;
+    next if /^SEQUENCE_FORCE_LEFT_START$/;
+    next if /^SEQUENCE_FORCE_LEFT_END$/;
+    next if /^SEQUENCE_FORCE_RIGHT_START$/;
+    next if /^SEQUENCE_FORCE_RIGHT_END$/;
+	
+    $v = $query->param($_);
+    next if $v =~ /^\s*$/;
+    if (/^PRIMER_(MISPRIMING|INTERNAL_MISHYB)_LIBRARY$/) {
+      $v = $SEQ_LIBRARY{$v};
+    }
+    $line = "$_=$v\n";
+    push @input, $line;
+  }
+  push @input, "=\n";
+
+  my $file_name = "/tmp/settings" . makeUniqueID();
+  open(FILE, ">$file_name") or print("Error: Cannot write $file_name");
+  print FILE "Primer3 File - http://primer3.sourceforge.net\n";
+  print FILE "P3_FILE_TYPE=settings\n";
+  print FILE @input;
+  close(FILE);
+
+  # return the file
+  print $query->header(-type=>'application/octet-stream',
+		       -attachment=>'$file_name');
+}
+
+sub process_input 
+{
     my ($query) = @_;
     my $wrapup = "<pre>$CGI_RELEASE</pre>" . $query->end_html;
     my $tmpurl = $query->url;
@@ -260,7 +378,7 @@ sub process_input {
 	}
       } elsif (/^PRIMER_(MISPRIMING|INTERNAL_MISHYB)_LIBRARY$/) {
 	$v = $SEQ_LIBRARY{$v};
-      } elsif (/^PRIMER_SEQUENCE_QUALITY$/) {
+      } elsif (/^SEQUENCE_QUALITY$/) {
 	$v =~ s/\s/ /sg;  # If value contains newlines (or other non-space whitespace)
 	# change them to space.
       }
@@ -353,7 +471,7 @@ sub process_input {
     print "$wrapup\n";
 }
 
-sub check_server_side_configuration 
+sub check_server_side_configuration
 {
   my ($query) = @_;
 
