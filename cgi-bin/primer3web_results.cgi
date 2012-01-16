@@ -78,6 +78,7 @@ use CGI;
 use Carp;
 use FileHandle;
 use IPC::Open3;
+use File::Basename;
 
 main();
 
@@ -88,12 +89,217 @@ sub main
     process_input($query);
   } elsif ($query->param('Download Settings')) {
     list_settings($query);
+  } elsif ($query->param('Upload')) {
+    get_settings($query);
   } else {
     confess "Did not see the 'Pick Primers' or 'Download Settings' query parameter";
   }
 }
 
-sub list_settings($) 
+sub show_error($)
+{
+    my ($msg) = @_;
+    print "$msg";
+}
+
+sub get_settings($)
+{
+  my ($query) = @_;
+  print "Content-type: text/html\n\n";
+  # Ensure that errors will go to the web browser.
+  open(STDERR, ">&STDOUT");
+  $| = 1;
+  my @names = $query->param;
+  my $file = $query->param('input');
+  if (!$file) {
+    show_error("No settings file specified!");
+    return;
+  }
+  my %tags;
+  # get file handle
+  my $upload_filehandle = $query->upload("input");
+  # read the tags
+  while (<$upload_filehandle>) {
+    chomp($_);
+    $_ =~ s/^\s*//;
+    $_ =~ s/\s*$//;
+    if ($_ eq "=") {
+      # ignore anything after an = line
+      last;
+    }
+    if ($_ =~ /^Primer3 File/) { next; }
+    unless ($_ =~ /([A-Z_0-9]+)=([^\n]*)/) {
+      show_error("Incorrect syntax on line \"$_\" of settings file");
+      return;
+    }
+    my $tag = $1;
+    my $value = $2;
+    if (($tag eq "PRIMER_MISPRIMING_LIBRARY") || ($tag eq 'PRIMER_INTERNAL_MISHYB_LIBRARY')) {
+      if ($value eq "humrep_and_simple.txt") {
+	$value = "HUMAN";
+      } elsif ($value eq "rodrep_and_simple.txt") {
+	$value = "RODENT_AND_SIMPLE";
+      } elsif ($value eq "rodent_ref.txt") {
+	$value = "RODENT";
+      } elsif ($value eq "drosophila_w_transposons.txt") {
+	$value = "DROSOPHILA";
+      } else {
+	$value = "NONE";
+      }
+    } elsif ($tag eq "PRIMER_TASK") {
+      if ($value eq "pick_pcr_primers") {
+	$value = "pick_detection_primers";
+	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 1;
+	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 0;
+	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 1;
+      } elsif ($value eq "pick_pcr_primers_and_hyb_probe") {
+	$value = "pick_detection_primers";
+	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 1;
+	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 1;
+	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 1;
+      } elsif ($value eq "pick_left_only") {
+	$value = "pick_detection_primers";
+	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 1;
+	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 0;
+	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 0;
+      } elsif ($value eq "pick_right_only") {
+	$value = "pick_detection_primers";
+	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 0;
+	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 0;
+	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 1;
+      } elsif ($value eq "pick_hyb_probe_only") {
+	$value = "pick_detection_primers";
+	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 0;
+	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 1;
+	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 0;
+      } elsif (($value ne "pick_detection_primers") &&
+	  ($value ne "pick_cloning_primers") &&
+	  ($value ne "pick_discriminative_primers") &&
+	  ($value ne "pick_sequencing_primers") &&
+	  ($value ne "pick_primer_list") &&
+	  ($value ne "check_primers")) {
+	# use default
+	$value = "pick_detection_primers";
+      }
+    } elsif ($tag =~ /^SEQUENCE_/) {
+      # ignore sequence related tags
+      next;
+    }
+    $tags{$tag} = $value;
+  }
+  if (!defined($tags{'PRIMER_MISPRIMING_LIBRARY'})) {
+    $tags{'PRIMER_MISPRIMING_LIBRARY'} = 'NONE';
+  }
+  if (!defined($tags{'PRIMER_INTERNAL_MISHYB_LIBRARY'})) {
+    $tags{'PRIMER_INTERNAL_MISHYB_LIBRARY'} = 'NONE';
+  }
+  # read in primer3web_input.htm and update the values
+  open IN, "primer3web_input.htm" or die "open primer3web_input.htm: $!\n";
+  my $line = <IN>;
+  while (1) {
+    if (!$line) { last; }
+    if ($line =~ /^\s*$/) { $line = <IN>; next; }
+    if ($line =~ /primer3web_help.htm/) {
+      $line =~ s/primer3web_help.htm/\.\.\/primer3web_help.htm/;
+    }
+    if ($line =~ /Upload the settings from a file/) {
+      print "<p>Settings were loaded from $file</p>\n";
+    }
+    if ($line =~ /select name="PRIMER_MISPRIMING_LIBRARY"/) {
+      # read in all option lines and select the right one
+      while ($line !~ /\/select/) {
+	# unselect to make it easier
+	$line =~ s/\s*selected="selected"\s*//;
+	my $value;
+	if ($line =~ /\<option\>([A-Za-z0-9]+)\<\/option\>/) {
+	  $value = $1;
+	  if ($tags{'PRIMER_MISPRIMING_LIBRARY'} eq $value) {
+	    # put the select
+	    $line =~ s/option/option selected="selected"/;
+	  }
+	}
+	print $line;
+	$line = <IN>;
+      }
+      next;
+    } elsif ($line =~ /select name="PRIMER_INTERNAL_MISHYB_LIBRARY"/) {
+      # read in all option lines and select the right one
+      while ($line !~ /\/select/) {
+	# unselect to make it easier
+	$line =~ s/\s*selected="selected"\s*//;
+	my $value;
+	if ($line =~ /\<option\>([A-Za-z0-9]+)\<\/option\>/) {
+	  $value = $1;
+	  if ($tags{'PRIMER_INTERNAL_MISHYB_LIBRARY'} eq $value) {
+	    # put the select
+	    $line =~ s/option/option selected="selected"/;
+	  }
+	}
+	print $line;
+	$line = <IN>;
+      }
+      next;
+    } elsif ($line =~ /select name="PRIMER_TM_FORMULA"/) {
+      if (!defined($tags{'PRIMER_TM_FORMULA'})) { print $line; $line = <IN>; next; }
+      my $value = $tags{'PRIMER_TM_FORMULA'};
+      # read in all option lines and select the right one
+      while ($line !~ /\/select/) {
+	# unselect to make it easier
+	$line =~ s/selected="selected"//;
+	if ($line =~ /value="$value"/) {
+	  $line =~ s/value="$value"/value="$value" selected="selected"/;
+	}
+	print $line;
+	$line = <IN>;
+      }
+      next;
+    } elsif ($line =~ /select name="PRIMER_SALT_CORRECTIONS"/) {
+      if (!defined($tags{'PRIMER_SALT_CORRECTIONS'})) { print $line; $line = <IN>; next; }
+      my $value = $tags{'PRIMER_SALT_CORRECTIONS'};
+      # read in all option lines and select the right one
+      while ($line !~ /\/select/) {
+	# unselect to make it easier
+	$line =~ s/selected="selected"//;
+	if ($line =~ /value="$value"/) {
+	  $line =~ s/value="$value"/value="$value" selected="selected"/;
+	}
+	print $line;
+	$line = <IN>;
+      }
+      next;
+    } elsif ($line =~ /name="([A-Z_]+)"/) {
+      my $name = $1;
+      if ($name =~ /^MUST_XLATE_/) {
+	# this is a checkbox, determine if it should be checked
+	$name =~ s/^MUST_XLATE_//;
+	if (defined($tags{$name})) {
+	  $line =~ s/checked="checked"//;
+	  if ($tags{$name} != 0) {
+	    $line =~ s/type="checkbox"/checked="checked" type="checkbox"/;
+	  }
+	}
+      } elsif ($line =~ /value="(.+)"/) {
+	my $value = $1;
+	if (defined($tags{$name})) {
+	  $line =~ s/value=".+"/value="$tags{$name}"/;
+	}
+      }
+    } elsif ($line =~ /action="cgi-bin\/primer3web_results\.cgi"/) {
+      $line =~ s/action="cgi-bin\/primer3web_results\.cgi"/action="primer3web_results\.cgi"/;
+    } elsif (($line =~ /pick_detection_primers/) && (defined($tags{'PRIMER_TASK'})) && 
+	     ($tags{'PRIMER_TASK'} ne "pick_detection_primers")) {
+      $line =~ s/selected="selected"//;
+    } elsif (($line =~ /(pick_[a-z_]*)/) && (defined($tags{'PRIMER_TASK'})) &&
+	     ($tags{'PRIMER_TASK'} eq $1)) {
+      $line =~ s/option/option selected="selected"/;
+    } 
+    print $line;
+    $line = <IN>;
+  }
+  close IN;
+}
+
+sub list_settings($)
 {
   my ($query) = @_;
   my @names = $query->param;

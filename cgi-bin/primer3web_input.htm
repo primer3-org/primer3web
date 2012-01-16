@@ -9,7 +9,7 @@
 
 <body>
 
-<form action="cgi-bin/primer3web_results.cgi" method="post" enctype="x-www-form-urlencoded">
+<form action="cgi-bin/primer3web_results.cgi" method="post" enctype="multipart/form-data">
 
 <table border="1" width="100%" bgcolor="#CCCCFF">
 <tr>
@@ -65,10 +65,10 @@ FASTA format ok.  Please N-out undesirable sequence
 Mispriming Library (repeat library):</a>
 <tt> </tt><select name="PRIMER_MISPRIMING_LIBRARY">
 <option selected="selected">NONE</option>
-<option> HUMAN</option>
-<option> RODENT_AND_SIMPLE</option>
-<option> RODENT</option>
-<option> DROSOPHILA</option>
+<option>HUMAN</option>
+<option>RODENT_AND_SIMPLE</option>
+<option>RODENT</option>
+<option>DROSOPHILA</option>
 </select>
 </p>
 
@@ -100,6 +100,11 @@ Mispriming Library (repeat library):</a>
 </tr>
 <!-- /tbody -->
 </table>
+
+<p>Upload the settings from a file:
+<input type="file" name="input"/>
+<input name="Upload" value="Upload" type="submit"/>
+</p>
 
 
 <p>
@@ -257,9 +262,9 @@ Right Primer End</a></td><td>
      <input size="4" name="PRIMER_PAIR_MAX_DIFF_TM" value="100.0" type="text">
  </td><td><a name="PRIMER_TM_FORMULA" href="primer3web_help.htm#PRIMER_TM_FORMULA">Table of thermodynamic parameters:</a> 
  <select name="PRIMER_TM_FORMULA">
-     <option selected="selected" value="0">Breslauer et al. 1986
-     </option><option value="1">SantaLucia 1998
-     </option></select>
+     <option selected="selected" value="0">Breslauer et al. 1986</option>
+     <option value="1">SantaLucia 1998</option>
+     </select>
 
 </td></tr><tr>
   <td><a name="PRIMER_PRODUCT_TM_INPUT" href="primer3web_help.htm#PRIMER_PRODUCT_MIN_TM">Product Tm</a>
@@ -367,10 +372,10 @@ Right Primer End</a></td><td>
   </td><td colspan="1"><input size="4" name="PRIMER_SALT_MONOVALENT" value="50.0" type="text">
   </td><td colspan="2"><a name="PRIMER_SALT_CORRECTIONS" href="primer3web_help.htm#PRIMER_SALT_CORRECTIONS">Salt Correction Formula:</a></td>
   <td colspan="3"><select name="PRIMER_SALT_CORRECTIONS">
-  <option selected="selected" value="0"> Schildkraut and Lifson 1965
-  </option><option value="1">SantaLucia 1998
-  </option><option value="2">Owczarzy et. 2004
-  </option></select>
+  <option selected="selected" value="0"> Schildkraut and Lifson 1965</option>
+  <option value="1">SantaLucia 1998</option>
+  <option value="2">Owczarzy et. 2004</option>
+  </select>
 
 </td></tr><tr>
 <td colspan="2"><a name="PRIMER_SALT_DIVALENT_INPUT" href="primer3web_help.htm#PRIMER_SALT_DIVALENT">Concentration of Divalent Cations</a>
@@ -686,12 +691,12 @@ Right Primer End</a></td><td>
 <tr>
   <td  colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MISHYB_LIBRARY">Internal Oligo Mishyb Library:</a>
   </td><td colspan="2"><select name="PRIMER_INTERNAL_MISHYB_LIBRARY">
-      <option selected="selected">NONE
-      </option><option> HUMAN
-      </option><option> RODENT_AND_SIMPLE
-      </option><option> RODENT
-      </option><option> DROSOPHILA
-      </option></select>
+      <option selected="selected">NONE</option>
+      <option>HUMAN</option>
+      <option>RODENT_AND_SIMPLE</option>
+      <option>RODENT</option>
+      <option>DROSOPHILA</option>
+  </select>
   </td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_LIBRARY_MISHYB">Internal Oligo Max Library Mishyb:</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_LIBRARY_MISHYB" value="12.00" type="text">
   </td><td colspan="2"></td>
