@@ -9,7 +9,7 @@
 
 <body>
 
-<form action="cgi-bin/primer3web_results.cgi" method="post" enctype="multipart/form-data">
+<form id="primer3web" action="cgi-bin/primer3web_results.cgi" method="post" enctype="multipart/form-data">
 
 <table border="1" width="100%" bgcolor="#CCCCFF">
 <tr>
@@ -35,20 +35,14 @@
          <strong>cautions</strong>
          </a>
          </td>
-    <td align="center">
-         <a href="http://primer3.wiki.sourceforge.net/Frequently+Asked+Questions">
-         <strong>FAQ</strong>
-         </a>
-    </td></tr>
+</tr>
 </table>
 
 <p>
 Select the <a name="PRIMER_TASK_INPUT" href="primer3web_help.htm#PRIMER_TASK">
-Task</a> for primer selection:
+Task</a> for primer selection
 <tt> </tt><select name="PRIMER_TASK">
-<option selected="selected">pick_detection_primers</option>
-<option>pick_cloning_primers</option>
-<option>pick_discriminative_primers</option>
+<option selected="selected">generic</option>
 <option>pick_sequencing_primers</option>
 <option>pick_primer_list</option>
 <option>check_primers</option>
@@ -62,7 +56,7 @@ other letters treated as N -- numbers and blanks ignored).
 FASTA format ok.  Please N-out undesirable sequence
 (vector, ALUs, LINEs, etc.)  or use a
 <a name="PRIMER_MISPRIMING_LIBRARY_INPUT" href="primer3web_help.htm#providedMisprimingLibs">
-Mispriming Library (repeat library):</a>
+Mispriming Library (repeat library)</a>
 <tt> </tt><select name="PRIMER_MISPRIMING_LIBRARY">
 <option selected="selected">NONE</option>
 <option>HUMAN</option>
@@ -82,14 +76,14 @@ Mispriming Library (repeat library):</a>
 <tr>
  <td valign="top">
       <input name="MUST_XLATE_PRIMER_PICK_LEFT_PRIMER" value="1" checked="checked" type="checkbox">
-      Pick&nbsp;left&nbsp;primer, or&nbsp;use&nbsp;left&nbsp;primer&nbsp;below:
+      Pick&nbsp;left&nbsp;primer, or&nbsp;use&nbsp;left&nbsp;primer&nbsp;below
  </td><td valign="top">
       <input name="MUST_XLATE_PRIMER_PICK_INTERNAL_OLIGO" value="1" type="checkbox">
-      Pick&nbsp;hybridization&nbsp;probe&nbsp;(internal oligo),&nbsp;or&nbsp;use&nbsp;oligo&nbsp;below:
+      Pick&nbsp;hybridization&nbsp;probe&nbsp;(internal oligo),&nbsp;or&nbsp;use&nbsp;oligo&nbsp;below
  </td><td valign="top">
       <input name="MUST_XLATE_PRIMER_PICK_RIGHT_PRIMER" value="1" checked="checked" type="checkbox">
       Pick&nbsp;right&nbsp;primer,&nbsp;or use&nbsp;right&nbsp;primer&nbsp;below
-      (5'&nbsp;to&nbsp;3'&nbsp;on&nbsp;opposite&nbsp;strand):
+      (5'&nbsp;to&nbsp;3'&nbsp;on&nbsp;opposite&nbsp;strand)
  </td>
 </tr>
 <tr>
@@ -101,12 +95,6 @@ Mispriming Library (repeat library):</a>
 <!-- /tbody -->
 </table>
 
-<p>Upload the settings from a file:
-<input type="file" name="input"/>
-<input name="Upload" value="Upload" type="submit"/>
-</p>
-
-
 <p>
         <input name="Pick Primers" value="Pick Primers" type="submit">
 	<input name="Download Settings" value="Download Settings" type="submit">
@@ -117,12 +105,12 @@ Mispriming Library (repeat library):</a>
 
 <!-- tbody -->
 <tr> 
-  <td><a name="SEQUENCE_ID_INPUT" href="primer3web_help.htm#SEQUENCE_ID">Sequence Id:</a>
+  <td><a name="SEQUENCE_ID_INPUT" href="primer3web_help.htm#SEQUENCE_ID">Sequence Id</a>
   </td><td><input name="SEQUENCE_ID" value="" type="text">
   </td><td> A string to identify your output.
 
 </td></tr><tr> 
- <td><a name="SEQUENCE_TARGET_INPUT" href="primer3web_help.htm#SEQUENCE_TARGET">Targets:</a>
+ <td><a name="SEQUENCE_TARGET_INPUT" href="primer3web_help.htm#SEQUENCE_TARGET">Targets</a>
  </td><td><input name="SEQUENCE_TARGET" value="" type="text">
  </td><td>E.g. 50,2 requires primers to surround the 2 bases at positions 50 and 51.
      Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
@@ -130,7 +118,7 @@ Mispriming Library (repeat library):</a>
      that primers must flank the central CCCC.
 
 </td></tr><tr> 
- <td><a name="SEQUENCE_OVERLAP_JUNCTION_LIST_INPUT" href="primer3web_help.htm#SEQUENCE_OVERLAP_JUNCTION_LIST">Overlap Junction List:</a>
+ <td><a name="SEQUENCE_OVERLAP_JUNCTION_LIST_INPUT" href="primer3web_help.htm#SEQUENCE_OVERLAP_JUNCTION_LIST">Overlap Junction List</a>
  </td><td><input name="SEQUENCE_OVERLAP_JUNCTION_LIST" value="" type="text">
  </td><td>E.g. 27 requires one primer to overlap the bases at positions 27.
      Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
@@ -138,7 +126,7 @@ Mispriming Library (repeat library):</a>
      that primers must overlap the central C.
 
 </td></tr><tr> 
- <td><a name="SEQUENCE_EXCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_EXCLUDED_REGION">Excluded Regions:</a>
+ <td><a name="SEQUENCE_EXCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_EXCLUDED_REGION">Excluded Regions</a>
  </td><td><input name="SEQUENCE_EXCLUDED_REGION" value="" type="text">
  </td><td>E.g. 401,7 68,3 forbids selection of primers in the 7 bases starting at 401 and the 3 bases at 68.
      Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
@@ -146,13 +134,120 @@ Mispriming Library (repeat library):</a>
      primers in the central CCCC.
 
 </td></tr><tr> 
- <td><a name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST_INPUT" href="primer3web_help.htm#SEQUENCE_PRIMER_PAIR_OK_REGION_LIST">Pair OK Region List:</a>
+ <td><a name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST_INPUT" href="primer3web_help.htm#SEQUENCE_PRIMER_PAIR_OK_REGION_LIST">Pair OK Region List</a>
  </td><td><input name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST" value="" type="text">
  </td><td>See manual for help.
+</td></tr>
 
+<tr><td><a name="SEQUENCE_INCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_INCLUDED_REGION">Included Region</a>
+</td><td><input name="SEQUENCE_INCLUDED_REGION" value="" type="text">
+</td><td> E.g. 20,400: only pick primers in the 400 base region starting at position 20.
+    Or use { and } in the 
+    <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
+    to mark the beginning and end of the included region: e.g.
+    in ATC{TTC...TCT}AT the included region is TTC...TCT.
+</td></tr>
+
+<tr><td><a name="SEQUENCE_START_CODON_POSITION_INPUT" href="primer3web_help.htm#SEQUENCE_START_CODON_POSITION">Start Codon Position</a>
+</td><td><input name="SEQUENCE_START_CODON_POSITION" value="" type="text">
+</td></tr>
+
+<tr><td><a name="internal_oligo_generic_INPUT" href="primer3web_help.htm#SEQUENCE_INTERNAL_EXCLUDED_REGION">Internal Oligo Excluded Region</a>
+</td><td><input name="SEQUENCE_INTERNAL_EXCLUDED_REGION" value="" type="text">
 </td></tr>
 </table>
 
+<table>
+<tr><td align=right>
+<a name="SEQUENCE_FORCE_LEFT_START_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_LEFT_START">
+Force Left Primer Start</a></td><td>
+<input size="4" name="SEQUENCE_FORCE_LEFT_START" value="-1" type="text">
+</td><td align=right>
+<a name="SEQUENCE_FORCE_RIGHT_START_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_RIGHT_START">
+Force Right Primer Start</a></td><td>
+<input size="4" name="SEQUENCE_FORCE_RIGHT_START" value="-1" type="text">
+</td></tr>
+
+<tr><td align=right>
+<a name="SEQUENCE_FORCE_LEFT_END_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_LEFT_END">
+Force Left Primer End</a></td><td>
+<input size="4" name="SEQUENCE_FORCE_LEFT_END" value="-1" type="text">
+</td><td align=right>
+<a name="SEQUENCE_FORCE_RIGHT_END_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_RIGHT_END">
+Force Right Primer End</a></td><td>
+<input size="4" name="SEQUENCE_FORCE_RIGHT_END" value="-1" type="text">
+</td>
+</tr>
+
+</table>
+
+	<h3> <a name="SEQUENCE_QUALITY_INPUT" href="primer3web_help.htm#SEQUENCE_QUALITY">Sequence Quality </a></h3>
+ 	<textarea rows="2" cols="95" name="SEQUENCE_QUALITY"> </textarea>
+        <table border="0">	    
+<!-- tbody -->
+<tr>
+ <td><a name="PRIMER_MIN_QUALITY_INPUT" href="primer3web_help.htm#PRIMER_MIN_QUALITY">Min Sequence Quality</a>
+ </td><td><input size="4" name="PRIMER_MIN_QUALITY" value="0" type="text">
+ </td><td><a name="PRIMER_MIN_END_QUALITY_INPUT" href="primer3web_help.htm#PRIMER_MIN_END_QUALITY">Min End Sequence Quality</a>
+ </td><td><input size="4" name="PRIMER_MIN_END_QUALITY" value="0" type="text">
+ </td><td><a name="PRIMER_QUALITY_RANGE_MIN_INPUT" href="primer3web_help.htm#PRIMER_QUALITY_RANGE_MIN">Sequence Quality Range Min</a>
+ </td><td><input size="4" name="PRIMER_QUALITY_RANGE_MIN" value="0" type="text">
+ </td><td><a name="PRIMER_QUALITY_RANGE_MAX_INPUT" href="primer3web_help.htm#PRIMER_QUALITY_RANGE_MAX">Sequence Quality Range Max</a>
+ </td><td><input size="4" name="PRIMER_QUALITY_RANGE_MAX" value="100" type="text">
+       </td></tr><!-- /tbody -->
+</table>
+
+<p>
+     <input name="Pick Primers" value="Pick Primers" type="submit">
+     <input name="Download Settings" value="Download Settings" type="submit">
+     <input value="Reset Form" type="reset">
+</p>
+        
+
+<h3> General Primer Picking Conditions </h3>
+
+<p>Upload the settings from a file
+<input type="file" name="Upload" onchange="document.forms['primer3web'].submit();"/>
+</p>
+
+<table border="0">
+<!-- tbody -->
+<tr>
+ <td><a name="PRIMER_OPT_SIZE_INPUT" href="primer3web_help.htm#PRIMER_MIN_SIZE">Primer Size</a>
+ </td><td>Min <input size="4" name="PRIMER_MIN_SIZE" value="18" type="text">
+ </td><td>Opt <input size="4" name="PRIMER_OPT_SIZE" value="20" type="text">
+ </td><td>Max <input size="4" name="PRIMER_MAX_SIZE" value="27" type="text">
+
+</td></tr><tr>
+ <td><a name="PRIMER_OPT_TM_INPUT" href="primer3web_help.htm#PRIMER_MIN_TM">Primer Tm</a>
+ </td><td>Min <input size="4" name="PRIMER_MIN_TM" value="57.0" type="text">
+ </td><td>Opt <input size="4" name="PRIMER_OPT_TM" value="60.0" type="text">
+ </td><td>Max <input size="4" name="PRIMER_MAX_TM" value="63.0" type="text">
+ </td><td><a name="PRIMER_PAIR_MAX_DIFF_TM_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</a>
+     <input size="4" name="PRIMER_PAIR_MAX_DIFF_TM" value="100.0" type="text">
+ </td><td><a name="PRIMER_TM_FORMULA" href="primer3web_help.htm#PRIMER_TM_FORMULA">Table of thermodynamic parameters</a> 
+ <select name="PRIMER_TM_FORMULA">
+     <option selected="selected" value="0">Breslauer et al. 1986</option>
+     <option value="1">SantaLucia 1998</option>
+     </select>
+
+</td></tr><tr>
+  <td><a name="PRIMER_PRODUCT_TM_INPUT" href="primer3web_help.htm#PRIMER_PRODUCT_MIN_TM">Product Tm</a>
+  </td><td>Min <input size="4" name="PRIMER_PRODUCT_MIN_TM" value="-1000000.0" type="text">
+  </td><td>Opt <input size="4" name="PRIMER_PRODUCT_OPT_TM" value="0.0" type="text">
+  </td><td>Max <input size="4" name="PRIMER_PRODUCT_MAX_TM" value="1000000.0" type="text">
+  </td></tr>
+<tr>
+ <td><a name="PRIMER_GC_PERCENT_INPUT" href="primer3web_help.htm#PRIMER_MIN_GC">Primer GC%</a>
+ </td><td>Min <input size="4" name="PRIMER_MIN_GC" value="20.0" type="text">
+ </td><td>Opt <input size="4" name="PRIMER_OPT_GC_PERCENT" value="50.0" type="text">
+ </td><td>Max <input size="4" name="PRIMER_MAX_GC" value="80.0" type="text">
+
+</td>
+</tr>
+</table>
+
+<p></p>
 
 <table border="0">
 <tr>
@@ -190,149 +285,98 @@ intensive for our server).</a>
 Pair Max Library Mispriming</a></td><td>
 <input size="4" name="PRIMER_PAIR_MAX_LIBRARY_MISPRIMING" value="24.00" type="text"></td></tr>
 
-<!-- Template mispriming (two input fields) -->
-<tr>
-<td align=right>
-<a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING">
-Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="-1.00" type="text">
-</td><td align=right>
-<a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING">
-Pair Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="-1.00" type="text">
-</td></tr>
-
-<tr>
-<td align=right>
-<a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">
-TH: Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
-</td><td align=right>
-<a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH">
-TH: Pair Max Template Mispriming</a></td><td>
-<input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
-</td></tr>
-
-<tr><td align=right>
-<a name="SEQUENCE_FORCE_LEFT_START_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_LEFT_START">
-Left Primer Start</a></td><td>
-<input size="4" name="SEQUENCE_FORCE_LEFT_START" value="-1" type="text">
-</td><td align=right>
-<a name="SEQUENCE_FORCE_RIGHT_START_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_RIGHT_START">
-Right Primer Start</a></td><td>
-<input size="4" name="SEQUENCE_FORCE_RIGHT_START" value="-1" type="text">
-</td></tr>
-
-<tr><td align=right>
-<a name="SEQUENCE_FORCE_LEFT_END_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_LEFT_END">
-Left Primer End</a></td><td>
-<input size="4" name="SEQUENCE_FORCE_LEFT_END" value="-1" type="text">
-</td><td align=right>
-<a name="SEQUENCE_FORCE_RIGHT_END_INPUT" href="primer3web_help.htm#SEQUENCE_FORCE_RIGHT_END">
-Right Primer End</a></td><td>
-<input size="4" name="SEQUENCE_FORCE_RIGHT_END" value="-1" type="text">
-</td>
-</tr>
-
 </table>
 
-<p>
-     <input name="Pick Primers" value="Pick Primers" type="submit">
-     <input name="Download Settings" value="Download Settings" type="submit">
-     <input value="Reset Form" type="reset">
-</p>
-        
-
-<h3> General Primer Picking Conditions </h3>
-
-<table border="0">
-<!-- tbody -->
-<tr>
- <td><a name="PRIMER_OPT_SIZE_INPUT" href="primer3web_help.htm#PRIMER_MIN_SIZE">Primer Size</a>
- </td><td>Min: <input size="4" name="PRIMER_MIN_SIZE" value="18" type="text">
- </td><td>Opt: <input size="4" name="PRIMER_OPT_SIZE" value="20" type="text">
- </td><td>Max: <input size="4" name="PRIMER_MAX_SIZE" value="27" type="text">
-
-</td></tr><tr>
- <td><a name="PRIMER_OPT_TM_INPUT" href="primer3web_help.htm#PRIMER_MIN_TM">Primer Tm</a>
- </td><td>Min: <input size="4" name="PRIMER_MIN_TM" value="57.0" type="text">
- </td><td>Opt: <input size="4" name="PRIMER_OPT_TM" value="60.0" type="text">
- </td><td>Max: <input size="4" name="PRIMER_MAX_TM" value="63.0" type="text">
- </td><td><a name="PRIMER_PAIR_MAX_DIFF_TM_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference:</a>
-     <input size="4" name="PRIMER_PAIR_MAX_DIFF_TM" value="100.0" type="text">
- </td><td><a name="PRIMER_TM_FORMULA" href="primer3web_help.htm#PRIMER_TM_FORMULA">Table of thermodynamic parameters:</a> 
- <select name="PRIMER_TM_FORMULA">
-     <option selected="selected" value="0">Breslauer et al. 1986</option>
-     <option value="1">SantaLucia 1998</option>
-     </select>
-
-</td></tr><tr>
-  <td><a name="PRIMER_PRODUCT_TM_INPUT" href="primer3web_help.htm#PRIMER_PRODUCT_MIN_TM">Product Tm</a>
-  </td><td>Min: <input size="4" name="PRIMER_PRODUCT_MIN_TM" value="-1000000.0" type="text">
-  </td><td>Opt: <input size="4" name="PRIMER_PRODUCT_OPT_TM" value="0.0" type="text">
-  </td><td>Max: <input size="4" name="PRIMER_PRODUCT_MAX_TM" value="1000000.0" type="text">
-  </td></tr>
-<tr>
- <td><a name="PRIMER_GC_PERCENT_INPUT" href="primer3web_help.htm#PRIMER_MIN_GC">Primer GC%</a>
- </td><td>Min: <input size="4" name="PRIMER_MIN_GC" value="20.0" type="text">
- </td><td>Opt: <input size="4" name="PRIMER_OPT_GC_PERCENT" value="50.0" type="text">
- </td><td>Max: <input size="4" name="PRIMER_MAX_GC" value="80.0" type="text">
-
-</td>
-</tr>
-</table>
+<p></p>
 
 <input name="MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT" value="1" type="checkbox">
   <a name="PRIMER_THERMODYNAMIC_ALIGNMENT_INPUT" href="primer3web_help.htm#PRIMER_THERMODYNAMIC_ALIGNMENT">Use Thermodynamic Alignment</a>
 
+<p></p>
+
+<table border="1">
+<tr><td>
 <table border="0">
+
+<tr><td colspan="2"><a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">
+TH: Max Template Mispriming</a></td>
+<td colspan="1"><input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text"></td>
+<td colspan="2"><a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH">
+TH: Pair Max Template Mispriming</a></td>
+<td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH" value="-1.00" type="text">
+</td></tr>
+
 <tr>
- <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY">Max Self Complementarity:</a>
- </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY" value="8.00" type="text">
- </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END">Max 3' Self Complementarity:</a>
- </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END" value="3.00" type="text">
-
-</td><td colspan=2"></td></tr><tr>
- <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY_TH">TH: Max Self Complementarity:</a>
+ <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY_TH">TH: Max Self Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY_TH" value="47.0" type="text">
- </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END_TH">TH: Max 3' Self Complementarity:</a>
+ </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END_TH">TH: Max 3' Self Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END_TH" value="47.0" type="text">
+</td><td colspan=2"></td></tr>
 
-</td><td colspan=2"></td></tr><tr>
- <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity:</a>
- </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY" value="8.00" type="text">
- </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity:</a>
- </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END" value="3.00" type="text">
-
-</td><td colspan=2"></td></tr><tr>
- <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY_TH">TH: Max Pair Complementarity:</a>
+ <tr><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY_TH">TH: Max Pair Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY_TH" value="47.0" type="text">
- </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END_TH">TH: Max 3' Pair Complementarity:</a>
+ </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END_TH">TH: Max 3' Pair Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END_TH" value="47.0" type="text">
 
 </td><td colspan=2"></td></tr><tr>
- <td colspan="2"><a name="PRIMER_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_HAIRPIN_TH">TH: Max Primer Hairpin:</a>
+ <td colspan="2"><a name="PRIMER_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_HAIRPIN_TH">TH: Max Primer Hairpin</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_HAIRPIN_TH" value="47.0" type="text">
- </td><td colspan="2"><a name="PRIMER_PAIR_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_HAIRPIN_TH">TH: Max Pair Hairpin:</a>
- </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_HAIRPIN_TH" value="47.0" type="text">
+ </td><td colspan=2"></td></tr>
+</table>
+</td></tr>
+</table>
 
-</td><td colspan=2"></td></tr><tr>
- <td colspan="2"><a name="PRIMER_MAX_NS_ACCEPTED_INPUT" href="primer3web_help.htm#PRIMER_MAX_NS_ACCEPTED">Max #N's accepted:</a>
+<p></p>
+
+<table border="1">
+<tr><td>
+
+<table border="0">
+
+<!-- Template mispriming (two input fields) -->
+<tr><td colspan="2">
+<a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING">Max Template Mispriming</a></td>
+<td colspan="1"><input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="-1.00" type="text"></td>
+<td colspan="2"><a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING">Pair Max Template Mispriming</a></td>
+<td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="-1.00" type="text"><td></tr>
+
+<tr><td colspan="2"><a name="PRIMER_MAX_SELF_ANY_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY">Max Self Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY" value="8.00" type="text">
+ </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END">Max 3' Self Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END" value="3.00" type="text">
+ </td><td colspan=2"></td></tr>
+</td></tr>
+
+<tr><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY" value="8.00" type="text">
+ </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END" value="3.00" type="text">
+</td><td colspan=2"></td></tr>
+
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="0"> 
+<tr>
+ <td colspan="2"><a name="PRIMER_MAX_NS_ACCEPTED_INPUT" href="primer3web_help.htm#PRIMER_MAX_NS_ACCEPTED">Max #N's accepted</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_NS_ACCEPTED" value="0" type="text">
 
- </td><td colspan="2"><a name="PRIMER_MAX_POLY_X_INPUT" href="primer3web_help.htm#PRIMER_MAX_POLY_X">Max Poly-X:</a>
+ </td><td colspan="2"><a name="PRIMER_MAX_POLY_X_INPUT" href="primer3web_help.htm#PRIMER_MAX_POLY_X">Max Poly-X</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_POLY_X" value="5" type="text">
 </td><td colspan=2"></td></tr>
 
   <tr>
   <td colspan="2">
-  <a name="PRIMER_INSIDE_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_INSIDE_PENALTY">Inside Target Penalty:</a>
+  <a name="PRIMER_INSIDE_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_INSIDE_PENALTY">Inside Target Penalty</a>
   </td>
   <td colspan="1">
   <input size="4" name="PRIMER_INSIDE_PENALTY" value="-1.0" type="text">
   </td>
   <td colspan="2">
-  <a name="PRIMER_OUTSIDE_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_OUTSIDE_PENALTY">Outside Target Penalty:</a>
+  <a name="PRIMER_OUTSIDE_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_OUTSIDE_PENALTY">Outside Target Penalty</a>
   </td>
   <td colspan="1">
   <input size="4" name="PRIMER_OUTSIDE_PENALTY" value="0" type="text">
@@ -344,9 +388,9 @@ Right Primer End</a></td><td>
    </a>
 
 </td></tr><tr>
- <td colspan="2"><a name="PRIMER_FIRST_BASE_INDEX_INPUT" href="primer3web_help.htm#PRIMER_FIRST_BASE_INDEX">First Base Index:</a>
+ <td colspan="2"><a name="PRIMER_FIRST_BASE_INDEX_INPUT" href="primer3web_help.htm#PRIMER_FIRST_BASE_INDEX">First Base Index</a>
  </td><td colspan="1"><input size="4" name="PRIMER_FIRST_BASE_INDEX" value="1" type="text">
- </td><td colspan="2"><a name="PRIMER_GC_CLAMP_INPUT" href="primer3web_help.htm#PRIMER_GC_CLAMP">CG Clamp:</a>
+ </td><td colspan="2"><a name="PRIMER_GC_CLAMP_INPUT" href="primer3web_help.htm#PRIMER_GC_CLAMP">CG Clamp</a>
  </td><td colspan="1"><input size="4" name="PRIMER_GC_CLAMP" value="0" type="text">
 
 </td></tr><tr>
@@ -361,16 +405,16 @@ Right Primer End</a></td><td>
 </td><td colspan="2">
 
 </td></tr><tr>
-<td colspan="2"><a name="PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION_INPUT" href="primer3web_help.htm#PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION">5 Prime Junction Overlap:</a>
+<td colspan="2"><a name="PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION_INPUT" href="primer3web_help.htm#PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION">5 Prime Junction Overlap</a>
 </td><td colspan="1"><input size="4" name="PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION" value="7" type="text">
-</td><td colspan="2"><a name="PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION_INPUT" href="primer3web_help.htm#PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION">3 Prime Junction Overlap:</a>
+</td><td colspan="2"><a name="PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION_INPUT" href="primer3web_help.htm#PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION">3 Prime Junction Overlap</a>
 </td><td colspan="1"><input size="4" name="PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION" value="4" type="text">
 </td><td colspan="2">(Distance of the primer ends to one <a href="#SEQUENCE_OVERLAP_JUNCTION_LIST_INPUT">overlap position</a>.)
 
 </td></tr><tr>
-  <td colspan="2"><a name="PRIMER_SALT_MONOVALENT_INPUT" href="primer3web_help.htm#PRIMER_SALT_MONOVALENT">Concentration of Monovalent Cations:</a>
+  <td colspan="2"><a name="PRIMER_SALT_MONOVALENT_INPUT" href="primer3web_help.htm#PRIMER_SALT_MONOVALENT">Concentration of Monovalent Cations</a>
   </td><td colspan="1"><input size="4" name="PRIMER_SALT_MONOVALENT" value="50.0" type="text">
-  </td><td colspan="2"><a name="PRIMER_SALT_CORRECTIONS" href="primer3web_help.htm#PRIMER_SALT_CORRECTIONS">Salt Correction Formula:</a></td>
+  </td><td colspan="2"><a name="PRIMER_SALT_CORRECTIONS" href="primer3web_help.htm#PRIMER_SALT_CORRECTIONS">Salt Correction Formula</a></td>
   <td colspan="3"><select name="PRIMER_SALT_CORRECTIONS">
   <option selected="selected" value="0"> Schildkraut and Lifson 1965</option>
   <option value="1">SantaLucia 1998</option>
@@ -385,21 +429,21 @@ Right Primer End</a></td><td>
 </td><td colspan="2"></td></tr>
 
 <tr><td colspan="2">
-  <a name="PRIMER_DNA_CONC_INPUT" href="primer3web_help.htm#PRIMER_DNA_CONC">Annealing Oligo Concentration:</a>
+  <a name="PRIMER_DNA_CONC_INPUT" href="primer3web_help.htm#PRIMER_DNA_CONC">Annealing Oligo Concentration</a>
   </td><td colspan="1">
   <input size="4" name="PRIMER_DNA_CONC" value="50.0" type="text">
   </td><td colspan="5"> (Not the concentration of oligos in the reaction mix but of those annealing to template.)
 
 </td></tr><tr>
- <td colspan="2"><a name="PRIMER_SEQUENCING_SPACING_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_SPACING">Sequencing Spacing:</a>
+ <td colspan="2"><a name="PRIMER_SEQUENCING_SPACING_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_SPACING">Sequencing Spacing</a>
  </td><td colspan="1"><input size="4" name="PRIMER_SEQUENCING_SPACING" value="500" type="text">
- </td><td colspan="2"><a name="PRIMER_SEQUENCING_INTERVAL_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_INTERVAL">Sequencing Interval:</a>
+ </td><td colspan="2"><a name="PRIMER_SEQUENCING_INTERVAL_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_INTERVAL">Sequencing Interval</a>
  </td><td colspan="1"><input size="4" name="PRIMER_SEQUENCING_INTERVAL" value="250" type="text">
 
 </td></tr><tr>
- <td colspan="2"><a name="PRIMER_SEQUENCING_LEAD_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_LEAD">Sequencing Lead:</a>
+ <td colspan="2"><a name="PRIMER_SEQUENCING_LEAD_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_LEAD">Sequencing Lead</a>
  </td><td colspan="1"><input size="4" name="PRIMER_SEQUENCING_LEAD" value="50" type="text">
- </td><td colspan="2"><a name="PRIMER_SEQUENCING_ACCURACY_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_ACCURACY">Sequencing Accuracy:</a>
+ </td><td colspan="2"><a name="PRIMER_SEQUENCING_ACCURACY_INPUT" href="primer3web_help.htm#PRIMER_SEQUENCING_ACCURACY">Sequencing Accuracy</a>
  </td><td colspan="1"><input size="4" name="PRIMER_SEQUENCING_ACCURACY" value="20" type="text">
 
 </td></tr>
@@ -413,7 +457,7 @@ Right Primer End</a></td><td>
  <td><input name="MUST_XLATE_PRINT_INPUT" value="1" type="checkbox">
   <a name="SHOW_DEBUGGING_INPUT" href="primer3web_help.htm#SHOW_DEBUGGING">Show Debuging Info</a></td>
  <td><input name="MUST_XLATE_PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS" value="1" checked="checked" type="checkbox">
-  Do not treat ambiguity codes in libraries as consensus</td>
+  <a name="PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS" href="primer3web_help.htm#PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS">Do not treat ambiguity codes in libraries as consensus</a></td>
 </tr>
 <tr>
  <td><input name="MUST_XLATE_PRIMER_LOWERCASE_MASKING" value="1" type="checkbox">
@@ -431,41 +475,6 @@ Right Primer End</a></td><td>
 	<input name="Download Settings" value="Download Settings" type="submit">
         <input value="Reset Form" type="reset">
         </p>
-        
-
-<h3> Other Per-Sequence Inputs </h3>
-
-<table>
-<!-- tbody -->
-<tr><td><a name="SEQUENCE_INCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_INCLUDED_REGION">Included Region:</a>
-</td><td><input name="SEQUENCE_INCLUDED_REGION" value="" type="text">
-</td><td> E.g. 20,400: only pick primers in the 400 base region starting at position 20.
-    Or use { and } in the 
-    <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
-    to mark the beginning and end of the included region: e.g.
-    in ATC{TTC...TCT}AT the included region is TTC...TCT.
-
-</td></tr><tr><td><a name="SEQUENCE_START_CODON_POSITION_INPUT" href="primer3web_help.htm#SEQUENCE_START_CODON_POSITION">Start Codon Position:</a>
-</td><td><input name="SEQUENCE_START_CODON_POSITION" value="" type="text">
-
-</td></tr><!-- /tbody -->
-</table>
-
-	<h3> <a name="SEQUENCE_QUALITY_INPUT" href="primer3web_help.htm#SEQUENCE_QUALITY">Sequence Quality </a></h3>
- 	<textarea rows="2" cols="95" name="SEQUENCE_QUALITY"> </textarea>
-        <table border="0">	    
-<!-- tbody -->
-<tr>
- <td><a name="PRIMER_MIN_QUALITY_INPUT" href="primer3web_help.htm#PRIMER_MIN_QUALITY">Min Sequence Quality:</a>
- </td><td><input size="4" name="PRIMER_MIN_QUALITY" value="0" type="text">
- </td><td><a name="PRIMER_MIN_END_QUALITY_INPUT" href="primer3web_help.htm#PRIMER_MIN_END_QUALITY">Min End Sequence Quality:</a>
- </td><td><input size="4" name="PRIMER_MIN_END_QUALITY" value="0" type="text">
- </td><td><a name="PRIMER_QUALITY_RANGE_MIN_INPUT" href="primer3web_help.htm#PRIMER_QUALITY_RANGE_MIN">Sequence Quality Range Min:</a>
- </td><td><input size="4" name="PRIMER_QUALITY_RANGE_MIN" value="0" type="text">
- </td><td><a name="PRIMER_QUALITY_RANGE_MAX_INPUT" href="primer3web_help.htm#PRIMER_QUALITY_RANGE_MAX">Sequence Quality Range Max:</a>
- </td><td><input size="4" name="PRIMER_QUALITY_RANGE_MAX" value="100" type="text">
-       </td></tr><!-- /tbody -->
-</table>
        
 <h3>Objective Function Penalty Weights for Primers</h3>
 
@@ -474,50 +483,77 @@ Right Primer End</a></td><td>
   <!-- tbody -->
 <tr>
     <td><a name="WT_SIZE_INPUT" href="primer3web_help.htm#PRIMER_WT_SIZE_LT">Size</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_WT_SIZE_LT" value="1.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_WT_SIZE_GT" value="1.0" type="text">
     
   </td></tr><tr>
     <td><a name="WT_TM_INPUT" href="primer3web_help.htm#PRIMER_WT_TM_LT">Tm</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_WT_TM_LT" value="1.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_WT_TM_GT" value="1.0" type="text">
     
   </td></tr><tr>
     <td><a name="WT_GC_PERCENT_INPUT" href="primer3web_help.htm#PRIMER_WT_GC_PERCENT_LT">GC%</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_WT_GC_PERCENT_LT" value="0.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_WT_GC_PERCENT_GT" value="0.0" type="text">
     </td></tr><!-- /tbody -->
 </table>
 
+<p></p>
+
+<table border="1">
+<tr><td>
+<table border="0">
+        <tr><td><a name="PRIMER_WT_SELF_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_ANY_TH">TH: Self Complementarity</a>
+	</td><td><input size="4" name="PRIMER_WT_SELF_ANY_TH" value="0.0" type="text">
+	</td></tr>
+
+        <tr><td><a name="PRIMER_WT_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_END_TH">TH: 3' End Self Complementarity</a>
+	</td><td><input size="4" name="PRIMER_WT_SELF_END_TH" value="0.0" type="text">	
+	</td></tr>
+
+	<tr><td><a name="PRIMER_WT_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_HAIRPIN_TH">TH: Hairpin</a>
+	</td><td><input size="4" name="PRIMER_WT_HAIRPIN_TH" value="0.0" type="text">		
+	</td></tr>
+
+        <tr><td><a href="primer3web_help.htm#PRIMER_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming</a>
+	</td><td><input size="4" name="PRIMER_WT_TEMPLATE_MISPRIMING_TH" value="0.0" type="text">
+	</td></tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="1">
+<tr><td>
+<table border="0">
+        <tr><td><a name="PRIMER_WT_SELF_ANY_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_ANY">Self Complementarity</a>
+	</td><td><input size="4" name="PRIMER_WT_SELF_ANY" value="0.0" type="text">
+	</td></tr>
+
+	<tr><td><a name="PRIMER_WT_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_END">3' End Self Complementarity</a>
+	</td><td><input size="4" name="PRIMER_WT_SELF_END" value="0.0" type="text">
+	</td></tr>
+
+        <tr><td><a href="primer3web_help.htm#PRIMER_WT_TEMPLATE_MISPRIMING">Template Mispriming</a>
+        </td><td><input size="4" name="PRIMER_WT_TEMPLATE_MISPRIMING" value="0.0" type="text">
+	</td></tr>
+
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
 <table border="0">
 	<!-- tbody -->
 <tr>
-	<td><a name="PRIMER_WT_SELF_ANY_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_ANY">Self Complementarity</a>
-	</td><td><input size="4" name="PRIMER_WT_SELF_ANY" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_WT_SELF_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_ANY_TH">TH: Self Complementarity</a>
-	</td><td><input size="4" name="PRIMER_WT_SELF_ANY_TH" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_WT_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_END">3' End Self Complementarity</a>
-	</td><td><input size="4" name="PRIMER_WT_SELF_END" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_WT_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_END_TH">TH: 3' End Self Complementarity</a>
-	</td><td><input size="4" name="PRIMER_WT_SELF_END_TH" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_WT_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_HAIRPIN_TH">TH: Hairpin</a>
-	</td><td><input size="4" name="PRIMER_WT_HAIRPIN_TH" value="0.0" type="text">
-		
-	</td></tr><tr>
 	<td><a name="WT_NUM_NS_INPUT" href="primer3web_help.htm#PRIMER_WT_NUM_NS">#N's</a>
 	</td><td><input size="4" name="PRIMER_WT_NUM_NS" value="0.0" type="text">
 		
@@ -525,14 +561,7 @@ Right Primer End</a></td><td>
 	<td><a name="WT_REP_SIM_INPUT" href="primer3web_help.htm#PRIMER_WT_LIBRARY_MISPRIMING">Library Mispriming</a>
 	</td><td><input size="4" name="PRIMER_WT_LIBRARY_MISPRIMING" value="0.0" type="text">
 		
-    </tr><tr><td><a href="primer3web_help.htm#PRIMER_WT_TEMPLATE_MISPRIMING">Template Mispriming</a>
-    </td><td><input size="4" name="PRIMER_WT_TEMPLATE_MISPRIMING" value="0.0" type="text">
-
-	</td></tr><tr>
-    </tr><tr><td><a href="primer3web_help.htm#PRIMER_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming</a>
-    </td><td><input size="4" name="PRIMER_WT_TEMPLATE_MISPRIMING_TH" value="0.0" type="text">
-
-	</td></tr><tr>
+        </tr><tr>
 	<td><a name="WT_SEQ_QUAL_INPUT" href="primer3web_help.htm#PRIMER_WT_SEQ_QUAL">Sequence Quality</a>
 	</td><td><input size="4" name="PRIMER_WT_SEQ_QUAL" value="0.0" type="text">
 		
@@ -559,19 +588,61 @@ Right Primer End</a></td><td>
   <!-- tbody -->
 <tr>
     <td><a name="PAIR_WT_PRODUCT_SIZE_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_PRODUCT_SIZE_LT">Product Size</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_PAIR_WT_PRODUCT_SIZE_LT" value="0.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_PAIR_WT_PRODUCT_SIZE_GT" value="0.0" type="text">
     
   </td></tr><tr>
     <td><a name="PAIR_WT_PRODUCT_TM_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_PRODUCT_TM_LT">Product Tm</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_PAIR_WT_PRODUCT_TM_LT" value="0.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_PAIR_WT_PRODUCT_TM_GT" value="0.0" type="text">
     </td></tr><!-- /tbody -->
 </table>
+
+<p></p>
+
+<table border="1">
+<tr><td>
+<table border="0">
+        <tr><td><a name="PRIMER_PAIR_WT_COMPL_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_ANY_TH">TH: Any Complementarity</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY_TH" value="0.0" type="text">
+	</td></tr>
+
+	<tr><td><a name="PRIMER_PAIR_WT_COMPL_END_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_END_TH">TH: 3' End Complementarity</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END_TH" value="0.0" type="text">
+	</td></tr>
+
+	<tr><td><a href="primer3web_help.htm#PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming Weight</a>
+        </td><td><input size="4" name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH" value="0.0" type="text">
+	</td></tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="1">
+<tr><td>
+<table border="0">
+        <tr><td><a name="PRIMER_PAIR_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_ANY">Any Complementarity</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY" value="0.0" type="text">	
+	</td></tr>
+
+	<tr><td><a name="PRIMER_PAIR_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_END">3' End Complementarity</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END" value="0.0" type="text">
+	</td></tr>
+
+	<tr><td><a href="primer3web_help.htm#PRIMER_PAIR_WT_TEMPLATE_MISPRIMING">Template Mispriming Weight</a>
+	</td><td><input size="4" name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING" value="0.0" type="text">
+	</td></tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
 
 <table border="0">
 
@@ -581,33 +652,10 @@ Right Primer End</a></td><td>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_DIFF_TM" value="0.0" type="text">
 		
 	</td></tr><tr>
-	<td><a name="PRIMER_PAIR_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_ANY">Any Complementarity</a>
-	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_PAIR_WT_COMPL_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_ANY_TH">TH: Any Complementarity</a>
-	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY_TH" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_PAIR_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_END">3' End Complementarity</a>
-	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END" value="0.0" type="text">
-		
-	</td></tr><tr>
-	<td><a name="PRIMER_PAIR_WT_COMPL_END_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_END_TH">TH: 3' End Complementarity</a>
-	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_END_TH" value="0.0" type="text">
-	</td></tr><tr>
 		
 	<td><a name="PAIR_WT_LIBRARY_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_LIBRARY_MISPRIMING">Library Mispriming</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_LIBRARY_MISPRIMING" value="0.0" type="text">
 		
-    </td></tr><tr>
-    <td><a href="primer3web_help.htm#PRIMER_PAIR_WT_TEMPLATE_MISPRIMING">Template Mispriming Weight</a>
-    </td><td><input size="4" name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING" value="0.0" type="text">
-
-    </td></tr><tr>
-    <td><a href="primer3web_help.htm#PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming Weight</a>
-    </td><td><input size="4" name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH" value="0.0" type="text">
-
 	</td></tr><tr>
 	<td><a name="PAIR_WT_PR_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_PR_PENALTY">Primer Penalty Weight</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_PR_PENALTY" value="1.0" type="text">
@@ -621,75 +669,87 @@ Right Primer End</a></td><td>
 
 </table>
 
-<h3>Internal Oligo (Hyb Oligo) Per-Sequence Inputs</h3>
-
-<table border="0">
-
-<tr><td><a name="internal_oligo_generic_INPUT" href="primer3web_help.htm#SEQUENCE_INTERNAL_EXCLUDED_REGION">Internal Oligo Excluded Region:</a>
-</td><td><input name="SEQUENCE_INTERNAL_EXCLUDED_REGION" value="" type="text">
-
-</td></tr><!-- /tbody -->
-</table>
-
 <h3>Internal Oligo (Hyb Oligo) General Conditions</h3>
 
 <table border="0">
 <!-- tbody -->
 <tr>
- <td><a name="PRIMER_INTERNAL_OLIGO_SIZE_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MIN_SIZE">Internal Oligo Size:</a>
+ <td><a name="PRIMER_INTERNAL_OLIGO_SIZE_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MIN_SIZE">Internal Oligo Size</a>
  </td><td>Min <input size="4" name="PRIMER_INTERNAL_MIN_SIZE" value="18" type="text">
  </td><td>Opt <input size="4" name="PRIMER_INTERNAL_OPT_SIZE" value="20" type="text">
  </td><td>Max <input size="4" name="PRIMER_INTERNAL_MAX_SIZE" value="27" type="text">
 
 </td></tr><tr>
- <td><a name="PRIMER_INTERNAL_OLIGO_OPT_TM_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MIN_TM">Internal Oligo Tm:</a>
+ <td><a name="PRIMER_INTERNAL_OLIGO_OPT_TM_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MIN_TM">Internal Oligo Tm</a>
  </td><td>Min <input size="4" name="PRIMER_INTERNAL_MIN_TM" value="57.0" type="text">
  </td><td>Opt <input size="4" name="PRIMER_INTERNAL_OPT_TM" value="60.0" type="text">
  </td><td>Max <input size="4" name="PRIMER_INTERNAL_MAX_TM" value="63.0" type="text">
 
 </td></tr><tr>
  <td><a name="PRIMER_INTERNAL_OLIGO_GC_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MIN_GC">Internal Oligo GC%</a>
- </td><td>Min: <input size="4" name="PRIMER_INTERNAL_MIN_GC" value="20.0" type="text">
- </td><td>Opt: <input size="4" name="PRIMER_INTERNAL_OPT_GC_PERCENT" value="50.0" type="text">
- </td><td>Max: <input size="4" name="PRIMER_INTERNAL_MAX_GC" value="80.0" type="text">
+ </td><td>Min <input size="4" name="PRIMER_INTERNAL_MIN_GC" value="20.0" type="text">
+ </td><td>Opt <input size="4" name="PRIMER_INTERNAL_OPT_GC_PERCENT" value="50.0" type="text">
+ </td><td>Max <input size="4" name="PRIMER_INTERNAL_MAX_GC" value="80.0" type="text">
 </td></tr><!-- /tbody -->
 </table>
 
+<p></p>
+
+<table border="1">
+<tr><td>
 <table border="0">
 <tr>
-   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_ANY">Internal Oligo Self Complementarity:</a>
-   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_ANY" value="12.00" type="text">
-   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_END">Internal Oligo Max 3' End Self Complementarity:</a>
-   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_END" value="12.00" type="text">
-   </td><td colspan="2"></td>
-</tr>
-
-<tr>
-   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_ANY_TH">TH: Internal Oligo Self Complementarity:</a>
+   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_ANY_TH">TH: Internal Oligo Self Complementarity</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_ANY_TH" value="47.00" type="text">
-   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_END_TH">TH: Internal Oligo Max 3' End Self Complementarity:</a>
+   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_END_TH">TH: Internal Oligo Max 3' End Self Complementarity</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_END_TH" value="47.00" type="text">
    </td><td colspan="2"></td>
 </tr>
+<tr>
+<td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_HAIRPIN_TH">TH: Internal Oligo Hairpin</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_HAIRPIN_TH" value="47.00" type="text">
+   </td><td  colspan="1"></td>
+</tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="1">
+<tr><td>
+<table border="0">
+<tr>
+   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_ANY">Internal Oligo Self Complementarity</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_ANY" value="12.00" type="text">
+   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_SELF_END">Internal Oligo Max 3' End Self Complementarity</a>
+   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_SELF_END" value="12.00" type="text">
+   </td><td colspan="2"></td>
+</tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="0">
 
 <tr>
-   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_HAIRPIN_TH">TH: Internal Oligo Hairpin:</a>
-   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_HAIRPIN_TH" value="47.00" type="text">
-   </td><td  colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MIN_QUALITY">Internal Oligo Min Sequence Quality:</a>
+   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MIN_QUALITY">Internal Oligo Min Sequence Quality</a>
    </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MIN_QUALITY" value="0" type="text">
    </td><td colspan="2"></td>
 </tr>
 
 <tr>
- <td colspan="2"><a name="PRIMER_INTERNAL_OLIGO_NUM_NS_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MAX_NS_ACCEPTED">Max #Ns:</a>
+ <td colspan="2"><a name="PRIMER_INTERNAL_OLIGO_NUM_NS_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_MAX_NS_ACCEPTED">Max #Ns</a>
  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_NS_ACCEPTED" value="0" type="text">
- </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_POLY_X">Internal Oligo Max Poly-X:</a>
+ </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_POLY_X">Internal Oligo Max Poly-X</a>
  </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_POLY_X" value="5" type="text">
  </td><td colspan="2"></td>
 </tr>
 
 <tr>
-  <td  colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MISHYB_LIBRARY">Internal Oligo Mishyb Library:</a>
+  <td  colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MISHYB_LIBRARY">Internal Oligo Mishyb Library</a>
   </td><td colspan="2"><select name="PRIMER_INTERNAL_MISHYB_LIBRARY">
       <option selected="selected">NONE</option>
       <option>HUMAN</option>
@@ -697,21 +757,21 @@ Right Primer End</a></td><td>
       <option>RODENT</option>
       <option>DROSOPHILA</option>
   </select>
-  </td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_LIBRARY_MISHYB">Internal Oligo Max Library Mishyb:</a>
+  </td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_MAX_LIBRARY_MISHYB">Internal Oligo Max Library Mishyb</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_LIBRARY_MISHYB" value="12.00" type="text">
   </td><td colspan="2"></td>
 </tr>
   
 <tr>
-  <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_SALT_MONOVALENT">Internal Oligo Conc of monovalent cations:</a>
+  <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_SALT_MONOVALENT">Internal Oligo Conc of monovalent cations</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_SALT_MONOVALENT" value="50.0" type="text">
-  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_DNA_CONC">Internal Oligo DNA Concentration:</a>
+  </td><td colspan="1"><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_DNA_CONC">Internal Oligo DNA Concentration</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_DNA_CONC" value="50.0" type="text">
   </td><td colspan="2"></td>
 </tr>
 
 <tr>
-  <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_SALT_DIVALENT">Internal Oligo conc of divalent cations:</a>
+  <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_SALT_DIVALENT">Internal Oligo conc of divalent cations</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_SALT_DIVALENT" value="0.0" type="text">
   </td><td colspan="1"></td><td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_DNTP_CONC">Internal Oligo [dNTP]</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_DNTP_CONC" value="0.0" type="text">
@@ -727,51 +787,76 @@ Right Primer End</a></td><td>
   <!-- tbody -->
     <tr>
     <td><a name="IO_WT_SIZE_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SIZE_LT">Internal Oligo Size</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SIZE_LT" value="1.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SIZE_GT" value="1.0" type="text">
     
   </td></tr><tr>
     <td><a name="IO_WT_TM_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_TM_LT">Internal Oligo Tm</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TM_LT" value="1.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TM_GT" value="1.0" type="text">
     
   </td></tr><tr>
     <td><a name="IO_WT_GC_PERCENT_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_GC_PERCENT_LT">Internal Oligo GC%</a>
-    </td><td>Lt:
+    </td><td>Lt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_GC_PERCENT_LT" value="0.0" type="text">
-    </td><td>Gt:
+    </td><td>Gt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_GC_PERCENT_GT" value="0.0" type="text">
     </td></tr><!-- /tbody -->
 </table>
 
-<table border="0">
+<p></p>
 
-	<!-- tbody -->
-        <tr>
-    <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY">Internal Oligo Self Complementarity</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY" value="0.0" type="text">
-        
-    </td></tr><tr>
+<table border="1">
+<tr><td>
+<table border="0">
+<tr>
     <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY_TH">TH: Internal Oligo Self Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY_TH" value="0.0" type="text">
         
-    </td></tr><tr>
-    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END">Internal Oligo 3' End Complementarity</a>
-    </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END" value="0.0" type="text">
-        
-    </td></tr><tr>
+    </td></tr>
+<tr>
     <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END_TH">TH: Internal Oligo 3' End Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END_TH" value="0.0" type="text">
         
-    </td></tr><tr>
+    </td></tr>
+<tr>
     <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_HAIRPIN_TH">TH: Internal Oligo Hairpin</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_HAIRPIN_TH" value="0.0" type="text">
         
-    </td></tr><tr>
+    </td></tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="1">
+<tr><td>
+<table border="0">
+<tr>
+    <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY">Internal Oligo Self Complementarity</a>
+    </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY" value="0.0" type="text">
+        
+    </td></tr>
+ <tr>
+    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END">Internal Oligo 3' End Complementarity</a>
+    </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END" value="0.0" type="text">
+        
+    </td></tr>
+</table>
+</td></tr>
+</table>
+
+<p></p>
+
+<table border="0">
+
+	<!-- tbody -->
+       <tr>
 	<td><a name="IO_WT_NUM_NS_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_NUM_NS">Internal Oligo #N's</a>
 	</td><td><input size="4" name="PRIMER_INTERNAL_WT_NUM_NS" value="0.0" type="text">
 		
@@ -792,7 +877,6 @@ Right Primer End</a></td><td>
 </td></tr><!-- /tbody -->
 </table>
 
-
         <input name="Pick Primers" value="Pick Primers" type="submit">
 	<input name="Download Settings" value="Download Settings" type="submit">
         <input value="Reset Form" type="reset">
@@ -804,8 +888,7 @@ Right Primer End</a></td><td>
 <h2><a name="disclaimer">Copyright Notice and Disclaimer</a></h2>
 <p>
 Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012<br>
-Whitehead Institute for Biomedical Research, <a href="http://purl.com/STEVEROZEN/">Steve Rozen</a>
-, Andreas Untergasser and Helen Skaletsky.<br>
+Whitehead Institute for Biomedical Research, <a href="http://steverozen.net/">Steve Rozen</a>, Andreas Untergasser and Helen Skaletsky.<br>
 All rights reserved.<br>
 </p>
 <pre>
@@ -847,25 +930,24 @@ We request that use of this software be cited in
 publications as
 </p>
 <p>
-<a href="http://jura.wi.mit.edu/rozen/">Steve Rozen</a>
+<a href="http://steverozen.net">Steve Rozen</a>
 and Helen J. Skaletsky (2000)
-<a href="http://jura.wi.mit.edu/rozen/papers/rozen-and-skaletsky-2000-primer3.pdf">
+<a href="http://steverozen.net/papers/rozen-and-skaletsky-2000-primer3.pdf">
 Primer3 on the WWW for general users and for biologist programmers.
 </a>
 In: Krawetz S, Misener S (eds)
 <i>Bioinformatics Methods and Protocols: Methods in Molecular Biology.</i>
 Humana Press, Totowa, NJ, pp 365-386<br>
-<a href="http://fokker.wi.mit.edu/primer3/primer3_code.html">
-Source code available at http://fokker.wi.mit.edu/primer3/.
+Source code available at <a href="http://sourceforge.net/projects/primer3/">
+http://sourceforge.net/projects/primer3/.
 </a>
 </p>
 
 <h2>Acknowledgments</h2>
 <p>
-The development of Primer3 and the Primer3
-web site was funded by 
-Howard Hughes Medical Institute
-and by the 
+The original development of Primer3 and the Primer3
+web site in the late 1990s and early 2000s was funded by 
+Howard Hughes Medical Institute and by the 
 National Institutes of Health,
 <a href="http://www.nhgri.nih.gov/">
 National Human Genome Research Institute.</a>
@@ -878,12 +960,6 @@ Primer3 was a complete re-implementation
 of an earlier program:
 Primer 0.5 (<em>Steve Lincoln, Mark Daly, and Eric
 S. Lander</em>).
-<em>Lincoln Stein</em> championed the 
-idea of making Primer3 a software component suitable for high-throughput
-primer design.
-<br>
-Web interface by
-<em><a href="http://jura.wi.mit.edu/rozen">Steve Rozen</a></em><br>
 <!-- This web service provided by YOUR ORGANZATION HERE -->
 </p>
 <hr>

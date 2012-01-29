@@ -110,14 +110,14 @@ sub get_settings($)
   open(STDERR, ">&STDOUT");
   $| = 1;
   my @names = $query->param;
-  my $file = $query->param('input');
+  my $file = $query->param('Upload');
   if (!$file) {
     show_error("No settings file specified!");
     return;
   }
   my %tags;
   # get file handle
-  my $upload_filehandle = $query->upload("input");
+  my $upload_filehandle = $query->upload("Upload");
   # read the tags
   while (<$upload_filehandle>) {
     chomp($_);
@@ -128,6 +128,8 @@ sub get_settings($)
       last;
     }
     if ($_ =~ /^Primer3 File/) { next; }
+    if ($_ eq "") { next; }
+    if ($_ =~ "^#") {next; }
     unless ($_ =~ /([A-Z_0-9]+)=([^\n]*)/) {
       show_error("Incorrect syntax on line \"$_\" of settings file");
       return;
@@ -135,6 +137,7 @@ sub get_settings($)
     my $tag = $1;
     my $value = $2;
     if (($tag eq "PRIMER_MISPRIMING_LIBRARY") || ($tag eq 'PRIMER_INTERNAL_MISHYB_LIBRARY')) {
+      $value = basename($value);
       if ($value eq "humrep_and_simple.txt") {
 	$value = "HUMAN";
       } elsif ($value eq "rodrep_and_simple.txt") {
@@ -148,38 +151,41 @@ sub get_settings($)
       }
     } elsif ($tag eq "PRIMER_TASK") {
       if ($value eq "pick_pcr_primers") {
-	$value = "pick_detection_primers";
+	$value = "generic";
 	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 1;
 	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 0;
 	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 1;
       } elsif ($value eq "pick_pcr_primers_and_hyb_probe") {
-	$value = "pick_detection_primers";
+	$value = "generic";
 	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 1;
 	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 1;
 	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 1;
       } elsif ($value eq "pick_left_only") {
-	$value = "pick_detection_primers";
+	$value = "generic";
 	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 1;
 	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 0;
 	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 0;
       } elsif ($value eq "pick_right_only") {
-	$value = "pick_detection_primers";
+	$value = "generic";
 	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 0;
 	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 0;
 	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 1;
       } elsif ($value eq "pick_hyb_probe_only") {
-	$value = "pick_detection_primers";
+	$value = "generic";
 	$tags{"PRIMER_PICK_LEFT_PRIMER"} = 0;
 	$tags{"PRIMER_PICK_INTERNAL_OLIGO"} = 1;
 	$tags{"PRIMER_PICK_RIGHT_PRIMER"} = 0;
+      } elsif ($value eq "pick_detection_primers") {
+	$value = "generic";
       } elsif (($value ne "pick_detection_primers") &&
-	  ($value ne "pick_cloning_primers") &&
-	  ($value ne "pick_discriminative_primers") &&
-	  ($value ne "pick_sequencing_primers") &&
-	  ($value ne "pick_primer_list") &&
-	  ($value ne "check_primers")) {
-	# use default
-	$value = "pick_detection_primers";
+	       ($value ne "pick_cloning_primers") &&
+	       ($value ne "pick_discriminative_primers") &&
+	       ($value ne "pick_sequencing_primers") &&
+	       ($value ne "pick_primer_list") &&
+	       ($value ne "generic") &&
+	       ($value ne "check_primers")) {
+	  # use default
+	  $value = "generic";
       }
     } elsif ($tag =~ /^SEQUENCE_/) {
       # ignore sequence related tags
@@ -286,8 +292,8 @@ sub get_settings($)
       }
     } elsif ($line =~ /action="cgi-bin\/primer3web_results\.cgi"/) {
       $line =~ s/action="cgi-bin\/primer3web_results\.cgi"/action="primer3web_results\.cgi"/;
-    } elsif (($line =~ /pick_detection_primers/) && (defined($tags{'PRIMER_TASK'})) && 
-	     ($tags{'PRIMER_TASK'} ne "pick_detection_primers")) {
+    } elsif (($line =~ /generic/) && (defined($tags{'PRIMER_TASK'})) && 
+	     ($tags{'PRIMER_TASK'} ne "generic")) {
       $line =~ s/selected="selected"//;
     } elsif (($line =~ /(pick_[a-z_]*)/) && (defined($tags{'PRIMER_TASK'})) &&
 	     ($tags{'PRIMER_TASK'} eq $1)) {
@@ -359,6 +365,7 @@ sub list_settings($)
 
   push @input, "Primer3 File - http://primer3.sourceforge.net\n";
   push @input, "P3_FILE_TYPE=settings\n";
+  push @input, "\n";
 
   push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
   push @input, "PRIMER_THERMODYNAMIC_ALIGNMENT=$therodynamicAlignment\n";
@@ -439,6 +446,41 @@ sub process_input
     my $line;
     my $fasta_id;
 
+#    my $settings;
+#    # check if a settings file was given, in that case upload it to /tmp and use it when calling primer3
+#    my $file = $query->param('Upload');
+#    if (defined($file) && ($file ne "")) {
+#	# make the filename safe
+#	my $safe_filename_characters = "a-zA-Z0-9_.-";
+#	my ($name, $path, $extension) = fileparse ($file, '\..*'); 
+#	$settings = $name . $extension;
+#	$settings =~ tr/ /_/; 
+#	$settings =~ s/[^$safe_filename_characters]//g;
+#	 # get file handle
+#	my $upload_filehandle = $query->upload("Upload");
+#	# read the tags and write them to our settings file, also keep track what was given in the settings
+#	open UPLOADFILE, ">/tmp/$settings" or die "$!"; 
+#	while (my $line = <$upload_filehandle>) {
+#	    #skip PRIMER_THERMODYNAMIC_PARAMETERS_PATH as this is different in our case anyway
+#	    if ($line =~ /^PRIMER_THERMODYNAMIC_PARAMETERS_PATH/) { next; }
+#	    if ($line =~ /^PRIMER_MISPRIMING_LIBRARY=(\S*)/) {
+#		my $v = $1;
+#		# keep only filename (remove the path)
+#		$v = basename($v);
+#		print UPLOADFILE "PRIMER_MISPRIMING_LIBRARY=$v\n";
+#		next;
+#	    } elsif ($line =~ /^PRIMER_INTERNAL_MISHYB_LIBRARY=(\S*)/) {
+#		my $v = $1;
+#		# keep only filename (remove the path)
+#		$v = basename($v);
+#		print UPLOADFILE "PRIMER_MISPRIMING_LIBRARY=$v\n";
+#		next;
+#	    }
+#	    print UPLOADFILE $line;
+#	}
+#	close UPLOADFILE;
+#   }
+
     my $sequence_id = $query->param('SEQUENCE_ID');
 
     my $first_base_index = $query->param('PRIMER_FIRST_BASE_INDEX');
@@ -509,6 +551,7 @@ sub process_input
       next if /^SEQUENCE_EXCLUDED_REGION$/;
       next if /^SEQUENCE_INCLUDED_REGION$/;
       next if /^SEQUENCE_OVERLAP_JUNCTION_LIST$/;
+      next if /^input/;
 	
       $v = $query->param($_);
       next if $v =~ /^\s*$/;   # Is this still the right behavior?
@@ -617,7 +660,12 @@ sub process_input
     print FILE @input;
     close(FILE);
 
-    my $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
+    my $cmd;
+#    if (defined($settings)) {
+#	$cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags -p3_settings_file=/tmp/$settings"; # for linux
+#    } else {
+	$cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
+#    }
     #my $cmd = "$PRIMER_BIN < $file_name -format_output -strict_tags"; # for windows
 
     open PRIMER3OUTPUT, "$cmd 2>&1 |"
