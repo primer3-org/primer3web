@@ -33,7 +33,7 @@ $FILE_CACHE = "cache/"; # for windows
 
 # If you make any substantial modifications give this code a new
 # version designation.
-$CGI_RELEASE = "(primer3_results.cgi release 2.2.3)";
+$CGI_RELEASE = "(primer3_results.cgi release 3.0.0)";
 
 # ----- End Installer Modifiable Variables ---------------------------------
 
