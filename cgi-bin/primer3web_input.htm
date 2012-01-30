@@ -50,7 +50,7 @@ Task</a> for primer selection
 </p>
 
 <p>
-Paste <a name="SEQUENCE_TARGET_INPUT"> source sequence</a>
+Paste <a name="SEQUENCE_TEMPLATE_INPUT"> source sequence</a>
 below (5'-&gt;3', string of ACGTNacgtn --
 other letters treated as N -- numbers and blanks ignored).
 FASTA format ok.  Please N-out undesirable sequence
@@ -113,7 +113,7 @@ Mispriming Library (repeat library)</a>
  <td><a name="SEQUENCE_TARGET_INPUT" href="primer3web_help.htm#SEQUENCE_TARGET">Targets</a>
  </td><td><input name="SEQUENCE_TARGET" value="" type="text">
  </td><td>E.g. 50,2 requires primers to surround the 2 bases at positions 50 and 51.
-     Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
+     Or mark the <a href="#SEQUENCE_TEMPLATE_INPUT">source sequence</a>
      with [ and ]: e.g. ...ATCT[CCCC]TCAT.. means
      that primers must flank the central CCCC.
 
@@ -122,7 +122,7 @@ Mispriming Library (repeat library)</a>
  </td><td><input name="SEQUENCE_OVERLAP_JUNCTION_LIST" value="" type="text">
  </td><td>E.g. 27 requires one primer to overlap the junction between
      positions 27 and 28.
-     Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
+     Or mark the <a href="#SEQUENCE_TEMPLATE_INPUT">source sequence</a>
      with -: e.g. ...ATCTAC-TGTCAT.. means
      that primers must overlap the junction between the C and T.
 
@@ -130,7 +130,7 @@ Mispriming Library (repeat library)</a>
  <td><a name="SEQUENCE_EXCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_EXCLUDED_REGION">Excluded Regions</a>
  </td><td><input name="SEQUENCE_EXCLUDED_REGION" value="" type="text">
  </td><td>E.g. 401,7 68,3 forbids selection of primers in the 7 bases starting at 401 and the 3 bases at 68.
-     Or mark the <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
+     Or mark the <a href="#SEQUENCE_TEMPLATE_INPUT">source sequence</a>
      with &lt; and &gt;: e.g. ...ATCT&lt;CCCC&gt;TCAT.. forbids
      primers in the central CCCC.
 
@@ -144,7 +144,7 @@ Mispriming Library (repeat library)</a>
 </td><td><input name="SEQUENCE_INCLUDED_REGION" value="" type="text">
 </td><td> E.g. 20,400: only pick primers in the 400 base region starting at position 20.
     Or use { and } in the 
-    <a href="#SEQUENCE_TARGET_INPUT">source sequence</a>
+    <a href="#SEQUENCE_TEMPLATE_INPUT">source sequence</a>
     to mark the beginning and end of the included region: e.g.
     in ATC{TTC...TCT}AT the included region is TTC...TCT.
 </td></tr>
@@ -811,17 +811,17 @@ TH: Pair Max Template Mispriming</a></td>
 <tr><td>
 <table border="0">
 <tr>
-    <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY_TH">TH: Internal Oligo Self Complementarity</a>
+    <td><a name="IO_WT_COMPL_ANY_INPUT_TH" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY_TH">TH: Internal Oligo Self Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY_TH" value="0.0" type="text">
         
     </td></tr>
 <tr>
-    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END_TH">TH: Internal Oligo 3' End Complementarity</a>
+    <td><a name="IO_WT_COMPL_END_INPUT_TH" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END_TH">TH: Internal Oligo 3' End Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END_TH" value="0.0" type="text">
         
     </td></tr>
 <tr>
-    <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_HAIRPIN_TH">TH: Internal Oligo Hairpin</a>
+    <td><a name="IO_WT_HAIRPIN_TH" href="primer3web_help.htm#PRIMER_INTERNAL_WT_HAIRPIN_TH">TH: Internal Oligo Hairpin</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_HAIRPIN_TH" value="0.0" type="text">
         
     </td></tr>
@@ -867,7 +867,7 @@ TH: Pair Max Template Mispriming</a></td>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SEQ_QUAL" value="0.0" type="text">
     </td></tr><tr>
 
-    <td><a name="IO_WT_SEQ_QUAL_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_END_QUAL">
+    <td><a name="IO_WT_SEQ_END_QUAL" href="primer3web_help.htm#PRIMER_INTERNAL_WT_END_QUAL">
             Internal Oligo Sequence End Quality</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_END_QUAL" value="0.0" type="text">
 		
