@@ -51,7 +51,7 @@
 <a href="#sequenceTags">7. "SEQUENCE" INPUT TAGS</a><br>
 <a href="#globalTags">8. "GLOBAL" INPUT TAGS</a><br>
 <a href="#outputHelp">9. OUTPUT HELP</a><br>
-<a href="#providedMisprimingLibs">10. POVIDED MISPRIMING LIBRARIES</a><br>
+<a href="#providedMisprimingLibs">10. PROVIDED MISPRIMING LIBRARIES</a><br>
 <a href="#calculatePenalties">11. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a><br>
 <a href="#webInterface">12. PRIMER3 WWW INTERFACES</a><br>
 <a href="#acknowledgments">13. ACKNOWLEDGMENTS</a><br>
@@ -2248,7 +2248,7 @@ secondary structure).</p>
 <p>The 3' self-complementarity of the primer or oligo (taken
 as a measure of its tendency to form a primer-dimer with itself).</p>
 
-<h3><a name=p3w_primer_repeat>rep (Mispriming or Mishyb Library Similarity)</a></h2>
+<h3><a name=p3w_primer_repeat>rep (Mispriming or Mishyb Library Similarity)</a></h3>
 <p>The similarity to the specified Mispriming or Mishyb library.</p>
 
 <h3><a name=p3w_primer_seq>seq (Primer Sequence, 5' to 3')</a></h3>
@@ -2257,7 +2257,7 @@ right primer is on the opposite strand from the one supplied in
 the source input.  (The right primer sequence is the sequence
 you would want synthesized in a primer order.)</p>
 
-<h2><a name="providedMisprimingLibs">10. POVIDED MISPRIMING LIBRARIES</a></h2>
+<h2><a name="providedMisprimingLibs">10. PROVIDED MISPRIMING LIBRARIES</a></h2>
 
 <p>This selection indicates what mispriming library (if any) Primer3 
 should use to screen for interspersed repeats or for other 
@@ -2271,30 +2271,28 @@ is rodrep.ref translated to FASTA format, and the other is
 rodrep.ref concatenated with simple.ref, translated to FASTA 
 format.</p>
 <p>The <i>Drosophila</i> library is the concatenation of two libraries
-from the <a href="http://www.fruitfly.org">Berkeley Drosophila Genome Project</a>:<br>
-<blockquote>
+from the <a href="http://www.fruitfly.org">Berkeley Drosophila Genome Project</a>:</p>
+<blockquote><p>
 1. A library of transposable elements
 <a href="http://genomebiology.com/2002/3/12/research/0084">
 <i>The transposable elements of the Drosophila melanogaster euchromatin - a genomics perspective</i>
 J.S. Kaminker, C.M. Bergman, B. Kronmiller, J. Carlson, R. Svirskas, S. Patel, E. Frise, D.A. Wheeler, S.E. Lewis, G.M. Rubin, M. Ashburner and S.E. Celniker
 Genome Biology (2002) 3(12):research0084.1-0084.20</a>, 
-<a href="http://www.fruitfly.org/p_disrupt/datasets/ASHBURNER/D_mel_transposon_sequence_set.fasta">
-http://www.fruitfly.org/p_disrupt/datasets/ASHBURNER/D_mel_transposon_sequence_set.fasta</a>
+<a href="http://www.fruitfly.org/data/p_disrupt/datasets/ASHBURNER/D_mel_transposon_sequence_set.fasta">
+http://www.fruitfly.org/data/p_disrupt/datasets/ASHBURNER/D_mel_transposon_sequence_set.fasta</a>
 <br><br>
 2. A library of repetitive DNA sequences <a href="http://www.fruitfly.org/sequence/sequence_db/na_re.dros">
 http://www.fruitfly.org/sequence/sequence_db/na_re.dros</a>.
-</blockquote>
+</p></blockquote>
 Both were downloaded 6/23/04.<br>
-<br>
 The contents of the libraries can be viewed at the following links:<br>
-<br>
 <ul>
 <li><a href="show_humrep_and_simple.cgi">HUMAN</a> (contains microsatellites)</li>
 <li><a href="show_rodrep_and_simple.cgi">RODENT_AND_SIMPLE</a> (contains microsatellites)</li>
 <li><a href="show_rodent_ref.cgi">RODENT</a> (does not contain microsatellites)</li>
 <li><a href="show_drosophila_w_transposons.cgi">DROSOPHILA</a></li>
 </ul>
-<br></p>
+<br>
 
 <h2><a name="calculatePenalties">11. HOW PRIMER3 CALCULATES THE PENALTY VALUE</a></h2>
 
