@@ -199,6 +199,14 @@ sub get_settings($)
   if (!defined($tags{'PRIMER_INTERNAL_MISHYB_LIBRARY'})) {
     $tags{'PRIMER_INTERNAL_MISHYB_LIBRARY'} = 'NONE';
   }
+
+  # get any sequence related tag values that were entered on the web page
+  for (@names) {
+      if (/^SEQUENCE_/) {
+	  $tags{$_} = $query->param($_);
+      }
+  }
+
   # read in primer3web_input.htm and update the values
   open IN, "primer3web_input.htm" or die "open primer3web_input.htm: $!\n";
   my $line = <IN>;
@@ -211,7 +219,13 @@ sub get_settings($)
     if ($line =~ /Upload the settings from a file/) {
       print "<p>Settings were loaded from $file</p>\n";
     }
-    if ($line =~ /select name="PRIMER_MISPRIMING_LIBRARY"/) {
+    elsif (($line =~ /"SEQUENCE_TEMPLATE"/) && (defined($tags{'SEQUENCE_TEMPLATE'}))) {
+	$line =~ s/></>$tags{'SEQUENCE_TEMPLATE'}</;
+    }
+    elsif (($line =~ /"SEQUENCE_QUALITY"/) && (defined($tags{'SEQUENCE_QUALITY'}))) {
+	$line =~ s/></>$tags{'SEQUENCE_QUALITY'}</;
+    }
+    elsif ($line =~ /select name="PRIMER_MISPRIMING_LIBRARY"/) {
       # read in all option lines and select the right one
       while ($line !~ /\/select/) {
 	# unselect to make it easier
@@ -551,7 +565,7 @@ sub process_input
       next if /^SEQUENCE_EXCLUDED_REGION$/;
       next if /^SEQUENCE_INCLUDED_REGION$/;
       next if /^SEQUENCE_OVERLAP_JUNCTION_LIST$/;
-      next if /^input/;
+      next if /^Upload/;
 	
       $v = $query->param($_);
       next if $v =~ /^\s*$/;   # Is this still the right behavior?

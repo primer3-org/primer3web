@@ -182,8 +182,8 @@ Force Right Primer End</a></td><td>
 
 </table>
 
-<h3> <a name="SEQUENCE_QUALITY_INPUT" href="primer3web_help.htm#SEQUENCE_QUALITY">Sequence Quality </a></h3>
-<textarea rows="2" cols="95" name="SEQUENCE_QUALITY"> </textarea>
+<p><a name="SEQUENCE_QUALITY_INPUT" href="primer3web_help.htm#SEQUENCE_QUALITY">Sequence Quality </a></p>
+<textarea rows="2" cols="95" name="SEQUENCE_QUALITY"></textarea>
 <table border="0">	    
 <!-- tbody -->
 <tr>
@@ -208,7 +208,7 @@ Force Right Primer End</a></td><td>
 <h3> General Primer Picking Conditions </h3>
 
 <p>Upload the settings from a file
-<input type="file" name="Upload" onchange="document.forms['primer3web'].submit();"/>
+<input type="file" name="Upload" onchange="document.forms['primer3web'].submit();">
 </p>
 
 <table border="0">
@@ -290,14 +290,13 @@ Pair Max Library Mispriming</a></td><td>
 
 <p></p>
 
-<input name="MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT" value="1" type="checkbox">
-  <a name="PRIMER_THERMODYNAMIC_ALIGNMENT_INPUT" href="primer3web_help.htm#PRIMER_THERMODYNAMIC_ALIGNMENT">Use Thermodynamic Alignment</a>
-
-<p></p>
-
 <table border="1">
 <tr><td>
 <table border="0">
+<tr><td>Thermodynamic Secondary Structure Alignments</td></tr>
+<tr><td><input name="MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT" value="1" checked="checked" type="checkbox">
+    <a name="PRIMER_THERMODYNAMIC_ALIGNMENT_INPUT" href="primer3web_help.htm#PRIMER_THERMODYNAMIC_ALIGNMENT">Use Thermodynamic Alignment</a>
+</td></tr>
 
 <tr><td colspan="2"><a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">
 TH: Max Template Mispriming</a></td>
@@ -312,17 +311,17 @@ TH: Pair Max Template Mispriming</a></td>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY_TH" value="45.0" type="text">
  </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END_TH">TH: Max 3' Self Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END_TH" value="35.0" type="text">
-</td><td colspan=2"></td></tr>
+</td><td colspan="2"></td></tr>
 
  <tr><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY_TH">TH: Max Pair Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY_TH" value="45.0" type="text">
  </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END_TH">TH: Max 3' Pair Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END_TH" value="35.0" type="text">
 
-</td><td colspan=2"></td></tr><tr>
+</td><td colspan="2"></td></tr><tr>
  <td colspan="2"><a name="PRIMER_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_HAIRPIN_TH">TH: Max Primer Hairpin</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_HAIRPIN_TH" value="24.0" type="text">
- </td><td colspan=2"></td></tr>
+ </td><td colspan="2"></td></tr>
 </table>
 </td></tr>
 </table>
@@ -333,7 +332,7 @@ TH: Pair Max Template Mispriming</a></td>
 <tr><td>
 
 <table border="0">
-
+<tr><td>Old Secondary Structure Alignments</td></tr>
 <!-- Template mispriming (two input fields) -->
 <tr><td colspan="2">
 <a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING">Max Template Mispriming</a></td>
@@ -345,14 +344,13 @@ TH: Pair Max Template Mispriming</a></td>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY" value="8.00" type="text">
  </td><td colspan="2"><a name="PRIMER_MAX_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END">Max 3' Self Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END" value="3.00" type="text">
- </td><td colspan=2"></td></tr>
-</td></tr>
+ </td><td colspan="2"></td></tr>
 
 <tr><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY" value="8.00" type="text">
  </td><td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END" value="3.00" type="text">
-</td><td colspan=2"></td></tr>
+</td><td colspan="2"></td></tr>
 
 </table>
 </td></tr>
@@ -367,7 +365,7 @@ TH: Pair Max Template Mispriming</a></td>
 
  </td><td colspan="2"><a name="PRIMER_MAX_POLY_X_INPUT" href="primer3web_help.htm#PRIMER_MAX_POLY_X">Max Poly-X</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_POLY_X" value="4" type="text">
-</td><td colspan=2"></td></tr>
+</td><td colspan="2"></td></tr>
 
   <tr>
   <td colspan="2">
@@ -399,7 +397,7 @@ TH: Pair Max Template Mispriming</a></td>
 </td><td colspan="1"><input size="4" name="PRIMER_MAX_END_GC" value="5" type="text">
 
 </td></tr><tr>
-<td colspan="2"><a name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.htm#PRIMER_MINLEFT__THREE_PRIME_DISTANCE">3' End Distance Between Left Primers</a>
+<td colspan="2"><a name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.htm#PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE">3' End Distance Between Left Primers</a>
 </td><td colspan="1"><input size="4" name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE" value="-1" type="text">
 </td><td colspan="2"><a name="PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE_INPUT" href="primer3web_help.htm#PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE">3' End Distance Between Right Primers</a>
 </td><td colspan="1"><input size="4" name="PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE" value="-1" type="text">
@@ -576,9 +574,7 @@ TH: Pair Max Template Mispriming</a></td>
 
 	</td></tr><tr>
 	<td><a name="WT_END_STABILITY_INPUT" href="primer3web_help.htm#PRIMER_WT_END_STABILITY">End Stability</a>
-	</td><td><input size="4" name="PRIMER_WT_END_STABILITY" value="0.0" type="text"></td>
-
-    </td></tr>
+	</td><td><input size="4" name="PRIMER_WT_END_STABILITY" value="0.0" type="text"></td></tr>
 
 <!-- /tbody -->
 </table>
