@@ -76,6 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 use CGI;
 use Carp;
+use CGI::Carp qw(fatalsToBrowser);
 use FileHandle;
 use IPC::Open3;
 use File::Basename;
@@ -91,8 +92,10 @@ sub main
     list_settings($query);
   } elsif ($query->param('Upload')) {
     get_settings($query);
+  } elsif ($query->param('Reset Form')) {
+    reset_form();
   } else {
-    confess "Did not see the 'Pick Primers' or 'Download Settings' query parameter";
+    confess "Did not see the 'Pick Primers' or 'Download Settings' or 'Reset Form' or 'Upload' query parameter";
   }
 }
 
@@ -100,6 +103,26 @@ sub show_error($)
 {
     my ($msg) = @_;
     print "$msg";
+}
+
+sub reset_form($)
+{
+    # reload orginal primer3web input file
+    print "Content-type: text/html\n\n";
+    # Ensure that errors will go to the web browser.
+    open(STDERR, ">&STDOUT");
+    $| = 1;
+    open IN, "primer3web_input.htm" or die "open primer3web_input.htm: $!\n";
+    while (my $line = <IN>) {
+	if ($line =~ /primer3web_help.htm/) {
+	    $line =~ s/primer3web_help.htm/\.\.\/primer3web_help.htm/;
+	}
+	if ($line =~ /action="cgi-bin\/primer3web_results\.cgi"/) {
+	    $line =~ s/action="cgi-bin\/primer3web_results\.cgi"/action="primer3web_results\.cgi"/;
+	}
+	print $line;
+    }
+    close IN;
 }
 
 sub get_settings($)
@@ -398,6 +421,8 @@ sub list_settings($)
   for (@names) {
     next if /^Pick Primers$/;
     next if /^Download Settings$/;
+    next if /^Reset Form$/;
+    next if /^Upload$/;
     next if /^PRIMER_FIRST_BASE_INDEX$/;
     next if /^MUST_XLATE/;
 
@@ -569,6 +594,8 @@ sub process_input
       next if /^SEQUENCE_INCLUDED_REGION$/;
       next if /^SEQUENCE_OVERLAP_JUNCTION_LIST$/;
       next if /^Upload/;
+      next if /^Download Settings$/;
+      next if /^Reset Form$/;
 	
       $v = $query->param($_);
       next if $v =~ /^\s*$/;   # Is this still the right behavior?
