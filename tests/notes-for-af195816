@@ -1,0 +1,3 @@
+../../../primer3/trunk/src/primer3_core -format -strict -p3_settings ../../../primer3/trunk/primer3web_v3_0_0_default_settings.txt af195816_input > af195816_output 
+
+
