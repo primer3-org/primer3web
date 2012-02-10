@@ -190,6 +190,9 @@ sub get_settings($)
     } elsif ($tag =~ /^SEQUENCE_/) {
       # ignore sequence related tags
       next;
+    } elsif ($tag =~ /^PRIMER_MIN_THREE_PRIME_DISTANCE$/) {
+      $tags{"PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE"} = $value;
+      $tags{"PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE"} = $value;
     }
     $tags{$tag} = $value;
   }
