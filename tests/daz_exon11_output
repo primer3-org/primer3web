@@ -1,0 +1,65 @@
+PRIMER PICKING RESULTS FOR DAZ_ex11 from DAZ_complete (67078..67579; 502 bp)
+
+No mispriming library specified
+Using 1-based sequence positions
+OLIGO            start  len      tm     gc%  any_th  3'_th hairpin seq
+LEFT PRIMER         77   20   57.85   45.00    0.00   0.00    0.00 TGGGAAGTTGCTGGTTTTGA
+RIGHT PRIMER       444   22   58.45   40.91    0.00   0.00    0.00 TGGAGAAGTGAAATGCTTGTGT
+SEQUENCE SIZE: 502
+INCLUDED REGION SIZE: 502
+
+PRODUCT SIZE: 368, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
+
+    1 GGTAAAAGAGTGCATCGCTTTAGAAGAAGTTTGGCAGTATTTAAATCTGTTGGATCCTCT
+                                                                  
+
+   61 CAGCTATCTAGTTTCATGGGAAGTTGCTGGTTTTGAATATTAAGCTAAAAGTTTTCCACT
+                      >>>>>>>>>>>>>>>>>>>>                        
+
+  121 ATTACAGAAATTCTGAATTTTGGTAAATCACACTGAAACTTTCTGTATAACTTGTATTAT
+                                                                  
+
+  181 TAGACTCTCTAGTTTTATCTTAACACTGAAACTGTTCTTCATTAGATGTTTATTTAGAAC
+                                                                  
+
+  241 CTGGTTCTGTGTTTAATATATAGTTTAAAGTAACAAATAATCGAGACTGAAAGAATGTTA
+                                                                  
+
+  301 AGATTTATCTGCAAGGATTTTTAAAAAATTGAAACTTGCATTTTAAGTGTTTAAAAGCAA
+                                                                  
+
+  361 ATACTGACTTTCAAAAAAGTTTTTAAAACCTGATTTGAAAGCTAACAATTTTGATAGTCT
+                                                                  
+
+  421 GAACACAAGCATTTCACTTCTCCAAGAAGTACCTGTGAACAGTACAATATTTCAGTATTG
+        <<<<<<<<<<<<<<<<<<<<<<                                    
+
+  481 AGCTTTGCATTTATGATTTATC
+                            
+
+KEYS (in order of precedence):
+>>>>>> left primer
+<<<<<< right primer
+
+ADDITIONAL OLIGOS
+                    start  len      tm     gc%  any_th  3'_th hairpin seq
+
+ 1 LEFT PRIMER         46   20   57.76   50.00   15.52   0.00    0.00 TCTGTTGGATCCTCTCAGCT
+   RIGHT PRIMER       438   23   58.80   39.13    0.00   0.00    0.00 AGTGAAATGCTTGTGTTCAGACT
+   PRODUCT SIZE: 393, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
+
+ 2 LEFT PRIMER         74   20   57.62   45.00    0.00   0.00    0.00 TCATGGGAAGTTGCTGGTTT
+   RIGHT PRIMER       442   23   57.83   39.13    0.00   0.00    0.00 GAGAAGTGAAATGCTTGTGTTCA
+   PRODUCT SIZE: 369, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
+
+Statistics
+         con   too    in    in   not          no    tm    tm   high  high  high        high      
+         sid  many   tar  excl    ok   bad    GC   too   too any_th 3'_th hair-  poly   end      
+        ered    Ns   get   reg   reg   GC% clamp   low  high  compl compl   pin     X  stab    ok
+Left    1218     0     0     0     0   516     0   611     0      0     0     5     0     0    86
+Right   1218     0     0     0     0   731     0   445     0      0     0    24     1     0    17
+Pair Stats:
+considered 118, unacceptable product size 114, primer in pair overlaps a primer in a better pair 354, ok 4
+libprimer3 release 2.3.0
+
+
