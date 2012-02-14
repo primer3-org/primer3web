@@ -2,18 +2,15 @@ primer3-web release 3.0.0
 
 GPL 2.0 license (please see gpl-2.0.txt)
 
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,
+              2008,2009,2010,2011,2012
 Whitehead Institute for Biomedical Research, Steve Rozen
 (http://steverozen.net), and Helen Skaletsky
 All rights reserved.
 
 This file contains instructions for installing the
 primer3 web interface (release 3.0.0).  This interface
-is provided strictly 'as-is'.  You may be able to
-get some help by posting to 
-
-primer3-mail .AT. lists.sourceforge net.
-
+is provided strictly 'as-is'.
 
 To install the web interface you will need:
 
@@ -34,13 +31,17 @@ in your perl installation).
 
 1. gunzip and untar primer3-web-htdocs-3.0.0.tar.gz
 in your .../htdocs directory or equivalent.
+** This will put the constituent files in
+the current working directory.
 
 2. gunzip and untar primer3-web-cgi-bin-3.0.0.tar.gz
 in your .../cgi-bin directory or equivalent
+** This will put the constituent files in
+the current working directory.
 
 3. Build primer3_core (anywhere) and copy or
-move it to .../cgi-bin/primer3-web-cgi-bin-3.0.0/
-(created by untar'ing primer3-web-cgi-bin-3.0.0.tar.gz)
+move it to directory containing the files from 
+primer3-web-cgi-bin-3.0.0.tar.gz
 
 Depending on the structure of your web site you may
 have to adjust some of the URLs in the .htm
