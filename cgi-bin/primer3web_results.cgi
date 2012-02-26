@@ -708,7 +708,9 @@ sub process_input
 #    if (defined($settings)) {
 #	$cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags -p3_settings_file=/tmp/$settings"; # for linux
 #    } else {
-	$cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
+	# $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
+	$cmd = "/usr/bin/env nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
+
 #    }
     #my $cmd = "$PRIMER_BIN < $file_name -format_output -strict_tags"; # for windows
 
