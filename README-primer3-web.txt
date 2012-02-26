@@ -14,7 +14,7 @@ is provided strictly 'as-is'.
 
 To install the web interface you will need:
 
-a. primer3_core, which is written in C and which, at this
+a. primer3_core, which is written in C and which, at this  
 point, you must compile yourself. You can find links
 to the C code for primer3_core from 
 http://sourceforge.net/projects/primer3.
@@ -39,11 +39,19 @@ in your .../cgi-bin directory or equivalent
 ** This will put the constituent files in
 the current working directory.
 
-3. Build primer3_core (anywhere) and copy or
-move it to directory containing the files from 
-primer3-web-cgi-bin-3.0.0.tar.gz
+3. Build primer3_core (anywhere) and copy or move it to
+the directory containing the files from 
+primer3-web-cgi-bin-3.0.0.tar.gz.  Also copy the
+directory ./src/primer3_config to this directory.
+(Background: running primer3_core requires the
+directory primer3_config and its contents. This 
+directory is provided in 
+primer3-web-cgi-bin-3.0.0.tar.gz as 
+./src/primer3_config/.  By default this primer3_config
+needs to be in the current working directory when 
+primer3_core is executed.)
 
-Depending on the structure of your web site you may
+4. Depending on the structure of your web site you may
 have to adjust some of the URLs in the .htm
 .html, or .cgi files.  You might have to fix the #!
 headers in the .cgi files to point to your perl.
