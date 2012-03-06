@@ -41,8 +41,10 @@ the current working directory.
 
 3. Build primer3_core (anywhere) and copy or move it to
 the directory containing the files from 
-primer3-web-cgi-bin-3.0.0.tar.gz.  Also copy the
-directory ./src/primer3_config to this directory.
+primer3-web-cgi-bin-3.0.0.tar.gz.  In addition,
+confirm that the this directory contains the 
+subdirectory primer3_config/.
+
 (Background: running primer3_core requires the
 directory primer3_config and its contents. This 
 directory is provided in 
