@@ -112,7 +112,7 @@ sub reset_form($)
     # Ensure that errors will go to the web browser.
     open(STDERR, ">&STDOUT");
     $| = 1;
-    open IN, "primer3web_input.htm" or die "open primer3web_input.htm: $!\n";
+    open IN, "../html/primer3web_input.htm" or die "open ../html/primer3web_input.htm: $!\n";
     while (my $line = <IN>) {
 	if ($line =~ /primer3web_help.htm/) {
 	    $line =~ s/primer3web_help.htm/\.\.\/primer3web_help.htm/;
@@ -234,7 +234,7 @@ sub get_settings($)
   }
 
   # read in primer3web_input.htm and update the values
-  open IN, "primer3web_input.htm" or die "open primer3web_input.htm: $!\n";
+  open IN, "../html/primer3web_input.htm" or die "open ../html/primer3web_input.htm: $!\n";
   my $line = <IN>;
   while (1) {
     if (!$line) { last; }
