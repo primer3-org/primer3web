@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <title>primer3 release 2.3.0 - manual</title>
+  <title>primer3 release 2.3.1 - manual</title>
   <style type="text/css">
   body {
   background-color:white;
@@ -297,7 +297,8 @@ such as ALUs or LINEs.</p>
 
 <p>
 
-This tag allows detailed specification of possible locations of left and right primers in primer pairs.
+This tag allows detailed specification of possible
+locations of left and right primers in primer pairs.
 <br><br>
 The associated value must be a semicolon-separated list of</p>
 
@@ -869,20 +870,20 @@ Legal values are:<br>
 
 <h3><a name="PRIMER_PICK_LEFT_PRIMER">PRIMER_PICK_LEFT_PRIMER (boolean; default 1)</a></h3>
 
-<p>If the associated value is 1 (non-0), then primer3 will attempt to
+<p>If the associated value = 1 (non-0), then primer3 will attempt to
 pick left primers.</p>
 
 
 <h3><a name="PRIMER_PICK_INTERNAL_OLIGO">PRIMER_PICK_INTERNAL_OLIGO (boolean; default 0)</a></h3>
 
-<p>If the associated value is 1 (non-0), then primer3 will attempt to
+<p>If the associated value = 1 (non-0), then primer3 will attempt to
 pick an internal oligo (hybridization probe to detect the PCR
 product).</p>
 
 
 <h3><a name="PRIMER_PICK_RIGHT_PRIMER">PRIMER_PICK_RIGHT_PRIMER (boolean; default 1)</a></h3>
 
-<p>If the associated value is 1 (non-0), then primer3 will attempt to
+<p>If the associated value = 1 (non-0), then primer3 will attempt to
 pick a right primer.</p>
 
 
@@ -1282,8 +1283,12 @@ Tm(C) = 323.704 - 273.15 = 50.554 C
 
 <p>The millimolar (mM) concentration of monovalent salt cations (usually KCl) in the PCR.
 Primer3 uses this argument to calculate oligo and primer melting
-temperatures. Use tag <a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a> to specify the concentration
-of divalent cations (in this case you also should use tag <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a>).</p>
+temperatures. 
+Use tag <a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a> and 
+<a href="#PRIMER_INTERNAL_SALT_DIVALENT">PRIMER_INTERNAL_SALT_DIVALENT</a> to specify the concentrations
+of divalent cations (in which case you also should also set tag <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a> to
+a reasonable value).
+</p>
 
 
 <h3><a name="PRIMER_INTERNAL_SALT_MONOVALENT">PRIMER_INTERNAL_SALT_MONOVALENT (float; default 50.0)</a></h3>
@@ -1305,13 +1310,19 @@ Formulas", Clinical Chemistry 47:1956-61 <a href="http://www.clinchem.org/cgi/co
 <pre>
 [Monovalent cations] = [Monovalent cations] + 120*(([divalent cations] - [dNTP])^0.5)
 </pre>
-<p>According to the formula concentration of deoxynucleotide triphosphate
-[dNTP] must be smaller than concentration of divalent cations. If the
-specified concentration of dNTPs is larger than specified concentration of
-divalent cations then the effect of divalent cations is not considered. The
-concentration of dNTPs is included to the formula because of some magnesium is bound by the
-dNTP. Attained concentration of monovalent cations is used to calculate oligo/primer
-melting temperature. Use tag <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a> to specify the concentration of dNTPs.</p>
+<p>In addition, 
+if the specified concentration of dNTPs (<a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a>)
+is larger than the concentration of divalent cations (<a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a>)
+then the effect of the divalent cations is not considered. The
+concentration of dNTPs is considered in the formula above 
+because of some magnesium is bound by the dNTP.
+The adjusted concentration of monovalent cations is used in the
+calculation of oligo/primer
+melting temperature, PCR product melting temperature,
+and the stability of secondary structures (when <a href="#PRIMER_THERMODYNAMIC_ALIGNMENT">PRIMER_THERMODYNAMIC_ALIGNMENT</a> is 1).
+If <a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a> > 0.0, be sure to
+set tag <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a> to specify the concentration of dNTPs.
+</p>
 
 
 <h3><a name="PRIMER_INTERNAL_SALT_DIVALENT">PRIMER_INTERNAL_SALT_DIVALENT (float; default 0.0)</a></h3>
@@ -1324,13 +1335,18 @@ melting temperature. Use tag <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a> to
 <p>The millimolar concentration of the sum of all 
 deoxyribonucleotide triphosphates. A reaction mix containing 
 0.2 mM ATP, 0.2 mM CTP, 0.2 mM GTP and 0.2 mM TTP would have a 
-PRIMER_DNTP_CONC=0.8. This argument is considered only if 
-<a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a> is specified. See <a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a>.</p>
+PRIMER_DNTP_CONC=0.8. 
+This argument is considered for oligo and
+primer melting temperatures, for
+PCR product melting temperature, or for secondary 
+structure calculations only if 
+<a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a> is > 0.0.
+See <a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a>.</p>
 
 
 <h3><a name="PRIMER_INTERNAL_DNTP_CONC">PRIMER_INTERNAL_DNTP_CONC (float; default 0.0)</a></h3>
 
-<p>Equivalent parameter of <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a> for the internal oligo.</p>
+<p>Parameter for internal oligos analogous to <a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a>.</p>
 
 
 <h3><a name="PRIMER_SALT_CORRECTIONS">PRIMER_SALT_CORRECTIONS (int; default 1)</a></h3>
@@ -1343,13 +1359,15 @@ A value of 0 directs primer3 to use the the salt correction
 formula in the paper [Schildkraut, C, and Lifson, S (1965)
 "Dependence of the melting temperature of DNA on salt
 concentration", Biopolymers 3:195-208 (not available on-line)].
-This was the formula used in older versions of primer3.<br>
+This was the formula used in older versions of primer3.
+<br>
 <br>
 A value of 1 (*RECOMMENDED*) directs primer3 to use the salt correction
 formula in the paper [SantaLucia JR (1998) "A unified view of polymer,
 dumbbell and oligonucleotide DNA nearest-neighbor thermodynamics",
 Proc Natl Acad Sci 95:1460-65
-<a href="http://dx.doi.org/10.1073/pnas.95.4.1460">http://dx.doi.org/10.1073/pnas.95.4.1460</a>]<br>
+<a href="http://dx.doi.org/10.1073/pnas.95.4.1460">http://dx.doi.org/10.1073/pnas.95.4.1460</a>]
+<br>
 <br>
 A value of 2 directs primer3 to use the salt correction formula
 in the paper [Owczarzy, R., Moreira, B.G., You, Y., Behlke, M.A., and
@@ -1358,7 +1376,16 @@ containing magnesium and monovalent cations. Biochemistry 47, 5336-5353
 <a href="http://dx.doi.org/10.1021/bi702363u">http://dx.doi.org/10.1021/bi702363u</a>] following recommendations in the paper
 [Ahsen, v.N., Wittwer, C.T., and Schütz, E. (2010). Monovalent and divalent
 salt correction algorithms for Tm prediction-recommendations for Primer3
-usage. Brief Bioinform 12, 514 <a href="http://dx.doi.org/10.1093/bib/bbq081">http://dx.doi.org/10.1093/bib/bbq081</a>]. </p>
+usage. Brief Bioinform 12, 514 <a href="http://dx.doi.org/10.1093/bib/bbq081">http://dx.doi.org/10.1093/bib/bbq081</a>]. 
+<br>
+<br>
+For all values of <a href="#PRIMER_SALT_CORRECTIONS">PRIMER_SALT_CORRECTIONS</a>,
+Primer3 also considers the values of the
+tags <a href="#PRIMER_SALT_DIVALENT">PRIMER_SALT_DIVALENT</a>, 
+<a href="#PRIMER_INTERNAL_SALT_DIVALENT">PRIMER_INTERNAL_SALT_DIVALENT</a>,
+<a href="#PRIMER_DNTP_CONC">PRIMER_DNTP_CONC</a>, and
+<a href="#PRIMER_INTERNAL_DNTP_CONC">PRIMER_INTERNAL_DNTP_CONC</a>.
+</p>
 
 
 <h3><a name="PRIMER_DNA_CONC">PRIMER_DNA_CONC (float; default 50.0)</a></h3>
@@ -1402,7 +1429,7 @@ See ADVICE FOR PICKING PRIMERS.</p>
 
 <h3><a name="PRIMER_THERMODYNAMIC_ALIGNMENT">PRIMER_THERMODYNAMIC_ALIGNMENT (boolean; default 1)</a></h3>
 
-<p>If the associated value equals to 1, then primer3 will us
+<p>If the associated value = 1, then primer3 will use
 thermodynamic models to calculate the
 the propensity of oligos to form hairpins, dimers, or to anneal to undesired sites in the template sequence.
 </p>
