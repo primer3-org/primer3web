@@ -56,10 +56,10 @@ Statistics
          con   too    in    in   not          no    tm    tm   high  high  high        high      
          sid  many   tar  excl    ok   bad    GC   too   too any_th 3'_th hair-  poly   end      
         ered    Ns   get   reg   reg   GC% clamp   low  high  compl compl   pin     X  stab    ok
-Left    1218     0     0     0     0   516     0   611     0      0     0     5     0     0    86
-Right   1218     0     0     0     0   731     0   445     0      0     0    24     1     0    17
+Left    2418     0     0     0     0  1389     0   937     0      0     0     8     1     0    83
+Right   2418     0     0     0     0  1468     0   907     0      0     0    24     1     0    18
 Pair Stats:
-considered 118, unacceptable product size 114, primer in pair overlaps a primer in a better pair 354, ok 4
-libprimer3 release 2.3.0
+considered 8003, unacceptable product size 7999, primer in pair overlaps a primer in a better pair 582, ok 4
+libprimer3 release 2.3.1
 
 
