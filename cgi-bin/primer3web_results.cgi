@@ -728,20 +728,34 @@ sub process_input
     foreach $cline (@readTheLine) {
       $cline =~ s/>/&gt;/g;
       $cline =~ s/</&lt;/g;
-      if ($cline =~
-	  /(.*)(start) (\s*\S+) (\s*\S+) (\s*\S+) (\s*\S+) (\s*\S+|) (\s*\S+) (\s*\S+)/) {
-	my ($margin, $starth, $lenh, $tmh, $gch, $anyh, $threeh, $reph, $seqh) =
-	  ($1, $2, $3, $4, $5, $6, $7, $8, $9);
-	$cline =  $margin
-	  . "<a href=\"$ODOC_URL#p3w_primer_start\">$starth</a> "
-	    . "<a href=\"$ODOC_URL#p3w_primer_len\">$lenh</a> "
-	      . "<a href=\"$ODOC_URL#p3w_primer_tm\">$tmh</a> "
-		. "<a href=\"$ODOC_URL#p3w_primer_gc\">$gch</a> "
-		  . "<a href=\"$ODOC_URL#p3w_primer_any\">$anyh</a> "
-		    . "<a href=\"$ODOC_URL#p3w_primer_three\">$threeh</a> "
-		      . "<a href=\"$ODOC_URL#p3w_primer_repeat\">$reph</a> "
-			. "<a href=\"$ODOC_URL#p3w_primer_seq\">$seqh</a> "
-			  . "\n";
+      if ($cline =~ /(.*)(start)/) {
+	  my $cline_tmp = $cline;
+	  $cline = "$1<a href=\"$ODOC_URL#p3w_primer_start\">$2</a> ";
+	  if ($cline_tmp =~ / (\s*len)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_len\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*tm)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_tm\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*gc\%)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_gc\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*any_th)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_any\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*3'_th)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_three\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*rep)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_repeat\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*hairpin)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_hairpin\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*seq)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_seq\">$1</a> ";
+	  }
+	  $cline .= "\n";
       }
       if ($cline =~ /NO PRIMERS FOUND/) {
 	$cline =~ s/NO PRIMERS FOUND/NO PRIMERS FOUND - <a href=\"$ODOC_URL#findNoPrimers\">Help<\/a>/g;
