@@ -740,23 +740,17 @@ sub process_input
 	  if ($cline_tmp =~ / (\s*gc\%)/) {
 	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_gc\">$1</a> ";
 	  }
-	  if ($cline_tmp =~ / (\s*any_th)/) {
+	  if ($cline_tmp =~ / (\s*any(_th|))/) {
 	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_any\">$1</a> ";
 	  }
-	  if ($cline_tmp =~ / (\s*3'_th)/) {
+	  if ($cline_tmp =~ / (\s*3'(_th|))/) {
 	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_three\">$1</a> ";
-	  }
-	  if ($cline_tmp =~ / (\s*any)/) {
-	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_any\">$1</a> ";
-	  }
-	  if ($cline_tmp =~ / (\s*3')/) {
-	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_three\">$1</a> ";
-	  }
-	  if ($cline_tmp =~ / (\s*rep)/) {
-	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_repeat\">$1</a> ";
 	  }
 	  if ($cline_tmp =~ / (\s*hairpin)/) {
 	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_hairpin\">$1</a> ";
+	  }
+	  if ($cline_tmp =~ / (\s*rep)/) {
+	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_repeat\">$1</a> ";
 	  }
 	  if ($cline_tmp =~ / (\s*seq)/) {
 	      $cline .= "<a href=\"$ODOC_URL#p3w_primer_seq\">$1</a> ";
