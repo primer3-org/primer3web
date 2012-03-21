@@ -19,41 +19,39 @@ point, you must compile yourself. You can find links
 to the C code for primer3_core from 
 http://sourceforge.net/projects/primer3.
 
-b. primer3-web-htdocs-3.0.0.tar.gz (available 
+b. primer3web-3.0.0.tar.gz (available 
 from http://sourceforge.net/projects/primer3)
 
-c. primer3-web-cgi-bin-3.0.0.tar.gz (available
-from http://sourceforge.net/projects/primer3)
-
-d. The perl module CGI.pm (available from CPAN,
+c. The perl module CGI.pm (available from CPAN,
 http://cpan.org, if it is not already available
 in your perl installation).
 
-1. gunzip and untar primer3-web-htdocs-3.0.0.tar.gz
-in your .../htdocs directory or equivalent.
+1. gunzip and untar primer3web-3.0.0.tar.gz.
 ** This will put the constituent files in
 the current working directory.
+There will be 2 directories after gunzip and untar: 
+html and cgi-bin.
+Copy all files in the html directory to your .../html or 
+.../htdocs directory or equivalent.
+Copy all files in cgi-bin directory to your .../cgi-bin
+directory or equivalent.
 
-2. gunzip and untar primer3-web-cgi-bin-3.0.0.tar.gz
-in your .../cgi-bin directory or equivalent
-** This will put the constituent files in
-the current working directory.
-
-3. Build primer3_core (anywhere) and copy or move it to
-the directory containing the files from 
-primer3-web-cgi-bin-3.0.0.tar.gz.  In addition,
+2. Build primer3_core (anywhere) and copy or move it to
+the directory containing the files from cgi-bin of
+primer3web-3.0.0.tar.gz.  In addition,
 confirm that the this directory contains the 
 subdirectory primer3_config/.
 
 (Background: running primer3_core requires the
 directory primer3_config and its contents. This 
 directory is provided in 
-primer3-web-cgi-bin-3.0.0.tar.gz as 
-./src/primer3_config/.  By default this primer3_config
+primer3web-3.0.0.tar.gz as ./cgi-bin/primer3_config/.  
+By default this primer3_config
 needs to be in the current working directory when 
 primer3_core is executed.)
 
-4. Depending on the structure of your web site you may
+3. Depending on the structure of your web site you may
 have to adjust some of the URLs in the .htm
 .html, or .cgi files.  You might have to fix the #!
 headers in the .cgi files to point to your perl.
+
