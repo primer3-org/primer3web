@@ -33,12 +33,12 @@ $FILE_CACHE = "cache/"; # for windows
 
 # If you make any substantial modifications give this code a new
 # version designation.
-$CGI_RELEASE = "(primer3_results.cgi release 3.0.0)";
+$CGI_RELEASE = "(primer3_results.cgi release 4.0.0)";
 
 # ----- End Installer Modifiable Variables ---------------------------------
 
 $COPYRIGHT = $COPYRIGHT = q{ 
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012,2013
 Whitehead Institute for Biomedical Research, Steve Rozen
 (http://purl.com/STEVEROZEN/), Andreas Untergasser and Helen Skaletsky.
 All rights reserved.
@@ -356,7 +356,8 @@ sub list_settings($)
   }
 
   # Fix the values of the checkboxes:
-  my $therodynamicAlignment  = 0;
+  my $therodynamicOligoAlignment  = 0;
+  my $therodynamicTemplateAlignment  = 0;
   my $pick_left  = 0;
   my $pick_internal = 0;
   my $pick_right = 0;
@@ -367,8 +368,11 @@ sub list_settings($)
   my $pick_anyway = 0;
   my $explain_flag = 0;
 
-  if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT')) {
-    $therodynamicAlignment = 1;
+  if (defined $query->param('MUST_XLATE_PRIMER_OLIGO_THERMODYNAMIC_ALIGNMENT')) {
+    $therodynamicOligoAlignment = 1;
+  }
+  if (defined $query->param('MUST_XLATE_PRIMER_TEMPLATE_THERMODYNAMIC_ALIGNMENT')) {
+    $therodynamicTemplateAlignment = 1;
   }
   if (defined $query->param('MUST_XLATE_PRIMER_PICK_LEFT_PRIMER')) {
     $pick_left = 1;
@@ -408,7 +412,8 @@ sub list_settings($)
   push @input, "\n";
 
   push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
-  push @input, "PRIMER_THERMODYNAMIC_ALIGNMENT=$therodynamicAlignment\n";
+  push @input, "PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT=$therodynamicOligoAlignment\n";
+  push @input, "PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT=$therodynamicTemplateAlignment\n";
   push @input, "PRIMER_PICK_LEFT_PRIMER=$pick_left\n";
   push @input, "PRIMER_PICK_INTERNAL_OLIGO=$pick_internal\n";
   push @input, "PRIMER_PICK_RIGHT_PRIMER=$pick_right\n";
@@ -531,7 +536,8 @@ sub process_input
     }
 
     # Fix the values of the checkboxes:
-    my $therodynamicAlignment  = 0;
+    my $therodynamicOligoAlignment  = 0;
+    my $therodynamicTemplateAlignment  = 0;
     my $pick_left  = 0;
     my $pick_internal = 0;
     my $pick_right = 0;
@@ -542,8 +548,11 @@ sub process_input
     my $pick_anyway = 0;
     my $explain_flag = 0;
 
-    if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_ALIGNMENT')) {
-      $therodynamicAlignment = 1;
+    if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT')) {
+      $therodynamicOligoAlignment = 1;
+    }
+    if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT')) {
+      $therodynamicTemplateAlignment = 1;
     }
     if (defined $query->param('MUST_XLATE_PRIMER_PICK_LEFT_PRIMER')) {
       $pick_left = 1;
@@ -680,7 +689,8 @@ sub process_input
     push @input, "SEQUENCE_ID=$sequence_id\n";
     push @input, "PRIMER_FIRST_BASE_INDEX=$first_base_index\n";
 
-    push @input, "PRIMER_THERMODYNAMIC_ALIGNMENT=$therodynamicAlignment\n";
+    push @input, "PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT=$therodynamicOligoAlignment\n";
+    push @input, "PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT=$therodynamicTemplateAlignment\n";
     push @input, "PRIMER_PICK_LEFT_PRIMER=$pick_left\n";
     push @input, "PRIMER_PICK_INTERNAL_OLIGO=$pick_internal\n";
     push @input, "PRIMER_PICK_RIGHT_PRIMER=$pick_right\n";
