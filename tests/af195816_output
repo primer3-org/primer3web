@@ -94,13 +94,13 @@ ADDITIONAL OLIGOS
    RIGHT PRIMER       256   20   59.06   50.00    0.00   0.00    0.00 GGAAGTTGCCTCGTTCGTTT
    PRODUCT SIZE: 242, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
 
- 2 LEFT PRIMER        303   20   59.08   50.00   11.63   0.05    0.00 ATAGCTCAGTGGCCATGGTT
+ 2 LEFT PRIMER        303   20   59.08   50.00   14.67   3.73    0.00 ATAGCTCAGTGGCCATGGTT
    RIGHT PRIMER       509   20   59.03   50.00    0.00   0.00    0.00 TGTTGGCCCATTTCAGAAGC
    PRODUCT SIZE: 207, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
 
  3 LEFT PRIMER        737   20   58.94   55.00    0.00   0.00    0.00 GGAGAGGTTGTTGAGGGTGA
    RIGHT PRIMER       953   20   59.12   55.00    0.00   0.00    0.00 CCTCACGAGCCTTTTCCAAC
-   PRODUCT SIZE: 217, PAIR ANY_TH COMPL: 6.29, PAIR 3'_TH COMPL: 2.92
+   PRODUCT SIZE: 217, PAIR ANY_TH COMPL: 10.32, PAIR 3'_TH COMPL: 6.95
 
  4 LEFT PRIMER        226   20   59.21   55.00    0.00   0.00    0.00 GCTCTTCCTCCAAACGAACG
    RIGHT PRIMER       395   20   58.98   50.00    0.00   0.00    0.00 TGTTTACAGTGGTGGCGTTG
@@ -114,6 +114,6 @@ Left    8303     0     0     0     0   125     0  3089  1736      0     0    28 
 Right   8303     0     0     0     0   124     0  3127  1681      0     0     8    20     0  3343
 Pair Stats:
 considered 4353, unacceptable product size 4348, primer in pair overlaps a primer in a better pair 144, ok 5
-libprimer3 release 2.3.1
+libprimer3 release 2.3.5
 
 

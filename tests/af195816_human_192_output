@@ -3,7 +3,7 @@ PRIMER PICKING RESULTS FOR AF195816 Beta vulgaris isoflavone synthase 1 (ifs1) m
 Using mispriming library humrep_and_simple.txt
 Using 1-based sequence positions
 OLIGO            start  len      tm     gc%  any_th  3'_th hairpin   rep seq
-LEFT PRIMER        303   20   59.08   50.00   11.63   0.05    0.00 12.00 ATAGCTCAGTGGCCATGGTT
+LEFT PRIMER        303   20   59.08   50.00   14.67   3.73    0.00 12.00 ATAGCTCAGTGGCCATGGTT
 RIGHT PRIMER       494   20   59.40   55.00    0.00   0.00    0.00 12.00 GAAGCTCCTCGGTCAAGTCA
 SEQUENCE SIZE: 1497
 INCLUDED REGION SIZE: 1497
@@ -94,28 +94,28 @@ ADDITIONAL OLIGOS
 
  1 LEFT PRIMER        201   20   58.38   50.00    0.00   0.00    0.00 10.00 TTGCCTCCACACCAGAATTG
    RIGHT PRIMER       392   20   59.25   50.00    0.00   0.00    0.00 11.00 TTACAGTGGTGGCGTTGAGA
-   PRODUCT SIZE: 192, PAIR ANY_TH COMPL: 16.52, PAIR 3'_TH COMPL: 4.18
+   PRODUCT SIZE: 192, PAIR ANY_TH COMPL: 19.82, PAIR 3'_TH COMPL: 8.05
 
  2 LEFT PRIMER        374   20   58.41   50.00    0.00   0.00    0.00 11.00 CTCAACGCCACCACTGTAAA
    RIGHT PRIMER       565   20   59.69   55.00    0.00   0.00    0.00 10.00 GCGAGCGATGTCTCTGATCT
    PRODUCT SIZE: 192, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
 
- 3 LEFT PRIMER       1123   20   57.56   50.00   11.60   0.00    0.00 10.00 GGGAGCATTGATTCCCTTCA
-   RIGHT PRIMER      1314   20   58.93   50.00    0.00   0.00   23.57 11.00 TTGACTCCAGGGCACATTCT
+ 3 LEFT PRIMER        947   20   58.46   55.00    0.00   0.00    0.00 11.00 CGTGAGGAGGTCTACAGTGT
+   RIGHT PRIMER      1138   20   58.02   55.00   11.58   0.00    0.00 11.00 GGGAATCAATGCTCCCTCTG
    PRODUCT SIZE: 192, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
 
- 4 LEFT PRIMER        947   20   58.46   55.00    0.00   0.00    0.00 11.00 CGTGAGGAGGTCTACAGTGT
-   RIGHT PRIMER      1138   20   58.02   55.00    7.14   0.00    0.00 11.00 GGGAATCAATGCTCCCTCTG
+ 4 LEFT PRIMER        790   20   58.51   50.00    0.00   0.00    0.00 11.00 ATTCGCTGAGGATGAGACCA
+   RIGHT PRIMER       981   21   59.05   52.38    0.00   0.00    0.00 12.00 CTGTCCTTTCCCACAACACTG
    PRODUCT SIZE: 192, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
 
 Statistics
          con   too    in    in   not          no    tm    tm   high  high  high  high        high      
          sid  many   tar  excl    ok   bad    GC   too   too any_th 3'_th hair-   lib  poly   end      
         ered    Ns   get   reg   reg   GC% clamp   low  high  compl compl   pin   sim     X  stab    ok
-Left    7751     0     0     0     0   125     0  2867  1608      0     0    85     2    20     0  3044
-Right   7836     0     0     0     0    97     0  2834  1659      0     0    23     1     0     0  3222
+Left    7751     0     0     0     0   125     0  2867  1608      0     0    88     2    20     0  3041
+Right   7836     0     0     0     0    97     0  2834  1659      0     0    26     1     0     0  3219
 Pair Stats:
-considered 152919, unacceptable product size 152904, high mispriming library similarity 5, primer in pair overlaps a primer in a better pair 3216, ok 10
-libprimer3 release 2.3.1
+considered 156013, unacceptable product size 155997, high mispriming library similarity 5, primer in pair overlaps a primer in a better pair 3394, ok 11
+libprimer3 release 2.3.5
 
 
