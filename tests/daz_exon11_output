@@ -44,7 +44,7 @@ KEYS (in order of precedence):
 ADDITIONAL OLIGOS
                     start  len      tm     gc%  any_th  3'_th hairpin seq
 
- 1 LEFT PRIMER         46   20   57.76   50.00   15.52   0.00    0.00 TCTGTTGGATCCTCTCAGCT
+ 1 LEFT PRIMER         46   20   57.76   50.00   19.25   0.00    0.00 TCTGTTGGATCCTCTCAGCT
    RIGHT PRIMER       438   23   58.80   39.13    0.00   0.00    0.00 AGTGAAATGCTTGTGTTCAGACT
    PRODUCT SIZE: 393, PAIR ANY_TH COMPL: 0.00, PAIR 3'_TH COMPL: 0.00
 
@@ -60,6 +60,6 @@ Left    2418     0     0     0     0  1389     0   937     0      0     0     8 
 Right   2418     0     0     0     0  1468     0   907     0      0     0    24     1     0    18
 Pair Stats:
 considered 8003, unacceptable product size 7999, primer in pair overlaps a primer in a better pair 582, ok 4
-libprimer3 release 2.3.1
+libprimer3 release 2.3.5
 
 

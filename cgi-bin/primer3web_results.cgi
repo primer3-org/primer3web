@@ -368,10 +368,10 @@ sub list_settings($)
   my $pick_anyway = 0;
   my $explain_flag = 0;
 
-  if (defined $query->param('MUST_XLATE_PRIMER_OLIGO_THERMODYNAMIC_ALIGNMENT')) {
+  if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT')) {
     $therodynamicOligoAlignment = 1;
   }
-  if (defined $query->param('MUST_XLATE_PRIMER_TEMPLATE_THERMODYNAMIC_ALIGNMENT')) {
+  if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT')) {
     $therodynamicTemplateAlignment = 1;
   }
   if (defined $query->param('MUST_XLATE_PRIMER_PICK_LEFT_PRIMER')) {
