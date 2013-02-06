@@ -293,48 +293,67 @@ Pair Max Library Mispriming</a></td><td>
 <table border="1">
 <tr><td>
 <table border="0">
-<tr><td colspan="2">Thermodynamic Secondary Structure Alignments</td>
-<td colspan="1"></td>
-<td colspan="2">Old Secondary Structure Alignments</td>
-</tr>
+<tr><td colspan="2">Thermodynamic Secondary Structure Alignments</td><td colspan="1"></td></tr>
 <tr><td colspan="2"><input name="MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT" value="1" checked="checked" type="checkbox">
     <a name="PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT_INPUT" href="primer3web_help.htm#PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT">Use Thermodynamic Oligo Alignment</a>
-</td>
-<td colspan="1"></td>
+</td><td colspan="1"></td>
 </tr>
 
 <tr>
  <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY_TH">TH: Max Self Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY_TH" value="45.0" type="text"></td>
- <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY">Max Self Complementarity</a>
- </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY" value="8.00" type="text"></td>
 </tr>
 
 <tr>
  <td colspan="2"><a name="PRIMER_MAX_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END_TH">TH: Max 3' Self Complementarity</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END_TH" value="35.0" type="text"></td>
-  <td colspan="2"><a name="PRIMER_MAX_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END">Max 3' Self Complementarity</a>
- </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END" value="3.00" type="text"></td>
 </tr>
 
  <tr>
   <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY_TH">TH: Max Pair Complementarity</a></td>
   <td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY_TH" value="45.0" type="text"></td>
-  <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity</a>
- </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY" value="8.00" type="text">
 </tr>
 
 <tr>
  <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END_TH">TH: Max 3' Pair Complementarity</a></td>
  <td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END_TH" value="35.0" type="text"></td>
- <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity</a></td>
- <td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END" value="3.00" type="text">
 </tr>
 
 <tr>
  <td colspan="2"><a name="PRIMER_MAX_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_HAIRPIN_TH">TH: Max Primer Hairpin</a></td>
  <td colspan="1"><input size="4" name="PRIMER_MAX_HAIRPIN_TH" value="24.0" type="text"></td>
- <td colspan="2"></td>
+</tr>
+
+</table>
+</td>
+
+<td valign=top>
+<table border="0">
+<tr><td colspan="2">Old Secondary Structure Alignments</td><td colspan="1"></td></tr>
+<tr><td colspan="2" height="25"></td><td colspan="1"></td></tr>
+
+<tr>
+ <td colspan="2"><a name="PRIMER_MAX_SELF_ANY_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_ANY">Max Self Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_ANY" value="8.00" type="text"></td>
+</tr>
+
+<tr>
+  <td colspan="2"><a name="PRIMER_MAX_SELF_END_INPUT" href="primer3web_help.htm#PRIMER_MAX_SELF_END">Max 3' Self Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_MAX_SELF_END" value="3.00" type="text"></td>
+</tr>
+
+ <tr>
+  <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_ANY">Max Pair Complementarity</a>
+ </td><td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_ANY" value="8.00" type="text">
+</tr>
+
+<tr>
+ <td colspan="2"><a name="PRIMER_PAIR_MAX_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_COMPL_END">Max 3' Pair Complementarity</a></td>
+ <td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_COMPL_END" value="3.00" type="text">
+</tr>
+
+<tr>
+ <td colspan="2" height="25"></td>
 </tr>
 
 </table>
@@ -347,34 +366,42 @@ Pair Max Library Mispriming</a></td><td>
 <tr><td>
 
 <table border="0">
-<tr><td colspan="2">Thermodynamic Template Alignments</td>
-<td colspan="1"></td>
-<td colspan="2">Old Template Alignments</td>
-</tr>
+<tr><td colspan="2">Thermodynamic Template Alignments</td><td colspan="1"></td></tr>
 <tr><td colspan="2"><input name="MUST_XLATE_PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT" value="1" type="checkbox">
     <a name="PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT_INPUT" href="primer3web_help.htm#PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT">Use Thermodynamic Template Alignment</a>
-</td></tr>
-<td colspan="1"></td>
+</td><td colspan="1"></td></tr>
 
-<tr><td colspan="2"><a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">
-TH: Max Template Mispriming</a></td>
+<tr><td colspan="2"><a name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING_TH">TH: Max Template Mispriming</a></td>
 <td colspan="1"><input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH" value="40.00" type="text"></td>
-<td colspan="2">
-<a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING">Max Template Mispriming</a></td>
-<td colspan="1"><input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="12.00" type="text"></td>
 </tr>
 
 <tr>
 <td colspan="2"><a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH">
 TH: Pair Max Template Mispriming</a></td>
 <td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH" value="70.00" type="text"></td>
-<td colspan="2"><a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING">Pair Max Template Mispriming</a></td>
-<td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="24.00" type="text"><td>
 </tr>
 
 </table>
-</td></tr>
+</td>
+
+<td valign=top>
+<table border="0">
+<tr><td colspan="2">Old Template Alignments</td></tr>
+<tr><td colspan="2" rowspan="1" height="25"></td><td colspan="1" rowspan="1"></td></tr>
+
+<tr>
+<td colspan="2">
+<a name="PRIMER_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_MAX_TEMPLATE_MISPRIMING">Max Template Mispriming</a></td>
+<td colspan="1"><input size="4" name="PRIMER_MAX_TEMPLATE_MISPRIMING" value="12.00" type="text"></td>
+</tr>
+
+<tr>
+<td colspan="2"><a name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING">Pair Max Template Mispriming</a></td>
+<td colspan="1"><input size="4" name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING" value="24.00" type="text"><td>
+</tr>
 </table>
+
+</td></tr></table>
 
 <p></p>
 
