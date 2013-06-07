@@ -3,7 +3,7 @@ primer3-web release 3.0.0
 GPL 2.0 license (please see gpl-2.0.txt)
 
 Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,
-              2008,2009,2010,2011,2012
+              2008,2009,2010,2011,2012,2013
 Whitehead Institute for Biomedical Research, Steve Rozen
 (http://steverozen.net), and Helen Skaletsky
 All rights reserved.
