@@ -5,6 +5,30 @@
 
 <head>
 <title>Primer3 Input</title>
+<link rel="stylesheet"href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$.ui.autocomplete.prototype._renderItem = function (ul, item) {
+item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong><span style=color:red>$1</span></strong>");
+return $("<li></li>")
+.data("item.autocomplete", item)
+.append("<a>" + item.label + "</a>"
+.appendTo(ul);
+};
+
+  $( function() {
+    jQuery.get('lists.txt', function(data) {
+      var arr = data.split("\n");
+        var result = arr.map(Function.prototype.call, String.prototype.trim)
+          console.log(result);
+            var availableTags = result;
+                          $( "#tags" ).autocomplete({
+                                    source: availableTags
+                                          } );
+                                          });
+                                          } );
+                                            </script>
 </head>
 
 <body>
@@ -15,7 +39,7 @@
 <tr>
   <td rowspan="2" valign="middle">
         <a name="top"><font size="+3">&nbsp;&nbsp;Primer3web</font></a>
-        &nbsp;version 4.0.0&nbsp;&nbsp;-&nbsp;&nbsp;
+        &nbsp;version 4.1.0&nbsp;&nbsp;-&nbsp;&nbsp;
         Pick primers from a DNA sequence.
     </td>
     <td align="center">
@@ -48,6 +72,39 @@ Task</a> for primer selection
 <option>check_primers</option>
 </select>
 </p>
+
+<!-- Template masking start -->
+<table border="1">
+<tr><td colspan="2" valign="top"><a name="PRIMER_MASK_TEMPLATE" href="primer3web_help.htm#PRIMER_MASK_TEMPLATE">Template masking</a> before primer design</td></tr>
+ <tr><td>
+ <table border="0">
+ <tr><td colspan="2" valign="top">
+   <div><a name="PRIMER_MASKING_LIST_PREFIX" href="primer3web_help.htm#PRIMER_MASKING_LIST_PREFIX">Select species</a>
+   <input id="tags" name="PRIMER_MASKING_LIST_PREFIX" placeholder="Example: Mus musculus" value=""></div>
+   </td></tr>
+   <tr><td>
+   <a name="PRIMER_FAILURE_RATE" href="primer3web_help.htm#PRIMER_FAILURE_RATE">Primer failure rate cutoff</a></td>
+   <td>&lt; <input size="4" name="PRIMER_FAILURE_RATE" value="0.1" type="text">
+   </td>
+   </tr>
+   </table>
+   </td><td>
+   <table border="0">
+   <tr><td>
+   <a name="PRIMER_MASK_5P_DIRECTION" href="primer3web_help.htm#PRIMER_MASK_5P_DIRECTION">Nucleotides to mask in 5' direction</a></td>
+   <td>
+   <input size="4" name="PRIMER_MASK_5P_DIRECTION" value="1" type="text">
+   </td></tr>
+   <tr><td>
+   <a name="PRIMER_MASK_3P_DIRECTION" href="primer3web_help.htm#PRIMER_MASK_3P_DIRECTION">Nucleotides to mask in 3' direction</a></td>
+   <td>
+   <input size="4" name="PRIMER_MASK_3P_DIRECTION" value="1" type="text">
+   </td>
+   </tr>
+   </table>
+   </td></tr>
+   </table>
+   <!-- Template masking end -->
 
 <p>
 Paste <a name="SEQUENCE_TEMPLATE_INPUT"> source sequence</a>
@@ -508,7 +565,7 @@ TH: Pair Max Template Mispriming</a></td>
 <tr>
  <td><input name="MUST_XLATE_PRIMER_LOWERCASE_MASKING" value="1" type="checkbox">
   <a name="PRIMER_LOWERCASE_MASKING" href="primer3web_help.htm#PRIMER_LOWERCASE_MASKING">Lowercase masking</a></td>
- <td><input name="MUST_XLATE_PRIMER_PICK_ANYWAY" value="1" checked="checked" type="checkbox">
+ <td><input name="MUST_XLATE_PRIMER_PICK_ANYWAY" value="1" type="checkbox">
   <a name="PRIMER_PICK_ANYWAY" href="primer3web_help.htm#PRIMER_PICK_ANYWAY">Pick anyway</a></td>
  <td><input name="MUST_XLATE_PRIMER_EXPLAIN_FLAG" value="1" checked="checked" type="checkbox">
   <a name="PRIMER_EXPLAIN_FLAG" href="primer3web_help.htm#PRIMER_EXPLAIN_FLAG">Print Statistics</a></td>
@@ -621,8 +678,11 @@ TH: Pair Max Template Mispriming</a></td>
 
 	</td></tr><tr>
 	<td><a name="WT_END_STABILITY_INPUT" href="primer3web_help.htm#PRIMER_WT_END_STABILITY">End Stability</a>
-	</td><td><input size="4" name="PRIMER_WT_END_STABILITY" value="0.0" type="text"></td></tr>
-
+	</td><td><input size="4" name="PRIMER_WT_END_STABILITY" value="0.0" type="text">
+ 
+        </td></tr><tr>
+        <td><a name="PRIMER_WT_FAILURE_RATE" href="primer3web_help.htm#PRIMER_WT_FAILURE_RATE">Primer failure rate</a>
+        </td><td><input size="4" name="PRIMER_WT_FAILURE_RATE" value="0.0" type="text"></td></tr>
 <!-- /tbody -->
 </table>
 
@@ -931,7 +991,7 @@ TH: Pair Max Template Mispriming</a></td>
 
 <h2><a name="disclaimer">Copyright Notice and Disclaimer</a></h2>
 <p>
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012,2013<br>
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012,2013,2017<br>
 Whitehead Institute for Biomedical Research, <a
 href="http://steverozen.net/">Steve Rozen</a>, Andreas Untergasser, Maido Remm, Triinu Koressaar and Helen Skaletsky.<br>
 All rights reserved.<br>
@@ -970,36 +1030,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 <h2>Citing Primer3</h2>
-<p>
-We request that use of this software be cited in
-publications as
-</p>
-<p>Untergasser A, Cutcutache I, Koressaar T, Ye J, Faircloth BC, Remm M,
-<a href="http://jura.wi.mit.edu/rozen/">Rozen SG</a> (2012)
-<a href="http://bioinfo.ut.ee/primer3/Untergasser_etal_NuclAcidsRes2012.pdf">
-Primer3 &#45; new capabilities and interfaces.
-</a>
-<i>Nucleic Acids Research</i>
-40(15):e115<br>
-Koressaar T, Remm M (2007) <a
-href="http://bioinfo.ut.ee/primer3/Koressaar_Remm_Bioinformatics2007.pdf"
->Enhancements and modifications of primer design program Primer3</a>
-<i>Bioinformatics</i> 23(10):1289-91<br><br>
-Source code available at <a href="http://sourceforge.net/projects/primer3/">
-http://sourceforge.net/projects/primer3/.
-</a>
-</p>
+
+<p>We request but do not require that use of this software be cited in publications as<br>
+<br>
+* Untergasser A, Cutcutache I, Koressaar T, Ye J, Faircloth BC, Remm M and
+* Rozen SG.<br> Primer3--new capabilities and interfaces.<br>
+Nucleic Acids Res. 2012 Aug 1;40(15):e115.<br><br>
+* Koressaar T and Remm M.<br> Enhancements and modifications of primer design program Primer3.<br>
+Bioinformatics 23(10):1289-91.<br><br>
+The papers are available at
+<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3424584/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3424584/</a> and<br>
+<a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/17379693">https://www.ncbi.nlm.nih.gov/pubmed/17379693</a><br>
+<br> Source code available at <a href="http://sourceforge.net/projects/primer3/">http://sourceforge.net/projects/primer3/</a>.</p>
 
 <h2>Acknowledgments</h2>
 <p>
 Initial development of Primer3 was funded by Howard Hughes Medical
 Institute and by the National Institutes of Health, National Human
 Genome Research Institute under grants R01-HG00257 (to David C. Page)
-and P50-HG00098 (to Eric S. Lander). Ongoing development and maintenance are
-partly funded by <a href="http://genomics.ebc.ee/">Centre of Excellence</a>
-in Genomics at Estonian Biocentre (funding from EU European Regional Development Fund).
+and P50-HG00098 (to Eric S. Lander).
+Ongoing development is partly funded by institutional grant IUT34-11 from
+the Estonian Ministry of Education and
+Research and by Centre of Excellence in Genomics and Translational Medicine
+at University of Tartu (funding from EU ERDF).
 </p>
-
 <p>
 Primer3 was a complete re-implementation
 of an earlier program:
@@ -1008,6 +1062,6 @@ S. Lander</em>).
 <!-- This web service provided by YOUR ORGANZATION HERE -->
 </p>
 <hr>
-<pre>(input.htm v 4.0.0)</pre>
+<pre>(input.htm v 4.1.0)</pre>
 </body>
 </html>

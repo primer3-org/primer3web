@@ -30,15 +30,20 @@ $PRIMER_BIN =  "./primer3_core";     # for linux
 
 $FILE_CACHE = "cache/"; # for windows
 #$FILE_CACHE = "cache/"; # for linux
+# The location on kmer lists for template masking
+$KMER_LISTS_PATH = "kmer_lists/";
+
+# The location of Primer3 HTML files
+$SERVER_HTML_PATH = "/var/www/html/";
 
 # If you make any substantial modifications give this code a new
 # version designation.
-$CGI_RELEASE = "(primer3_results.cgi release 4.0.0)";
+$CGI_RELEASE = "(primer3_results.cgi release 4.1.0)";
 
 # ----- End Installer Modifiable Variables ---------------------------------
 
 $COPYRIGHT = $COPYRIGHT = q{ 
-Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012,2013
+Copyright (c) 1996,1997,1998,1999,2000,2001,2004,2006,2007,2008,2009,2010,2011,2012,2013,2017
 Whitehead Institute for Biomedical Research, Steve Rozen
 (http://purl.com/STEVEROZEN/), Andreas Untergasser and Helen Skaletsky.
 All rights reserved.
@@ -112,7 +117,7 @@ sub reset_form($)
     # Ensure that errors will go to the web browser.
     open(STDERR, ">&STDOUT");
     $| = 1;
-    open IN, "../html/primer3web_input.htm" or die "open ../html/primer3web_input.htm: $!\n";
+    open IN, $SERVER_HTML_PATH."primer3web_input.htm" or die "open ".$SERVER_HTML_PATH."primer3web_input.htm: $!\n";
     while (my $line = <IN>) {
 	if ($line =~ /primer3web_help.htm/) {
 	    $line =~ s/primer3web_help.htm/\.\.\/primer3web_help.htm/;
@@ -234,7 +239,7 @@ sub get_settings($)
   }
 
   # read in primer3web_input.htm and update the values
-  open IN, "../html/primer3web_input.htm" or die "open ../html/primer3web_input.htm: $!\n";
+  open IN, $SERVER_HTML_PATH."primer3web_input.htm" or die "open ".$SERVER_HTML_PATH."primer3web_input.htm: $!\n";
   my $line = <IN>;
   while (1) {
     if (!$line) { last; }
@@ -313,7 +318,11 @@ sub get_settings($)
 	$line = <IN>;
       }
       next;
-    } elsif ($line =~ /name="([A-Z_]+)"/) {
+      } elsif ($line =~ /name="PRIMER_MASKING_LIST_PREFIX"/) {
+          if (defined($tags{'PRIMER_MASKING_LIST_PREFIX'})) {
+            $line =~ s/value=""/value="$tags{'PRIMER_MASKING_LIST_PREFIX'}"/;
+          }
+    } elsif ($line =~ /name="([A-Z0-9_]+)"/) {
       my $name = $1;
       if ($name =~ /^MUST_XLATE_/) {
 	# this is a checkbox, determine if it should be checked
@@ -367,6 +376,12 @@ sub list_settings($)
   my $lowercase_masking = 0;
   my $pick_anyway = 0;
   my $explain_flag = 0;
+  my $mask_template = 0;
+  my $kmer_lists = $KMER_LISTS_PATH;
+  my $mask_species = "";
+  my $mask_5p_direction = "1";
+  my $mask_3p_direction = "0";
+  my $failure_rate = "0.2";
 
   if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT')) {
     $therodynamicOligoAlignment = 1;
@@ -401,6 +416,20 @@ sub list_settings($)
   if (defined $query->param('MUST_XLATE_PRIMER_EXPLAIN_FLAG')) {
     $explain_flag = 1;
   }
+  if (defined $query->param('PRIMER_MASKING_LIST_PREFIX')) { # Template masking
+      $mask_species = lc($query->param('PRIMER_MASKING_LIST_PREFIX'));
+      $mask_species =~ s/\s+/_/; # replace space with underscore
+          
+      if($mask_species ne ""){
+        $mask_template = 1;
+      }
+      else{
+        $mask_template = 0;
+      }
+      $mask_5p_direction = $query->param('PRIMER_MASK_5P_DIRECTION');
+      $mask_3p_direction = $query->param('PRIMER_MASK_3P_DIRECTION');
+      $failure_rate = $query->param('PRIMER_FAILURE_RATE');
+  }
   $pick_left     = 1 if $query->param('SEQUENCE_PRIMER');
   $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
   $pick_internal = 1 if $query->param('SEQUENCE_INTERNAL_OLIGO');
@@ -422,6 +451,7 @@ sub list_settings($)
   push @input, "PRIMER_LOWERCASE_MASKING=$lowercase_masking\n";
   push @input, "PRIMER_PICK_ANYWAY=$pick_anyway\n";
   push @input, "PRIMER_EXPLAIN_FLAG=$explain_flag\n";
+  push @input, "PRIMER_MASK_TEMPLATE=$mask_template\n"; # Template masking
 
   for (@names) {
     next if /^Pick Primers$/;
@@ -547,6 +577,12 @@ sub process_input
     my $lowercase_masking = 0;
     my $pick_anyway = 0;
     my $explain_flag = 0;
+    my $mask_template = 0;
+    my $kmer_lists = $KMER_LISTS_PATH;
+    my $mask_species = "";
+    my $mask_5p_direction = "1";
+    my $mask_3p_direction = "0";
+    my $failure_rate = "0.2";
 
     if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT')) {
       $therodynamicOligoAlignment = 1;
@@ -581,7 +617,20 @@ sub process_input
     if (defined $query->param('MUST_XLATE_PRIMER_EXPLAIN_FLAG')) {
       $explain_flag = 1;
     }
-
+    if (defined $query->param('PRIMER_MASKING_LIST_PREFIX')) { # Template masking
+      $mask_species = lc($query->param('PRIMER_MASKING_LIST_PREFIX'));
+      $mask_species =~ s/\s+/_/; # replace space with underscore
+            
+    if($mask_species ne ""){
+      $mask_template = 1;
+    }
+    else{
+      $mask_template = 0;
+    }
+    $mask_5p_direction = $query->param('PRIMER_MASK_5P_DIRECTION');
+    $mask_3p_direction = $query->param('PRIMER_MASK_3P_DIRECTION');
+    $failure_rate = $query->param('PRIMER_FAILURE_RATE');
+    }
     $pick_left     = 1 if $query->param('SEQUENCE_PRIMER');
     $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
     $pick_internal = 1 if $query->param('SEQUENCE_INTERNAL_OLIGO');
@@ -598,6 +647,7 @@ sub process_input
       next if /^SEQUENCE_ID$/;
       next if /^PRIMER_FIRST_BASE_INDEX$/;
       next if /^MUST_XLATE/;
+      next if /^PRIMER_MASK/;
       next if /^SEQUENCE_TARGET$/;
       next if /^SEQUENCE_EXCLUDED_REGION$/;
       next if /^SEQUENCE_INCLUDED_REGION$/;
@@ -697,6 +747,14 @@ sub process_input
     push @input, "PRIMER_LIBERAL_BASE=$liberal_base\n";
     push @input, "PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS=$ambiguity_Consensus\n";
     push @input, "PRIMER_LOWERCASE_MASKING=$lowercase_masking\n";
+    if($mask_template == 1){
+     push @input, "PRIMER_MASK_TEMPLATE=$mask_template\n"; # Template masking
+     push @input, "PRIMER_KMER_LISTS_PATH=$kmer_lists\n"; # Template masking
+     push @input, "PRIMER_MASKING_LIST_PREFIX=$mask_species\n"; # Template masking
+     push @input, "PRIMER_FAILURE_RATE=$failure_rate\n"; # Template masking
+     push @input, "PRIMER_MASK_5P_DIRECTION=$mask_5p_direction\n"; # Template masking
+     push @input, "PRIMER_MASK_3P_DIRECTION=$mask_3p_direction\n"; # Template masking
+    }
     push @input, "PRIMER_PICK_ANYWAY=$pick_anyway\n";
     push @input, "PRIMER_EXPLAIN_FLAG=$explain_flag\n";
 
@@ -719,7 +777,7 @@ sub process_input
 #	$cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags -p3_settings_file=/tmp/$settings"; # for linux
 #    } else {
 	# $cmd = "/bin/nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
-	$cmd = "/usr/bin/env nice -19 $PRIMER_BIN < $file_name -format_output -strict_tags"; # for linux
+	$cmd = "/usr/bin/env nice -19 $PRIMER_BIN < $file_name --format_output --strict_tags"; # for linux
 
 #    }
     #my $cmd = "$PRIMER_BIN < $file_name -format_output -strict_tags"; # for windows
@@ -771,6 +829,12 @@ sub process_input
 	$cline =~ s/NO PRIMERS FOUND/NO PRIMERS FOUND - <a href=\"$ODOC_URL#findNoPrimers\">Help<\/a>/g;
       }
       if ($cline =~ /^PRIMER PICKING RESULTS FOR\s*$/) {
+      # Template masking notification
+        if($mask_template == 1) {
+            $results .= "\nTemplate masking selected\nUsing library: $mask_species with failure rate: $failure_rate";
+        } else {
+          $results .= "\nTemplate masking not selected";
+        }
       } else {
 	$results .= $cline;
       }
