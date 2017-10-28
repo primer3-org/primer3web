@@ -1,4 +1,5 @@
-primer3-web release 4.1.0
+Primer3Web release 4.1.0
+-------------------------
 
 GPL 2.0 license (please see gpl-2.0.txt)
 

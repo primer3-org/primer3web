@@ -436,7 +436,7 @@ sub list_settings($)
 
   my @input;
 
-  push @input, "Primer3 File - http://primer3.sourceforge.net\n";
+  push @input, "Primer3 File - http://primer3.org\n";
   push @input, "P3_FILE_TYPE=settings\n";
   push @input, "\n";
 
