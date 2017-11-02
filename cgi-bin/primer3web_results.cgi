@@ -318,9 +318,9 @@ sub get_settings($)
 	$line = <IN>;
       }
       next;
-      } elsif ($line =~ /name="PRIMER_MASKING_LIST_PREFIX"/) {
-          if (defined($tags{'PRIMER_MASKING_LIST_PREFIX'})) {
-            $line =~ s/value=""/value="$tags{'PRIMER_MASKING_LIST_PREFIX'}"/;
+      } elsif ($line =~ /name="PRIMER_MASK_KMERLIST_PREFIX"/) {
+          if (defined($tags{'PRIMER_MASK_KMERLIST_PREFIX'})) {
+            $line =~ s/value=""/value="$tags{'PRIMER_MASK_KMERLIST_PREFIX'}"/;
           }
     } elsif ($line =~ /name="([A-Z0-9_]+)"/) {
       my $name = $1;
@@ -381,7 +381,7 @@ sub list_settings($)
   my $mask_species = "";
   my $mask_5p_direction = "1";
   my $mask_3p_direction = "0";
-  my $failure_rate = "0.2";
+  my $failure_rate = "0.1";
 
   if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT')) {
     $therodynamicOligoAlignment = 1;
@@ -416,8 +416,8 @@ sub list_settings($)
   if (defined $query->param('MUST_XLATE_PRIMER_EXPLAIN_FLAG')) {
     $explain_flag = 1;
   }
-  if (defined $query->param('PRIMER_MASKING_LIST_PREFIX')) { # Template masking
-      $mask_species = lc($query->param('PRIMER_MASKING_LIST_PREFIX'));
+  if (defined $query->param('PRIMER_MASK_KMERLIST_PREFIX')) { # Template masking
+      $mask_species = lc($query->param('PRIMER_MASK_KMERLIST_PREFIX'));
       $mask_species =~ s/\s+/_/; # replace space with underscore
           
       if($mask_species ne ""){
@@ -428,7 +428,7 @@ sub list_settings($)
       }
       $mask_5p_direction = $query->param('PRIMER_MASK_5P_DIRECTION');
       $mask_3p_direction = $query->param('PRIMER_MASK_3P_DIRECTION');
-      $failure_rate = $query->param('PRIMER_FAILURE_RATE');
+      $failure_rate = $query->param('PRIMER_MASK_FAILURE_RATE');
   }
   $pick_left     = 1 if $query->param('SEQUENCE_PRIMER');
   $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
@@ -582,7 +582,7 @@ sub process_input
     my $mask_species = "";
     my $mask_5p_direction = "1";
     my $mask_3p_direction = "0";
-    my $failure_rate = "0.2";
+    my $failure_rate = "0.1";
 
     if (defined $query->param('MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT')) {
       $therodynamicOligoAlignment = 1;
@@ -617,8 +617,8 @@ sub process_input
     if (defined $query->param('MUST_XLATE_PRIMER_EXPLAIN_FLAG')) {
       $explain_flag = 1;
     }
-    if (defined $query->param('PRIMER_MASKING_LIST_PREFIX')) { # Template masking
-      $mask_species = lc($query->param('PRIMER_MASKING_LIST_PREFIX'));
+    if (defined $query->param('PRIMER_MASK_KMERLIST_PREFIX')) { # Template masking
+      $mask_species = lc($query->param('PRIMER_MASK_KMERLIST_PREFIX'));
       $mask_species =~ s/\s+/_/; # replace space with underscore
             
     if($mask_species ne ""){
@@ -629,7 +629,7 @@ sub process_input
     }
     $mask_5p_direction = $query->param('PRIMER_MASK_5P_DIRECTION');
     $mask_3p_direction = $query->param('PRIMER_MASK_3P_DIRECTION');
-    $failure_rate = $query->param('PRIMER_FAILURE_RATE');
+    $failure_rate = $query->param('PRIMER_MASK_FAILURE_RATE');
     }
     $pick_left     = 1 if $query->param('SEQUENCE_PRIMER');
     $pick_right    = 1 if $query->param('SEQUENCE_PRIMER_REVCOMP');
@@ -749,9 +749,9 @@ sub process_input
     push @input, "PRIMER_LOWERCASE_MASKING=$lowercase_masking\n";
     if($mask_template == 1){
      push @input, "PRIMER_MASK_TEMPLATE=$mask_template\n"; # Template masking
-     push @input, "PRIMER_KMER_LISTS_PATH=$kmer_lists\n"; # Template masking
-     push @input, "PRIMER_MASKING_LIST_PREFIX=$mask_species\n"; # Template masking
-     push @input, "PRIMER_FAILURE_RATE=$failure_rate\n"; # Template masking
+     push @input, "PRIMER_MASK_KMERLIST_PATH=$kmer_lists\n"; # Template masking
+     push @input, "PRIMER_MASK_KMERLIST_PREFIX=$mask_species\n"; # Template masking
+     push @input, "PRIMER_MASK_FAILURE_RATE=$failure_rate\n"; # Template masking
      push @input, "PRIMER_MASK_5P_DIRECTION=$mask_5p_direction\n"; # Template masking
      push @input, "PRIMER_MASK_3P_DIRECTION=$mask_3p_direction\n"; # Template masking
     }
