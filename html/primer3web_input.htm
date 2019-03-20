@@ -161,12 +161,12 @@ Mispriming Library (repeat library)</a>
 <table border="0" width="100%">
 
 <!-- tbody -->
-<tr> 
+<tr>
   <td><a name="SEQUENCE_ID_INPUT" href="primer3web_help.htm#SEQUENCE_ID">Sequence Id</a>
   </td><td><input name="SEQUENCE_ID" value="" type="text">
   </td><td> A string to identify your output.
 
-</td></tr><tr> 
+</td></tr><tr>
  <td><a name="SEQUENCE_TARGET_INPUT" href="primer3web_help.htm#SEQUENCE_TARGET">Targets</a>
  </td><td><input name="SEQUENCE_TARGET" value="" type="text">
  </td><td>E.g. 50,2 requires primers to surround the 2 bases at positions 50 and 51.
@@ -174,7 +174,7 @@ Mispriming Library (repeat library)</a>
      with [ and ]: e.g. ...ATCT[CCCC]TCAT.. means
      that primers must flank the central CCCC.
 
-</td></tr><tr> 
+</td></tr><tr>
  <td><a name="SEQUENCE_OVERLAP_JUNCTION_LIST_INPUT" href="primer3web_help.htm#SEQUENCE_OVERLAP_JUNCTION_LIST">Overlap Junction List</a>
  </td><td><input name="SEQUENCE_OVERLAP_JUNCTION_LIST" value="" type="text">
  </td><td>E.g. 27 requires one primer to overlap the junction between
@@ -183,7 +183,7 @@ Mispriming Library (repeat library)</a>
      with -: e.g. ...ATCTAC-TGTCAT.. means
      that primers must overlap the junction between the C and T.
 
-</td></tr><tr> 
+</td></tr><tr>
  <td><a name="SEQUENCE_EXCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_EXCLUDED_REGION">Excluded Regions</a>
  </td><td><input name="SEQUENCE_EXCLUDED_REGION" value="" type="text">
  </td><td>E.g. 401,7 68,3 forbids selection of primers in the 7 bases starting at 401 and the 3 bases at 68.
@@ -191,7 +191,7 @@ Mispriming Library (repeat library)</a>
      with &lt; and &gt;: e.g. ...ATCT&lt;CCCC&gt;TCAT.. forbids
      primers in the central CCCC.
 
-</td></tr><tr> 
+</td></tr><tr>
  <td><a name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST_INPUT" href="primer3web_help.htm#SEQUENCE_PRIMER_PAIR_OK_REGION_LIST">Pair OK Region List</a>
  </td><td><input name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST" value="" type="text">
  </td><td>See manual for help.
@@ -200,7 +200,7 @@ Mispriming Library (repeat library)</a>
 <tr><td><a name="SEQUENCE_INCLUDED_REGION_INPUT" href="primer3web_help.htm#SEQUENCE_INCLUDED_REGION">Included Region</a>
 </td><td><input name="SEQUENCE_INCLUDED_REGION" value="" type="text">
 </td><td> E.g. 20,400: only pick primers in the 400 base region starting at position 20.
-    Or use { and } in the 
+    Or use { and } in the
     <a href="#SEQUENCE_TEMPLATE_INPUT">source sequence</a>
     to mark the beginning and end of the included region: e.g.
     in ATC{TTC...TCT}AT the included region is TTC...TCT.
@@ -241,7 +241,7 @@ Force Right Primer End</a></td><td>
 
 <p><a name="SEQUENCE_QUALITY_INPUT" href="primer3web_help.htm#SEQUENCE_QUALITY">Sequence Quality </a></p>
 <textarea rows="2" cols="95" name="SEQUENCE_QUALITY"></textarea>
-<table border="0">	    
+<table border="0">
 <!-- tbody -->
 <tr>
  <td><a name="PRIMER_MIN_QUALITY_INPUT" href="primer3web_help.htm#PRIMER_MIN_QUALITY">Min Sequence Quality</a>
@@ -260,7 +260,7 @@ Force Right Primer End</a></td><td>
      <input name="Download Settings" value="Download Settings" type="submit">
      <input name="Reset Form" value="Reset Form" type="submit">
 </p>
-        
+
 
 <h3> General Primer Picking Conditions </h3>
 
@@ -283,7 +283,7 @@ Force Right Primer End</a></td><td>
  </td><td>Max <input size="4" name="PRIMER_MAX_TM" value="62.0" type="text">
  </td><td><a name="PRIMER_PAIR_MAX_DIFF_TM_INPUT" href="primer3web_help.htm#PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</a>
      <input size="4" name="PRIMER_PAIR_MAX_DIFF_TM" value="5.0" type="text">
- </td><td><a name="PRIMER_TM_FORMULA" href="primer3web_help.htm#PRIMER_TM_FORMULA">Table of thermodynamic parameters</a> 
+ </td><td><a name="PRIMER_TM_FORMULA" href="primer3web_help.htm#PRIMER_TM_FORMULA">Table of thermodynamic parameters</a>
  <select name="PRIMER_TM_FORMULA">
      <option value="0">Breslauer et al. 1986</option>
      <option selected="selected" value="1">SantaLucia 1998</option>
@@ -462,7 +462,7 @@ TH: Pair Max Template Mispriming</a></td>
 
 <p></p>
 
-<table border="0"> 
+<table border="0">
 <tr>
  <td colspan="2"><a name="PRIMER_MAX_NS_ACCEPTED_INPUT" href="primer3web_help.htm#PRIMER_MAX_NS_ACCEPTED">Max #N's accepted</a>
  </td><td colspan="1"><input size="4" name="PRIMER_MAX_NS_ACCEPTED" value="0" type="text">
@@ -578,7 +578,7 @@ TH: Pair Max Template Mispriming</a></td>
 	<input name="Download Settings" value="Download Settings" type="submit">
         <input name="Reset Form" value="Reset Form" type="submit">
         </p>
-       
+
 <h3>Objective Function Penalty Weights for Primers</h3>
 
 <table border="0">
@@ -590,14 +590,14 @@ TH: Pair Max Template Mispriming</a></td>
     </td><td><input size="4" name="PRIMER_WT_SIZE_LT" value="1.0" type="text">
     </td><td>Gt
     </td><td><input size="4" name="PRIMER_WT_SIZE_GT" value="1.0" type="text">
-    
+
   </td></tr><tr>
     <td><a name="WT_TM_INPUT" href="primer3web_help.htm#PRIMER_WT_TM_LT">Tm</a>
     </td><td>Lt
     </td><td><input size="4" name="PRIMER_WT_TM_LT" value="1.0" type="text">
     </td><td>Gt
     </td><td><input size="4" name="PRIMER_WT_TM_GT" value="1.0" type="text">
-    
+
   </td></tr><tr>
     <td><a name="WT_GC_PERCENT_INPUT" href="primer3web_help.htm#PRIMER_WT_GC_PERCENT_LT">GC%</a>
     </td><td>Lt
@@ -617,11 +617,11 @@ TH: Pair Max Template Mispriming</a></td>
 	</td></tr>
 
         <tr><td><a name="PRIMER_WT_SELF_END_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_SELF_END_TH">TH: 3' End Self Complementarity</a>
-	</td><td><input size="4" name="PRIMER_WT_SELF_END_TH" value="0.0" type="text">	
+	</td><td><input size="4" name="PRIMER_WT_SELF_END_TH" value="0.0" type="text">
 	</td></tr>
 
 	<tr><td><a name="PRIMER_WT_HAIRPIN_TH_INPUT" href="primer3web_help.htm#PRIMER_WT_HAIRPIN_TH">TH: Hairpin</a>
-	</td><td><input size="4" name="PRIMER_WT_HAIRPIN_TH" value="0.0" type="text">		
+	</td><td><input size="4" name="PRIMER_WT_HAIRPIN_TH" value="0.0" type="text">
 	</td></tr>
 
         <tr><td><a href="primer3web_help.htm#PRIMER_WT_TEMPLATE_MISPRIMING_TH">TH: Template Mispriming</a>
@@ -659,19 +659,19 @@ TH: Pair Max Template Mispriming</a></td>
 <tr>
 	<td><a name="WT_NUM_NS_INPUT" href="primer3web_help.htm#PRIMER_WT_NUM_NS">#N's</a>
 	</td><td><input size="4" name="PRIMER_WT_NUM_NS" value="0.0" type="text">
-		
+
 	</td></tr><tr>
 	<td><a name="WT_REP_SIM_INPUT" href="primer3web_help.htm#PRIMER_WT_LIBRARY_MISPRIMING">Library Mispriming</a>
 	</td><td><input size="4" name="PRIMER_WT_LIBRARY_MISPRIMING" value="0.0" type="text">
-		
+
         </tr><tr>
 	<td><a name="WT_SEQ_QUAL_INPUT" href="primer3web_help.htm#PRIMER_WT_SEQ_QUAL">Sequence Quality</a>
 	</td><td><input size="4" name="PRIMER_WT_SEQ_QUAL" value="0.0" type="text">
-		
+
 	</td></tr><tr>
 	<td><a name="WT_END_QUAL_INPUT" href="primer3web_help.htm#PRIMER_WT_END_QUAL">End Sequence Quality</a>
 	</td><td><input size="4" name="PRIMER_WT_END_QUAL" value="0.0" type="text">
-		
+
 	</td></tr><tr>
 	<td><a name="WT_POS_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_WT_POS_PENALTY">Position Penalty</a>
 	</td><td><input size="4" name="PRIMER_WT_POS_PENALTY" value="0.0" type="text">
@@ -679,7 +679,7 @@ TH: Pair Max Template Mispriming</a></td>
 	</td></tr><tr>
 	<td><a name="WT_END_STABILITY_INPUT" href="primer3web_help.htm#PRIMER_WT_END_STABILITY">End Stability</a>
 	</td><td><input size="4" name="PRIMER_WT_END_STABILITY" value="0.0" type="text">
- 
+
         </td></tr><tr>
         <td><a name="PRIMER_WT_MASK_FAILURE_RATE" href="primer3web_help.htm#PRIMER_WT_MASK_FAILURE_RATE">Primer failure rate</a>
         </td><td><input size="4" name="PRIMER_WT_MASK_FAILURE_RATE" value="0.0" type="text"></td></tr>
@@ -696,7 +696,7 @@ TH: Pair Max Template Mispriming</a></td>
     </td><td><input size="4" name="PRIMER_PAIR_WT_PRODUCT_SIZE_LT" value="0.0" type="text">
     </td><td>Gt
     </td><td><input size="4" name="PRIMER_PAIR_WT_PRODUCT_SIZE_GT" value="0.0" type="text">
-    
+
   </td></tr><tr>
     <td><a name="PAIR_WT_PRODUCT_TM_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_PRODUCT_TM_LT">Product Tm</a>
     </td><td>Lt
@@ -732,7 +732,7 @@ TH: Pair Max Template Mispriming</a></td>
 <tr><td>
 <table border="0">
         <tr><td><a name="PRIMER_PAIR_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_ANY">Any Complementarity</a>
-	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY" value="0.0" type="text">	
+	</td><td><input size="4" name="PRIMER_PAIR_WT_COMPL_ANY" value="0.0" type="text">
 	</td></tr>
 
 	<tr><td><a name="PRIMER_PAIR_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_COMPL_END">3' End Complementarity</a>
@@ -754,16 +754,16 @@ TH: Pair Max Template Mispriming</a></td>
 <tr>
 	<td><a name="PAIR_WT_DIFF_TM_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_DIFF_TM">Tm Difference</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_DIFF_TM" value="0.0" type="text">
-		
+
 	</td></tr><tr>
-		
+
 	<td><a name="PAIR_WT_LIBRARY_MISPRIMING_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_LIBRARY_MISPRIMING">Library Mispriming</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_LIBRARY_MISPRIMING" value="0.0" type="text">
-		
+
 	</td></tr><tr>
 	<td><a name="PAIR_WT_PR_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_PR_PENALTY">Primer Penalty Weight</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_PR_PENALTY" value="1.0" type="text">
-		
+
 	</td></tr><tr>
 	<td><a name="PAIR_WT_IO_PENALTY_INPUT" href="primer3web_help.htm#PRIMER_PAIR_WT_IO_PENALTY">Internal Oligo Penalty Weight</a>
 	</td><td><input size="4" name="PRIMER_PAIR_WT_IO_PENALTY" value="0.0" type="text">
@@ -865,7 +865,7 @@ TH: Pair Max Template Mispriming</a></td>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_MAX_LIBRARY_MISHYB" value="12.00" type="text">
   </td><td colspan="2"></td>
 </tr>
-  
+
 <tr>
   <td colspan="2"><a href="primer3web_help.htm#PRIMER_INTERNAL_SALT_MONOVALENT">Internal Oligo Conc of monovalent cations</a>
   </td><td colspan="1"><input size="4" name="PRIMER_INTERNAL_SALT_MONOVALENT" value="50.0" type="text">
@@ -882,7 +882,7 @@ TH: Pair Max Template Mispriming</a></td>
   </td><td colspan="2"></td>
 </tr>
 </table>
-        
+
 
 <h3>Objective Function Penalty Weights for Internal Oligos (Hyb Oligos)</h3>
 
@@ -895,14 +895,14 @@ TH: Pair Max Template Mispriming</a></td>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SIZE_LT" value="1.0" type="text">
     </td><td>Gt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SIZE_GT" value="1.0" type="text">
-    
+
   </td></tr><tr>
     <td><a name="IO_WT_TM_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_TM_LT">Internal Oligo Tm</a>
     </td><td>Lt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TM_LT" value="1.0" type="text">
     </td><td>Gt
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_TM_GT" value="1.0" type="text">
-    
+
   </td></tr><tr>
     <td><a name="IO_WT_GC_PERCENT_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_GC_PERCENT_LT">Internal Oligo GC%</a>
     </td><td>Lt
@@ -920,17 +920,17 @@ TH: Pair Max Template Mispriming</a></td>
 <tr>
     <td><a name="IO_WT_COMPL_ANY_INPUT_TH" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY_TH">TH: Internal Oligo Self Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY_TH" value="0.0" type="text">
-        
+
     </td></tr>
 <tr>
     <td><a name="IO_WT_COMPL_END_INPUT_TH" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END_TH">TH: Internal Oligo 3' End Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END_TH" value="0.0" type="text">
-        
+
     </td></tr>
 <tr>
     <td><a name="IO_WT_HAIRPIN_TH" href="primer3web_help.htm#PRIMER_INTERNAL_WT_HAIRPIN_TH">TH: Internal Oligo Hairpin</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_HAIRPIN_TH" value="0.0" type="text">
-        
+
     </td></tr>
 </table>
 </td></tr>
@@ -944,12 +944,12 @@ TH: Pair Max Template Mispriming</a></td>
 <tr>
     <td><a name="IO_WT_COMPL_ANY_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_ANY">Internal Oligo Self Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_ANY" value="0.0" type="text">
-        
+
     </td></tr>
  <tr>
     <td><a name="IO_WT_COMPL_END_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SELF_END">Internal Oligo 3' End Complementarity</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_SELF_END" value="0.0" type="text">
-        
+
     </td></tr>
 </table>
 </td></tr>
@@ -963,11 +963,11 @@ TH: Pair Max Template Mispriming</a></td>
        <tr>
 	<td><a name="IO_WT_NUM_NS_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_NUM_NS">Internal Oligo #N's</a>
 	</td><td><input size="4" name="PRIMER_INTERNAL_WT_NUM_NS" value="0.0" type="text">
-		
+
     </td></tr><tr>
     <td><a name="IO_WT_REP_SIM_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_LIBRARY_MISHYB">Internal Oligo Library Mishybing</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_LIBRARY_MISHYB" value="0.0" type="text">
-        
+
     </td></tr><tr>
     <td><a name="IO_WT_SEQ_QUAL_INPUT" href="primer3web_help.htm#PRIMER_INTERNAL_WT_SEQ_QUAL">
             Internal Oligo Sequence Quality</a>
@@ -977,7 +977,7 @@ TH: Pair Max Template Mispriming</a></td>
     <td><a name="IO_WT_SEQ_END_QUAL" href="primer3web_help.htm#PRIMER_INTERNAL_WT_END_QUAL">
             Internal Oligo Sequence End Quality</a>
     </td><td><input size="4" name="PRIMER_INTERNAL_WT_END_QUAL" value="0.0" type="text">
-		
+
 </td></tr><!-- /tbody -->
 </table>
 
@@ -985,7 +985,7 @@ TH: Pair Max Template Mispriming</a></td>
 	<input name="Download Settings" value="Download Settings" type="submit">
         <input name="Reset Form" value="Reset Form" type="submit">
         <br>
-        
+
 
 </form>
 
@@ -1033,14 +1033,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <p>We request but do not require that use of this software be cited in publications as<br>
 <br>
-* Untergasser A, Cutcutache I, Koressaar T, Ye J, Faircloth BC, Remm M and
-* Rozen SG.<br> Primer3--new capabilities and interfaces.<br>
+* Untergasser A, Cutcutache I, Koressaar T, Ye J, Faircloth BC, Remm M and Rozen SG.<br> Primer3--new capabilities and interfaces.<br>
 Nucleic Acids Res. 2012 Aug 1;40(15):e115.<br><br>
 * Koressaar T and Remm M.<br> Enhancements and modifications of primer design program Primer3.<br>
 Bioinformatics 23(10):1289-91.<br><br>
-The papers are available at
-<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3424584/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3424584/</a> and<br>
+* Koressaar T, Lepamets M, Kaplinski L, Raime K, Andreson R and Remm M.<br>
+Primer3_masker: integrating masking of template sequence with primer design software.<br>
+Bioinformatics 2018;34(11):1937-1938.<br><br>
+
+The papers are available at:<br>
+<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3424584/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3424584/</a><br>
 <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/17379693">https://www.ncbi.nlm.nih.gov/pubmed/17379693</a><br>
+<a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/29360956">https://www.ncbi.nlm.nih.gov/pubmed/29360956</a><br>
 <br> Source code available at <a href="https://github.com/primer3-org">https://github.com/primer3-org</a>.</p>
 
 <h2>Acknowledgments</h2>
